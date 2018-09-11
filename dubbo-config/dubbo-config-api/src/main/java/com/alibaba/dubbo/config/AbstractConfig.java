@@ -97,20 +97,29 @@ public abstract class AbstractConfig implements Serializable {
         return value;
     }
 
+    /**
+     * 属性配置，通过反射调用setter设置值
+     * 优先级【java -D】>【XML配置】>【properties配置】
+     * @param config
+     */
     protected static void appendProperties(AbstractConfig config) {
         if (config == null) {
             return;
         }
+        // 前缀，ServiceConfig的前缀就是：dubbo.service.
         String prefix = "dubbo." + getTagName(config.getClass()) + ".";
         Method[] methods = config.getClass().getMethods();
         for (Method method : methods) {
             try {
                 String name = method.getName();
+                // setter方法
                 if (name.length() > 3 && name.startsWith("set") && Modifier.isPublic(method.getModifiers())
                         && method.getParameterTypes().length == 1 && isPrimitive(method.getParameterTypes()[0])) {
+                    // 获得属性名，如ApplicationConfig#setQosEnable(...)方法，属性名是qos.enable，
                     String property = StringUtils.camelToSplitName(name.substring(3, 4).toLowerCase() + name.substring(4), ".");
 
                     String value = null;
+                    // 【java -D】 优先设置了Config#id，例如：dubbo.application.demo.name
                     if (config.getId() != null && config.getId().length() > 0) {
                         String pn = prefix + config.getId() + "." + property;
                         value = System.getProperty(pn);
@@ -118,6 +127,7 @@ public abstract class AbstractConfig implements Serializable {
                             logger.info("Use System Property " + pn + " to config dubbo");
                         }
                     }
+                    // 【java -D】 其次是没有设置Config#id，例如：dubbo.application.name
                     if (value == null || value.length() == 0) {
                         String pn = prefix + property;
                         value = System.getProperty(pn);
@@ -125,7 +135,9 @@ public abstract class AbstractConfig implements Serializable {
                             logger.info("Use System Property " + pn + " to config dubbo");
                         }
                     }
+//                    属性的优先级：【java -D】> 【XML配置】>【properties配置】
                     if (value == null || value.length() == 0) {
+                        // 如果【java -D】没有设置，需要通过getter方法判断，XML是否已经配置
                         Method getter;
                         try {
                             getter = config.getClass().getMethod("get" + name.substring(3), new Class<?>[0]);
@@ -138,13 +150,17 @@ public abstract class AbstractConfig implements Serializable {
                         }
                         if (getter != null) {
                             if (getter.invoke(config, new Object[0]) == null) {
+//                              表示XML没有配置，从properties配置中获取值
+//                             【properties配置】 优先设置了Config#id，例如：dubbo.application.demo.name
                                 if (config.getId() != null && config.getId().length() > 0) {
                                     value = ConfigUtils.getProperty(prefix + config.getId() + "." + property);
                                 }
+//                             【properties配置】 其次是没有设置Config#id，例如：dubbo.application.name
                                 if (value == null || value.length() == 0) {
                                     value = ConfigUtils.getProperty(prefix + property);
                                 }
                                 if (value == null || value.length() == 0) {
+                                    // 兼容老版本，新老版本的key的映射关系
                                     String legacyKey = legacyProperties.get(prefix + property);
                                     if (legacyKey != null && legacyKey.length() > 0) {
                                         value = convertLegacyValue(legacyKey, ConfigUtils.getProperty(legacyKey));
@@ -155,6 +171,7 @@ public abstract class AbstractConfig implements Serializable {
                         }
                     }
                     if (value != null && value.length() > 0) {
+//                       反射设置属性
                         method.invoke(config, new Object[]{convertPrimitive(method.getParameterTypes()[0], value)});
                     }
                 }
