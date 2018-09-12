@@ -112,6 +112,9 @@ public class ExtensionLoader<T> {
      */
     private final ConcurrentMap<String, Holder<Object>> cachedInstances = new ConcurrentHashMap<String, Holder<Object>>();
     private final Holder<Object> cachedAdaptiveInstance = new Holder<Object>();
+    /**
+     * 注解了Adaptive的扩展实现类，只能有一个
+     */
     private volatile Class<?> cachedAdaptiveClass = null;
     /**
      * 扩展接口的默认扩展名，在SPI注解中设置
@@ -858,20 +861,33 @@ public class ExtensionLoader<T> {
 
     private Class<?> getAdaptiveExtensionClass() {
         getExtensionClasses();
+
         if (cachedAdaptiveClass != null) {
             return cachedAdaptiveClass;
         }
+        // 自动生成自适应的扩展实现类
         return cachedAdaptiveClass = createAdaptiveExtensionClass();
     }
 
+    /**
+     * 自动生成类的字符串，然后编译成class
+     *
+     * @return
+     */
     private Class<?> createAdaptiveExtensionClass() {
         String code = createAdaptiveExtensionClassCode();
         ClassLoader classLoader = findClassLoader();
+        // 获取Compiler的扩展实现，编译代码生成class
         com.alibaba.dubbo.common.compiler.Compiler compiler = ExtensionLoader
                         .getExtensionLoader(com.alibaba.dubbo.common.compiler.Compiler.class).getAdaptiveExtension();
         return compiler.compile(code, classLoader);
     }
 
+    /**
+     * 生成自适应的类，返回的代码的字符串
+     *
+     * @return
+     */
     private String createAdaptiveExtensionClassCode() {
         StringBuilder codeBuidler = new StringBuilder();
         Method[] methods = type.getMethods();
