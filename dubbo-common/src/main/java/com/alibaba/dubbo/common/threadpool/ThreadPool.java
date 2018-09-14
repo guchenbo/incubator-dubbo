@@ -14,6 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.alibaba.dubbo.common.threadpool;
 
 import com.alibaba.dubbo.common.Constants;
@@ -30,12 +31,13 @@ import java.util.concurrent.Executor;
 public interface ThreadPool {
 
     /**
+     * 根据URL.threadpool的属性值的指定获取扩展实现
      * Thread pool
      *
      * @param url URL contains thread parameter
      * @return thread pool
      */
-    @Adaptive({Constants.THREADPOOL_KEY})
+    @Adaptive({ Constants.THREADPOOL_KEY })
     Executor getExecutor(URL url);
 
 }

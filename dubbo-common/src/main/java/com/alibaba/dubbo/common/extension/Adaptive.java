@@ -55,6 +55,11 @@ public @interface Adaptive {
      *
      * @return parameter key names in URL
      */
+    /**
+     * 注解在方法上，系统会自动生成扩展代码来实现扩展接口，自动生成的实现类的功能是：
+     * 在dubbo执行的时候，根据URL里的参数值动态指定扩展实现来完成功能
+     * @return
+     */
     String[] value() default {};
 
 }

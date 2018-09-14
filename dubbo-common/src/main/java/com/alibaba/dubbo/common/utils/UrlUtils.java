@@ -14,6 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.alibaba.dubbo.common.utils;
 
 import com.alibaba.dubbo.common.Constants;
@@ -27,6 +28,13 @@ import java.util.Set;
 
 public class UrlUtils {
 
+    /**
+     * address是url，defaults是defaultUrl，address中不存在的属性，从defaultUrl里取
+     *
+     * @param address
+     * @param defaults
+     * @return
+     */
     public static URL parseURL(String address, Map<String, String> defaults) {
         if (address == null || address.length() == 0) {
             return null;
@@ -335,10 +343,15 @@ public class UrlUtils {
             version = service.substring(i + 1);
             service = service.substring(0, i);
         }
-        return URL.valueOf(Constants.EMPTY_PROTOCOL + "://0.0.0.0/" + service + "?"
-                + Constants.CATEGORY_KEY + "=" + category
-                + (group == null ? "" : "&" + Constants.GROUP_KEY + "=" + group)
-                + (version == null ? "" : "&" + Constants.VERSION_KEY + "=" + version));
+        return URL.valueOf(Constants.EMPTY_PROTOCOL
+                        + "://0.0.0.0/"
+                        + service
+                        + "?"
+                        + Constants.CATEGORY_KEY
+                        + "="
+                        + category
+                        + (group == null ? "" : "&" + Constants.GROUP_KEY + "=" + group)
+                        + (version == null ? "" : "&" + Constants.VERSION_KEY + "=" + version));
     }
 
     public static boolean isMatchCategory(String category, String categories) {
@@ -356,15 +369,16 @@ public class UrlUtils {
     public static boolean isMatch(URL consumerUrl, URL providerUrl) {
         String consumerInterface = consumerUrl.getServiceInterface();
         String providerInterface = providerUrl.getServiceInterface();
-        if (!(Constants.ANY_VALUE.equals(consumerInterface) || StringUtils.isEquals(consumerInterface, providerInterface)))
+        if (!(Constants.ANY_VALUE.equals(consumerInterface) || StringUtils
+                        .isEquals(consumerInterface, providerInterface)))
             return false;
 
         if (!isMatchCategory(providerUrl.getParameter(Constants.CATEGORY_KEY, Constants.DEFAULT_CATEGORY),
-                consumerUrl.getParameter(Constants.CATEGORY_KEY, Constants.DEFAULT_CATEGORY))) {
+                        consumerUrl.getParameter(Constants.CATEGORY_KEY, Constants.DEFAULT_CATEGORY))) {
             return false;
         }
-        if (!providerUrl.getParameter(Constants.ENABLED_KEY, true)
-                && !Constants.ANY_VALUE.equals(consumerUrl.getParameter(Constants.ENABLED_KEY))) {
+        if (!providerUrl.getParameter(Constants.ENABLED_KEY, true) && !Constants.ANY_VALUE
+                        .equals(consumerUrl.getParameter(Constants.ENABLED_KEY))) {
             return false;
         }
 
@@ -375,9 +389,13 @@ public class UrlUtils {
         String providerGroup = providerUrl.getParameter(Constants.GROUP_KEY);
         String providerVersion = providerUrl.getParameter(Constants.VERSION_KEY);
         String providerClassifier = providerUrl.getParameter(Constants.CLASSIFIER_KEY, Constants.ANY_VALUE);
-        return (Constants.ANY_VALUE.equals(consumerGroup) || StringUtils.isEquals(consumerGroup, providerGroup) || StringUtils.isContains(consumerGroup, providerGroup))
-                && (Constants.ANY_VALUE.equals(consumerVersion) || StringUtils.isEquals(consumerVersion, providerVersion))
-                && (consumerClassifier == null || Constants.ANY_VALUE.equals(consumerClassifier) || StringUtils.isEquals(consumerClassifier, providerClassifier));
+        return (Constants.ANY_VALUE.equals(consumerGroup)
+                        || StringUtils.isEquals(consumerGroup, providerGroup)
+                        || StringUtils.isContains(consumerGroup, providerGroup)) && (Constants.ANY_VALUE
+                        .equals(consumerVersion) || StringUtils.isEquals(consumerVersion, providerVersion)) && (
+                        consumerClassifier == null
+                                        || Constants.ANY_VALUE.equals(consumerClassifier)
+                                        || StringUtils.isEquals(consumerClassifier, providerClassifier));
     }
 
     public static boolean isMatchGlobPattern(String pattern, String value, URL param) {
@@ -390,11 +408,9 @@ public class UrlUtils {
     public static boolean isMatchGlobPattern(String pattern, String value) {
         if ("*".equals(pattern))
             return true;
-        if ((pattern == null || pattern.length() == 0)
-                && (value == null || value.length() == 0))
+        if ((pattern == null || pattern.length() == 0) && (value == null || value.length() == 0))
             return true;
-        if ((pattern == null || pattern.length() == 0)
-                || (value == null || value.length() == 0))
+        if ((pattern == null || pattern.length() == 0) || (value == null || value.length() == 0))
             return false;
 
         int i = pattern.lastIndexOf('*');
@@ -419,12 +435,11 @@ public class UrlUtils {
     }
 
     public static boolean isServiceKeyMatch(URL pattern, URL value) {
-        return pattern.getParameter(Constants.INTERFACE_KEY).equals(
-                value.getParameter(Constants.INTERFACE_KEY))
-                && isItemMatch(pattern.getParameter(Constants.GROUP_KEY),
-                value.getParameter(Constants.GROUP_KEY))
-                && isItemMatch(pattern.getParameter(Constants.VERSION_KEY),
-                value.getParameter(Constants.VERSION_KEY));
+        return pattern.getParameter(Constants.INTERFACE_KEY).equals(value.getParameter(Constants.INTERFACE_KEY))
+                        && isItemMatch(pattern.getParameter(Constants.GROUP_KEY),
+                        value.getParameter(Constants.GROUP_KEY))
+                        && isItemMatch(pattern.getParameter(Constants.VERSION_KEY),
+                        value.getParameter(Constants.VERSION_KEY));
     }
 
     /**

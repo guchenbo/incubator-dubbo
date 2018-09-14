@@ -41,6 +41,8 @@ public class ListenerExporterWrapper<T> implements Exporter<T> {
         }
         this.exporter = exporter;
         this.listeners = listeners;
+
+        // 每个监听器，触发监听方法
         if (listeners != null && listeners.size() > 0) {
             RuntimeException exception = null;
             for (ExporterListener listener : listeners) {

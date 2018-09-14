@@ -19,6 +19,7 @@ package com.alibaba.dubbo.common.extension;
 
 import com.alibaba.dubbo.common.Constants;
 import com.alibaba.dubbo.common.URL;
+import com.alibaba.dubbo.common.compiler.Compiler;
 import com.alibaba.dubbo.common.extension.support.ActivateComparator;
 import com.alibaba.dubbo.common.logger.Logger;
 import com.alibaba.dubbo.common.logger.LoggerFactory;
@@ -389,6 +390,11 @@ public class ExtensionLoader<T> {
         }
     }
 
+    /**
+     * 获取所有的扩展实现类的扩展名
+     *
+     * @return
+     */
     public Set<String> getSupportedExtensions() {
         Map<String, Class<?>> clazzes = getExtensionClasses();
         return Collections.unmodifiableSet(new TreeSet<String>(clazzes.keySet()));
@@ -478,6 +484,10 @@ public class ExtensionLoader<T> {
         }
     }
 
+    /**
+     * 获得扩展接口的自适应实现，注意：需要有@Adaptive注解
+     * @return
+     */
     @SuppressWarnings("unchecked")
     public T getAdaptiveExtension() {
         Object instance = cachedAdaptiveInstance.get();
@@ -1113,4 +1123,9 @@ public class ExtensionLoader<T> {
         return this.getClass().getName() + "[" + type.getName() + "]";
     }
 
+    public static void main(String[] args) {
+        ExtensionLoader extensionLoader = new ExtensionLoader(Compiler.class);
+        String code = extensionLoader.createAdaptiveExtensionClassCode();
+        System.out.println(code);
+    }
 }

@@ -14,6 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.alibaba.dubbo.config.spring.extension;
 
 import com.alibaba.dubbo.common.extension.ExtensionFactory;
@@ -37,6 +38,14 @@ public class SpringExtensionFactory implements ExtensionFactory {
         contexts.remove(context);
     }
 
+    /**
+     * 从Spring容器中获取bean
+     *
+     * @param type object type.
+     * @param name object name.
+     * @param <T>
+     * @return
+     */
     @SuppressWarnings("unchecked")
     public <T> T getExtension(Class<T> type, String name) {
         for (ApplicationContext context : contexts) {

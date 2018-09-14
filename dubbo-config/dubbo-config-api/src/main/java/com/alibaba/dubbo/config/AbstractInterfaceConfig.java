@@ -14,17 +14,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.alibaba.dubbo.config;
 
 import com.alibaba.dubbo.common.Constants;
 import com.alibaba.dubbo.common.URL;
 import com.alibaba.dubbo.common.Version;
 import com.alibaba.dubbo.common.extension.ExtensionLoader;
-import com.alibaba.dubbo.common.utils.ConfigUtils;
-import com.alibaba.dubbo.common.utils.NetUtils;
-import com.alibaba.dubbo.common.utils.ReflectUtils;
-import com.alibaba.dubbo.common.utils.StringUtils;
-import com.alibaba.dubbo.common.utils.UrlUtils;
+import com.alibaba.dubbo.common.utils.*;
 import com.alibaba.dubbo.config.support.Parameter;
 import com.alibaba.dubbo.monitor.MonitorFactory;
 import com.alibaba.dubbo.monitor.MonitorService;
@@ -36,12 +33,12 @@ import com.alibaba.dubbo.rpc.ProxyFactory;
 import com.alibaba.dubbo.rpc.cluster.Cluster;
 import com.alibaba.dubbo.rpc.support.MockInvoker;
 
-import static com.alibaba.dubbo.common.utils.NetUtils.isInvalidLocalHost;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import static com.alibaba.dubbo.common.utils.NetUtils.isInvalidLocalHost;
 
 /**
  * AbstractDefaultConfig
@@ -119,13 +116,13 @@ public abstract class AbstractInterfaceConfig extends AbstractMethodConfig {
             }
         }
         if ((registries == null || registries.size() == 0)) {
-            throw new IllegalStateException((getClass().getSimpleName().startsWith("Reference")
-                    ? "No such any registry to refer service in consumer "
-                    : "No such any registry to export service in provider ")
-                    + NetUtils.getLocalHost()
-                    + " use dubbo version "
-                    + Version.getVersion()
-                    + ", Please add <dubbo:registry address=\"...\" /> to your spring config. If you want unregister, please set <dubbo:service registry=\"N/A\" />");
+            throw new IllegalStateException((getClass().getSimpleName().startsWith("Reference") ?
+                            "No such any registry to refer service in consumer " :
+                            "No such any registry to export service in provider ")
+                            + NetUtils.getLocalHost()
+                            + " use dubbo version "
+                            + Version.getVersion()
+                            + ", Please add <dubbo:registry address=\"...\" /> to your spring config. If you want unregister, please set <dubbo:service registry=\"N/A\" />");
         }
         for (RegistryConfig registryConfig : registries) {
             appendProperties(registryConfig);
@@ -143,7 +140,7 @@ public abstract class AbstractInterfaceConfig extends AbstractMethodConfig {
         }
         if (application == null) {
             throw new IllegalStateException(
-                    "No such application config! Please add <dubbo:application name=\"...\" /> to your spring config.");
+                            "No such application config! Please add <dubbo:application name=\"...\" /> to your spring config.");
         }
         appendProperties(application);
 
@@ -158,6 +155,15 @@ public abstract class AbstractInterfaceConfig extends AbstractMethodConfig {
         }
     }
 
+    /**
+     * 将RegistryConfig属性，构建成URL对象
+     * 多个注册，有address来实现，由[;|]分隔
+     * protocol默认是dubbo，port默认是9090，可以设置RegistryConfig的属性，也可以从address中解析出来
+     * 如果address只有逗号分隔的地址，会作为主备地址
+     *
+     * @param provider
+     * @return
+     */
     protected List<URL> loadRegistries(boolean provider) {
         checkRegistry();
         List<URL> registryList = new ArrayList<URL>();
@@ -167,12 +173,13 @@ public abstract class AbstractInterfaceConfig extends AbstractMethodConfig {
                 if (address == null || address.length() == 0) {
                     address = Constants.ANYHOST_VALUE;
                 }
+                // 【java -D】如果 dubbo.registry.address 设置了的话，就覆盖
                 String sysaddress = System.getProperty("dubbo.registry.address");
                 if (sysaddress != null && sysaddress.length() > 0) {
                     address = sysaddress;
                 }
-                if (address != null && address.length() > 0
-                        && !RegistryConfig.NO_AVAILABLE.equalsIgnoreCase(address)) {
+                if (address != null && address.length() > 0 && !RegistryConfig.NO_AVAILABLE.equalsIgnoreCase(address)) {
+                    // address 为有效的 N/A 表示这个注册中心不可用
                     Map<String, String> map = new HashMap<String, String>();
                     appendParameters(map, application);
                     appendParameters(map, config);
@@ -192,9 +199,11 @@ public abstract class AbstractInterfaceConfig extends AbstractMethodConfig {
                     List<URL> urls = UrlUtils.parseURLs(address, map);
                     for (URL url : urls) {
                         url = url.addParameter(Constants.REGISTRY_KEY, url.getProtocol());
+                        // 注册的url都是registry://开头的，真正的协议放在了参数registry=上
+                        // 把真正的注册中url，改成都都是registry://开头的
                         url = url.setProtocol(Constants.REGISTRY_PROTOCOL);
-                        if ((provider && url.getParameter(Constants.REGISTER_KEY, true))
-                                || (!provider && url.getParameter(Constants.SUBSCRIBE_KEY, true))) {
+                        if ((provider && url.getParameter(Constants.REGISTER_KEY, true)) || (!provider && url
+                                        .getParameter(Constants.SUBSCRIBE_KEY, true))) {
                             registryList.add(url);
                         }
                     }
@@ -208,7 +217,8 @@ public abstract class AbstractInterfaceConfig extends AbstractMethodConfig {
         if (monitor == null) {
             String monitorAddress = ConfigUtils.getProperty("dubbo.monitor.address");
             String monitorProtocol = ConfigUtils.getProperty("dubbo.monitor.protocol");
-            if ((monitorAddress == null || monitorAddress.length() == 0) && (monitorProtocol == null || monitorProtocol.length() == 0)) {
+            if ((monitorAddress == null || monitorAddress.length() == 0) && (monitorProtocol == null
+                            || monitorProtocol.length() == 0)) {
                 return null;
             }
 
@@ -233,7 +243,10 @@ public abstract class AbstractInterfaceConfig extends AbstractMethodConfig {
         if (hostToRegistry == null || hostToRegistry.length() == 0) {
             hostToRegistry = NetUtils.getLocalHost();
         } else if (isInvalidLocalHost(hostToRegistry)) {
-            throw new IllegalArgumentException("Specified invalid registry ip from property:" + Constants.DUBBO_IP_TO_REGISTRY + ", value:" + hostToRegistry);
+            throw new IllegalArgumentException("Specified invalid registry ip from property:"
+                            + Constants.DUBBO_IP_TO_REGISTRY
+                            + ", value:"
+                            + hostToRegistry);
         }
         map.put(Constants.REGISTER_IP_KEY, hostToRegistry);
         appendParameters(map, monitor);
@@ -253,7 +266,8 @@ public abstract class AbstractInterfaceConfig extends AbstractMethodConfig {
             }
             return UrlUtils.parseURL(address, map);
         } else if (Constants.REGISTRY_PROTOCOL.equals(monitor.getProtocol()) && registryURL != null) {
-            return registryURL.setProtocol("dubbo").addParameter(Constants.PROTOCOL_KEY, "registry").addParameterAndEncoded(Constants.REFER_KEY, StringUtils.toQueryString(map));
+            return registryURL.setProtocol("dubbo").addParameter(Constants.PROTOCOL_KEY, "registry")
+                            .addParameterAndEncoded(Constants.REFER_KEY, StringUtils.toQueryString(map));
         }
         return null;
     }
@@ -272,7 +286,10 @@ public abstract class AbstractInterfaceConfig extends AbstractMethodConfig {
             for (MethodConfig methodBean : methods) {
                 String methodName = methodBean.getName();
                 if (methodName == null || methodName.length() == 0) {
-                    throw new IllegalStateException("<dubbo:method> name attribute is required! Please check: <dubbo:service interface=\"" + interfaceClass.getName() + "\" ... ><dubbo:method name=\"\" ... /></<dubbo:reference>");
+                    throw new IllegalStateException(
+                                    "<dubbo:method> name attribute is required! Please check: <dubbo:service interface=\""
+                                                    + interfaceClass.getName()
+                                                    + "\" ... ><dubbo:method name=\"\" ... /></<dubbo:reference>");
                 }
                 boolean hasMethod = false;
                 for (java.lang.reflect.Method method : interfaceClass.getMethods()) {
@@ -282,8 +299,8 @@ public abstract class AbstractInterfaceConfig extends AbstractMethodConfig {
                     }
                 }
                 if (!hasMethod) {
-                    throw new IllegalStateException("The interface " + interfaceClass.getName()
-                            + " not found method " + methodName);
+                    throw new IllegalStateException(
+                                    "The interface " + interfaceClass.getName() + " not found method " + methodName);
                 }
             }
         }
@@ -291,25 +308,41 @@ public abstract class AbstractInterfaceConfig extends AbstractMethodConfig {
 
     protected void checkStubAndMock(Class<?> interfaceClass) {
         if (ConfigUtils.isNotEmpty(local)) {
-            Class<?> localClass = ConfigUtils.isDefault(local) ? ReflectUtils.forName(interfaceClass.getName() + "Local") : ReflectUtils.forName(local);
+            Class<?> localClass = ConfigUtils.isDefault(local) ?
+                            ReflectUtils.forName(interfaceClass.getName() + "Local") :
+                            ReflectUtils.forName(local);
             if (!interfaceClass.isAssignableFrom(localClass)) {
-                throw new IllegalStateException("The local implementation class " + localClass.getName() + " not implement interface " + interfaceClass.getName());
+                throw new IllegalStateException("The local implementation class "
+                                + localClass.getName()
+                                + " not implement interface "
+                                + interfaceClass.getName());
             }
             try {
                 ReflectUtils.findConstructor(localClass, interfaceClass);
             } catch (NoSuchMethodException e) {
-                throw new IllegalStateException("No such constructor \"public " + localClass.getSimpleName() + "(" + interfaceClass.getName() + ")\" in local implementation class " + localClass.getName());
+                throw new IllegalStateException(
+                                "No such constructor \"public " + localClass.getSimpleName() + "(" + interfaceClass
+                                                .getName() + ")\" in local implementation class " + localClass
+                                                .getName());
             }
         }
         if (ConfigUtils.isNotEmpty(stub)) {
-            Class<?> localClass = ConfigUtils.isDefault(stub) ? ReflectUtils.forName(interfaceClass.getName() + "Stub") : ReflectUtils.forName(stub);
+            Class<?> localClass = ConfigUtils.isDefault(stub) ?
+                            ReflectUtils.forName(interfaceClass.getName() + "Stub") :
+                            ReflectUtils.forName(stub);
             if (!interfaceClass.isAssignableFrom(localClass)) {
-                throw new IllegalStateException("The local implementation class " + localClass.getName() + " not implement interface " + interfaceClass.getName());
+                throw new IllegalStateException("The local implementation class "
+                                + localClass.getName()
+                                + " not implement interface "
+                                + interfaceClass.getName());
             }
             try {
                 ReflectUtils.findConstructor(localClass, interfaceClass);
             } catch (NoSuchMethodException e) {
-                throw new IllegalStateException("No such constructor \"public " + localClass.getSimpleName() + "(" + interfaceClass.getName() + ")\" in local implementation class " + localClass.getName());
+                throw new IllegalStateException(
+                                "No such constructor \"public " + localClass.getSimpleName() + "(" + interfaceClass
+                                                .getName() + ")\" in local implementation class " + localClass
+                                                .getName());
             }
         }
         if (ConfigUtils.isNotEmpty(mock)) {
@@ -318,17 +351,26 @@ public abstract class AbstractInterfaceConfig extends AbstractMethodConfig {
                 try {
                     MockInvoker.parseMockValue(value);
                 } catch (Exception e) {
-                    throw new IllegalStateException("Illegal mock json value in <dubbo:service ... mock=\"" + mock + "\" />");
+                    throw new IllegalStateException(
+                                    "Illegal mock json value in <dubbo:service ... mock=\"" + mock + "\" />");
                 }
             } else {
-                Class<?> mockClass = ConfigUtils.isDefault(mock) ? ReflectUtils.forName(interfaceClass.getName() + "Mock") : ReflectUtils.forName(mock);
+                Class<?> mockClass = ConfigUtils.isDefault(mock) ?
+                                ReflectUtils.forName(interfaceClass.getName() + "Mock") :
+                                ReflectUtils.forName(mock);
                 if (!interfaceClass.isAssignableFrom(mockClass)) {
-                    throw new IllegalStateException("The mock implementation class " + mockClass.getName() + " not implement interface " + interfaceClass.getName());
+                    throw new IllegalStateException("The mock implementation class "
+                                    + mockClass.getName()
+                                    + " not implement interface "
+                                    + interfaceClass.getName());
                 }
                 try {
                     mockClass.getConstructor(new Class<?>[0]);
                 } catch (NoSuchMethodException e) {
-                    throw new IllegalStateException("No such empty constructor \"public " + mockClass.getSimpleName() + "()\" in mock implementation class " + mockClass.getName());
+                    throw new IllegalStateException("No such empty constructor \"public "
+                                    + mockClass.getSimpleName()
+                                    + "()\" in mock implementation class "
+                                    + mockClass.getName());
                 }
             }
         }
@@ -468,7 +510,7 @@ public abstract class AbstractInterfaceConfig extends AbstractMethodConfig {
         return registries;
     }
 
-    @SuppressWarnings({"unchecked"})
+    @SuppressWarnings({ "unchecked" })
     public void setRegistries(List<? extends RegistryConfig> registries) {
         this.registries = (List<RegistryConfig>) registries;
     }

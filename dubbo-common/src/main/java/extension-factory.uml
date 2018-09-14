@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement />
+  <nodes>
+    <node x="293.0" y="0.0">com.alibaba.dubbo.common.extension.SPI</node>
+    <node x="0.0" y="158.0">com.alibaba.dubbo.common.extension.factory.AdaptiveExtensionFactory</node>
+    <node x="249.0" y="79.0">com.alibaba.dubbo.common.extension.ExtensionFactory</node>
+    <node x="229.0" y="158.0">com.alibaba.dubbo.config.spring.extension.SpringExtensionFactory</node>
+    <node x="444.0" y="158.0">com.alibaba.dubbo.common.extension.factory.SpiExtensionFactory</node>
+    <node x="1.25" y="79.0">com.alibaba.dubbo.common.extension.Adaptive</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="com.alibaba.dubbo.common.extension.factory.AdaptiveExtensionFactory" target="com.alibaba.dubbo.common.extension.ExtensionFactory">
+      <point x="52.25" y="-14.5" />
+      <point x="156.75" y="133.0" />
+      <point x="274.83333333333337" y="133.0" />
+      <point x="-51.66666666666666" y="14.5" />
+    </edge>
+    <edge source="com.alibaba.dubbo.common.extension.ExtensionFactory" target="com.alibaba.dubbo.common.extension.SPI">
+      <point x="0.0" y="-14.5" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="com.alibaba.dubbo.config.spring.extension.SpringExtensionFactory" target="com.alibaba.dubbo.common.extension.ExtensionFactory">
+      <point x="0.0" y="-14.5" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="com.alibaba.dubbo.common.extension.factory.SpiExtensionFactory" target="com.alibaba.dubbo.common.extension.ExtensionFactory">
+      <point x="0.0" y="-14.5" />
+      <point x="531.0" y="133.0" />
+      <point x="378.16666666666663" y="133.0" />
+      <point x="51.66666666666663" y="14.5" />
+    </edge>
+    <edge source="com.alibaba.dubbo.common.extension.factory.AdaptiveExtensionFactory" target="com.alibaba.dubbo.common.extension.Adaptive">
+      <point x="-52.25" y="-14.5" />
+      <point x="0.0" y="14.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.0" x="116.0" y="0.0" />
+  <SelectedNodes />
+  <Categories />
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

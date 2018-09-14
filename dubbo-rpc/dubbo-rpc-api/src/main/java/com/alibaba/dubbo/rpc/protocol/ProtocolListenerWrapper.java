@@ -19,16 +19,10 @@ package com.alibaba.dubbo.rpc.protocol;
 import com.alibaba.dubbo.common.Constants;
 import com.alibaba.dubbo.common.URL;
 import com.alibaba.dubbo.common.extension.ExtensionLoader;
-import com.alibaba.dubbo.rpc.Exporter;
-import com.alibaba.dubbo.rpc.ExporterListener;
-import com.alibaba.dubbo.rpc.Invoker;
-import com.alibaba.dubbo.rpc.InvokerListener;
-import com.alibaba.dubbo.rpc.Protocol;
-import com.alibaba.dubbo.rpc.RpcException;
+import com.alibaba.dubbo.rpc.*;
 import com.alibaba.dubbo.rpc.listener.ListenerExporterWrapper;
 import com.alibaba.dubbo.rpc.listener.ListenerInvokerWrapper;
 
-import java.lang.reflect.Method;
 import java.util.Collections;
 
 /**
@@ -51,6 +45,7 @@ public class ProtocolListenerWrapper implements Protocol {
 
     public <T> Exporter<T> export(Invoker<T> invoker) throws RpcException {
         if (Constants.REGISTRY_PROTOCOL.equals(invoker.getUrl().getProtocol())) {
+            // 如果是registry，不做额外处理
             return protocol.export(invoker);
         }
         return new ListenerExporterWrapper<T>(protocol.export(invoker),

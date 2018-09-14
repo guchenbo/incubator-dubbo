@@ -57,6 +57,8 @@ import java.lang.annotation.Target;
 public @interface SPI {
 
     /**
+     * 扩展接口的实现类的默认扩展名
+     *
      * default extension name
      */
     String value() default "";

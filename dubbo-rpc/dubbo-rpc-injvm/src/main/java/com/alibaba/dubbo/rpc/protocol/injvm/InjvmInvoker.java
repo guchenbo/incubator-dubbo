@@ -39,7 +39,7 @@ class InjvmInvoker<T> extends AbstractInvoker<T> {
     InjvmInvoker(Class<T> type, URL url, String key, Map<String, Exporter<?>> exporterMap) {
         super(type, url);
         this.key = key;
-        this.exporterMap = exporterMap;
+        this.exporterMap = exporterMap; // 暴露服务的时候，添加的map，里面包含了暴露的Invoker信息有真实的服务提供者
     }
 
     @Override
@@ -58,6 +58,7 @@ class InjvmInvoker<T> extends AbstractInvoker<T> {
             throw new RpcException("Service [" + key + "] not found.");
         }
         RpcContext.getContext().setRemoteAddress(NetUtils.LOCALHOST, 0);
+        // 找到对应的服务暴露Invoker执行
         return exporter.getInvoker().invoke(invocation);
     }
 }
