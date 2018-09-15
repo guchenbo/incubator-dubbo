@@ -39,6 +39,7 @@ public class ZkclientZookeeperClient extends AbstractZookeeperClient<IZkChildLis
         super(url);
         client = new ZkClientWrapper(url.getBackupAddress(), 30000);
         client.addListener(new IZkStateListener() {
+            // 触发监听器
             public void handleStateChanged(KeeperState state) throws Exception {
                 ZkclientZookeeperClient.this.state = state;
                 if (state == KeeperState.Disconnected) {
@@ -110,10 +111,12 @@ public class ZkclientZookeeperClient extends AbstractZookeeperClient<IZkChildLis
         };
     }
 
+    // 绑定监听器
     public List<String> addTargetChildListener(String path, final IZkChildListener listener) {
         return client.subscribeChildChanges(path, listener);
     }
 
+    // 移除监听器
     public void removeTargetChildListener(String path, IZkChildListener listener) {
         client.unsubscribeChildChanges(path, listener);
     }

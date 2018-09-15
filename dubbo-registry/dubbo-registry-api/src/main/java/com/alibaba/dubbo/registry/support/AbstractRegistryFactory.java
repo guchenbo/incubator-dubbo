@@ -14,6 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.alibaba.dubbo.registry.support;
 
 import com.alibaba.dubbo.common.Constants;
@@ -31,6 +32,8 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.locks.ReentrantLock;
 
 /**
+ * 工厂模式，里面缓存了注册中心对象
+ *
  * AbstractRegistryFactory. (SPI, Singleton, ThreadSafe)
  *
  * @see com.alibaba.dubbo.registry.RegistryFactory
@@ -80,10 +83,16 @@ public abstract class AbstractRegistryFactory implements RegistryFactory {
         }
     }
 
+    /**
+     * 首先从缓存中获取，没有就创建，一个注册中心url对应一个注册中心
+     *
+     * @param url 注册中心地址，不允许为空
+     * @return
+     */
     public Registry getRegistry(URL url) {
         url = url.setPath(RegistryService.class.getName())
-                .addParameter(Constants.INTERFACE_KEY, RegistryService.class.getName())
-                .removeParameters(Constants.EXPORT_KEY, Constants.REFER_KEY);
+                        .addParameter(Constants.INTERFACE_KEY, RegistryService.class.getName())
+                        .removeParameters(Constants.EXPORT_KEY, Constants.REFER_KEY);
         String key = url.toServiceString();
         // Lock the registry access process to ensure a single instance of the registry
         LOCK.lock();
@@ -104,6 +113,12 @@ public abstract class AbstractRegistryFactory implements RegistryFactory {
         }
     }
 
+    /**
+     * 创建注册中心
+     *
+     * @param url 注册中心地址
+     * @return
+     */
     protected abstract Registry createRegistry(URL url);
 
 }

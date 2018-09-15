@@ -73,9 +73,17 @@ public abstract class AbstractRegistry implements Registry {
     // Is it synchronized to save the file
     private final boolean syncSaveFile;
     private final AtomicLong lastCacheChanged = new AtomicLong();
+    // registered，subscribed 这些集合，主要是在recover()方法调用的时候，能进行重连接恢复逻辑
     // 已注册 URL 集合，可以是提供者，也可以是消费者
     private final Set<URL> registered = new ConcurrentHashSet<URL>();
+    // 订阅，URL对应监听器
+    // key：URL  value：监听器集合
     private final ConcurrentMap<URL, Set<NotifyListener>> subscribed = new ConcurrentHashMap<URL, Set<NotifyListener>>();
+    // url对应的监听集合
+    // key：url
+    // value：
+    //       key： 分组，例如providers，consumers，routers，configurators
+    //       value：url
     private final ConcurrentMap<URL, Map<String, List<URL>>> notified = new ConcurrentHashMap<URL, Map<String, List<URL>>>();
     private URL registryUrl;
     // Local disk cache file
@@ -97,7 +105,9 @@ public abstract class AbstractRegistry implements Registry {
             }
         }
         this.file = file;
+        // 如果文件存在，加载文件到properties
         loadProperties();
+        // 通知，注册中心的备份地址，就是backup=xx
         notify(url.getBackupUrls());
     }
 
@@ -219,6 +229,12 @@ public abstract class AbstractRegistry implements Registry {
         }
     }
 
+    /**
+     * 缓存在文件里的注册信息
+     *
+     * @param url
+     * @return
+     */
     public List<URL> getCacheUrls(URL url) {
         for (Map.Entry<Object, Object> entry : properties.entrySet()) {
             String key = (String) entry.getKey();
@@ -275,6 +291,7 @@ public abstract class AbstractRegistry implements Registry {
         if (logger.isInfoEnabled()) {
             logger.info("Register: " + url);
         }
+        // 只维护registered集合
         registered.add(url);
     }
 
@@ -285,9 +302,16 @@ public abstract class AbstractRegistry implements Registry {
         if (logger.isInfoEnabled()) {
             logger.info("Unregister: " + url);
         }
+        // 只维护registered集合
         registered.remove(url);
     }
 
+    /**
+     * 为url增加监听器
+     *
+     * @param url      订阅条件，不允许为空，如：consumer://10.20.153.10/com.alibaba.foo.BarService?version=1.0.0&application=kylin
+     * @param listener 变更事件监听器，不允许为空
+     */
     public void subscribe(URL url, NotifyListener listener) {
         if (url == null) {
             throw new IllegalArgumentException("subscribe url == null");
@@ -306,6 +330,12 @@ public abstract class AbstractRegistry implements Registry {
         listeners.add(listener);
     }
 
+    /**
+     * 为url删除监听器
+     *
+     * @param url      订阅条件，不允许为空，如：consumer://10.20.153.10/com.alibaba.foo.BarService?version=1.0.0&application=kylin
+     * @param listener 变更事件监听器，不允许为空
+     */
     public void unsubscribe(URL url, NotifyListener listener) {
         if (url == null) {
             throw new IllegalArgumentException("unsubscribe url == null");
@@ -358,6 +388,7 @@ public abstract class AbstractRegistry implements Registry {
                 continue;
             }
 
+            // url匹配的才会触发监听器
             Set<NotifyListener> listeners = entry.getValue();
             if (listeners != null) {
                 for (NotifyListener listener : listeners) {
@@ -386,9 +417,11 @@ public abstract class AbstractRegistry implements Registry {
         if (logger.isInfoEnabled()) {
             logger.info("Notify urls for subscribe url " + url + ", urls: " + urls);
         }
+        // 将urls，根据category分组
         Map<String, List<URL>> result = new HashMap<String, List<URL>>();
         for (URL u : urls) {
             if (UrlUtils.isMatch(url, u)) {
+                // 默认分组是providers
                 String category = u.getParameter(Constants.CATEGORY_KEY, Constants.DEFAULT_CATEGORY);
                 List<URL> categoryList = result.get(category);
                 if (categoryList == null) {

@@ -20,6 +20,12 @@ import java.util.List;
 
 public interface ChildListener {
 
+    /**
+     * 子节点发生变化的监听
+     *
+     * @param path
+     * @param children
+     */
     void childChanged(String path, List<String> children);
 
 }

@@ -43,6 +43,7 @@ public class CuratorZookeeperClient extends AbstractZookeeperClient<CuratorWatch
     public CuratorZookeeperClient(URL url) {
         super(url);
         try {
+            // 重试策略，1次间隔1000ms，超时时间5000ms
             CuratorFrameworkFactory.Builder builder = CuratorFrameworkFactory.builder()
                     .connectString(url.getBackupAddress())
                     .retryPolicy(new RetryNTimes(1, 1000))
@@ -54,6 +55,7 @@ public class CuratorZookeeperClient extends AbstractZookeeperClient<CuratorWatch
             client = builder.build();
             client.getConnectionStateListenable().addListener(new ConnectionStateListener() {
                 public void stateChanged(CuratorFramework client, ConnectionState state) {
+                    // 触发监听器
                     if (state == ConnectionState.LOST) {
                         CuratorZookeeperClient.this.stateChanged(StateListener.DISCONNECTED);
                     } else if (state == ConnectionState.CONNECTED) {

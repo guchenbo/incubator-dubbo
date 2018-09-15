@@ -61,6 +61,7 @@ public class ZookeeperRegistry extends FailbackRegistry {
         if (url.isAnyHost()) {
             throw new IllegalStateException("registry address == null");
         }
+        // group作为zookeeper的root节点名称，默认是dubbo
         String group = url.getParameter(Constants.GROUP_KEY, DEFAULT_ROOT);
         if (!group.startsWith(Constants.PATH_SEPARATOR)) {
             group = Constants.PATH_SEPARATOR + group;
@@ -71,6 +72,7 @@ public class ZookeeperRegistry extends FailbackRegistry {
             public void stateChanged(int state) {
                 if (state == RECONNECTED) {
                     try {
+                        // 状态为重连接，进行恢复逻辑，内存中保存注册的信息，和订阅信息
                         recover();
                     } catch (Exception e) {
                         logger.error(e.getMessage(), e);
@@ -107,6 +109,7 @@ public class ZookeeperRegistry extends FailbackRegistry {
 
     protected void doRegister(URL url) {
         try {
+            // dynamic=false 表示持久化存储
             zkClient.create(toUrlPath(url), url.getParameter(Constants.DYNAMIC_KEY, true));
         } catch (Throwable e) {
             throw new RpcException("Failed to register " + url + " to zookeeper " + getUrl() + ", cause: " + e.getMessage(), e);
@@ -252,6 +255,11 @@ public class ZookeeperRegistry extends FailbackRegistry {
         return toServicePath(url) + Constants.PATH_SEPARATOR + url.getParameter(Constants.CATEGORY_KEY, Constants.DEFAULT_CATEGORY);
     }
 
+    /**
+     * 构建url路径：Root / Service / Type / Url
+     * @param url
+     * @return
+     */
     private String toUrlPath(URL url) {
         return toCategoryPath(url) + Constants.PATH_SEPARATOR + URL.encode(url.toFullString());
     }

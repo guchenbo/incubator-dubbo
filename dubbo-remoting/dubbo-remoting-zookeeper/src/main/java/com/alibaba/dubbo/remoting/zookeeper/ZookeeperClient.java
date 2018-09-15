@@ -22,6 +22,11 @@ import java.util.List;
 
 public interface ZookeeperClient {
 
+    /**
+     * 创建节点
+     * @param path
+     * @param ephemeral 是否临时
+     */
     void create(String path, boolean ephemeral);
 
     void delete(String path);
@@ -40,6 +45,11 @@ public interface ZookeeperClient {
 
     void close();
 
+    /**
+     * 获得注册中心url
+     *
+     * @return
+     */
     URL getUrl();
 
 }

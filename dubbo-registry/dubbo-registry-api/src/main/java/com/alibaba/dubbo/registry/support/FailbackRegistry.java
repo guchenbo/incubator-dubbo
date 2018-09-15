@@ -41,9 +41,11 @@ import java.util.concurrent.TimeUnit;
  */
 public abstract class FailbackRegistry extends AbstractRegistry {
 
+    // 定时任务执行器
     // Scheduled executor service
     private final ScheduledExecutorService retryExecutor = Executors.newScheduledThreadPool(1, new NamedThreadFactory("DubboRegistryFailedRetryTimer", true));
 
+    // 失败重试定时器，定时检查是否有请求失败，如有，无限次重试
     // Timer for failure retry, regular check if there is a request for failure, and if there is, an unlimited retry
     private final ScheduledFuture<?> retryFuture;
 
@@ -60,6 +62,7 @@ public abstract class FailbackRegistry extends AbstractRegistry {
     public FailbackRegistry(URL url) {
         super(url);
         int retryPeriod = url.getParameter(Constants.REGISTRY_RETRY_PERIOD_KEY, Constants.DEFAULT_REGISTRY_RETRY_PERIOD);
+        // 创建一个重试的定时器
         this.retryFuture = retryExecutor.scheduleWithFixedDelay(new Runnable() {
             public void run() {
                 // Check and connect to the registry
@@ -126,11 +129,13 @@ public abstract class FailbackRegistry extends AbstractRegistry {
         failedRegistered.remove(url);
         failedUnregistered.remove(url);
         try {
+            // 向服务器端发送注册请求
             // Sending a registration request to the server side
             doRegister(url);
         } catch (Exception e) {
             Throwable t = e;
 
+            // 如果开启了启动时检测，则直接抛出异常
             // If the startup detection is opened, the Exception is thrown directly.
             boolean check = getUrl().getParameter(Constants.CHECK_KEY, true)
                     && url.getParameter(Constants.CHECK_KEY, true)
@@ -145,6 +150,7 @@ public abstract class FailbackRegistry extends AbstractRegistry {
                 logger.error("Failed to register " + url + ", waiting for retry, cause: " + t.getMessage(), t);
             }
 
+            // 将失败的注册请求记录到失败列表，定时重试
             // Record a failed registration request to a failed list, retry regularly
             failedRegistered.add(url);
         }
@@ -156,11 +162,13 @@ public abstract class FailbackRegistry extends AbstractRegistry {
         failedRegistered.remove(url);
         failedUnregistered.remove(url);
         try {
+            // 向服务器端发送取消注册请求
             // Sending a cancellation request to the server side
             doUnregister(url);
         } catch (Exception e) {
             Throwable t = e;
 
+            // 如果开启了启动时检测，则直接抛出异常
             // If the startup detection is opened, the Exception is thrown directly.
             boolean check = getUrl().getParameter(Constants.CHECK_KEY, true)
                     && url.getParameter(Constants.CHECK_KEY, true)
@@ -175,6 +183,7 @@ public abstract class FailbackRegistry extends AbstractRegistry {
                 logger.error("Failed to uregister " + url + ", waiting for retry, cause: " + t.getMessage(), t);
             }
 
+            // 将失败的取消注册请求记录到失败列表，定时重试
             // Record a failed registration request to a failed list, retry regularly
             failedUnregistered.add(url);
         }
@@ -185,6 +194,7 @@ public abstract class FailbackRegistry extends AbstractRegistry {
         super.subscribe(url, listener);
         removeFailedSubscribed(url, listener);
         try {
+            // 向服务器端发送订阅请求
             // Sending a subscription request to the server side
             doSubscribe(url, listener);
         } catch (Exception e) {
@@ -195,6 +205,7 @@ public abstract class FailbackRegistry extends AbstractRegistry {
                 notify(url, listener, urls);
                 logger.error("Failed to subscribe " + url + ", Using cached list: " + urls + " from cache file: " + getUrl().getParameter(Constants.FILE_KEY, System.getProperty("user.home") + "/dubbo-registry-" + url.getHost() + ".cache") + ", cause: " + t.getMessage(), t);
             } else {
+                // 如果开启了启动时检测，则直接抛出异常
                 // If the startup detection is opened, the Exception is thrown directly.
                 boolean check = getUrl().getParameter(Constants.CHECK_KEY, true)
                         && url.getParameter(Constants.CHECK_KEY, true);
@@ -209,6 +220,7 @@ public abstract class FailbackRegistry extends AbstractRegistry {
                 }
             }
 
+            // 将失败的订阅请求记录到失败列表，定时重试
             // Record a failed registration request to a failed list, retry regularly
             addFailedSubscribed(url, listener);
         }
@@ -219,11 +231,13 @@ public abstract class FailbackRegistry extends AbstractRegistry {
         super.unsubscribe(url, listener);
         removeFailedSubscribed(url, listener);
         try {
+            // 向服务器端发送取消订阅请求
             // Sending a canceling subscription request to the server side
             doUnsubscribe(url, listener);
         } catch (Exception e) {
             Throwable t = e;
 
+            // 如果开启了启动时检测，则直接抛出异常
             // If the startup detection is opened, the Exception is thrown directly.
             boolean check = getUrl().getParameter(Constants.CHECK_KEY, true)
                     && url.getParameter(Constants.CHECK_KEY, true);
@@ -237,6 +251,7 @@ public abstract class FailbackRegistry extends AbstractRegistry {
                 logger.error("Failed to unsubscribe " + url + ", waiting for retry, cause: " + t.getMessage(), t);
             }
 
+            // 将失败的取消订阅请求记录到失败列表，定时重试
             // Record a failed registration request to a failed list, retry regularly
             Set<NotifyListener> listeners = failedUnsubscribed.get(url);
             if (listeners == null) {
@@ -258,6 +273,7 @@ public abstract class FailbackRegistry extends AbstractRegistry {
         try {
             doNotify(url, listener, urls);
         } catch (Exception t) {
+            // 将失败的通知请求记录到失败列表，定时重试
             // Record a failed registration request to a failed list, retry regularly
             Map<NotifyListener, List<URL>> listeners = failedNotified.get(url);
             if (listeners == null) {

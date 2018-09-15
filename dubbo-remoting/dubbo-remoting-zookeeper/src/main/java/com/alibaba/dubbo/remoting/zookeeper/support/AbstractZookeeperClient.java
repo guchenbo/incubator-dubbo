@@ -14,6 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.alibaba.dubbo.remoting.zookeeper.support;
 
 import com.alibaba.dubbo.common.URL;
@@ -41,6 +42,11 @@ public abstract class AbstractZookeeperClient<TargetChildListener> implements Zo
 
     private volatile boolean closed = false;
 
+    /**
+     * 只有这个构造方法，没有默认构造方法
+     *
+     * @param url
+     */
     public AbstractZookeeperClient(URL url) {
         this.url = url;
     }
@@ -54,6 +60,7 @@ public abstract class AbstractZookeeperClient<TargetChildListener> implements Zo
         if (i > 0) {
             String parentPath = path.substring(0, i);
             if (!checkExists(parentPath)) {
+                // 循环创建父路径，比如/A/B/C，先创建/A/B，然后/A
                 create(parentPath, false);
             }
         }
@@ -126,10 +133,30 @@ public abstract class AbstractZookeeperClient<TargetChildListener> implements Zo
 
     protected abstract boolean checkExists(String path);
 
+    /**
+     * 不同客户端实现不同的监听器
+     *
+     * @param path
+     * @param listener
+     * @return
+     */
     protected abstract TargetChildListener createTargetChildListener(String path, ChildListener listener);
 
+    /**
+     * 绑定监听器
+     *
+     * @param path
+     * @param listener
+     * @return
+     */
     protected abstract List<String> addTargetChildListener(String path, TargetChildListener listener);
 
+    /**
+     * 移除监听器
+     *
+     * @param path
+     * @param listener
+     */
     protected abstract void removeTargetChildListener(String path, TargetChildListener listener);
 
 }
