@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement />
+  <nodes>
+    <node x="0.0" y="158.0">com.alibaba.dubbo.rpc.proxy.javassist.JavassistProxyFactory</node>
+    <node x="298.25" y="79.0">com.alibaba.dubbo.rpc.proxy.wrapper.StubProxyFactoryWrapper</node>
+    <node x="96.25" y="79.0">com.alibaba.dubbo.rpc.proxy.AbstractProxyFactory</node>
+    <node x="231.0" y="0.0">com.alibaba.dubbo.rpc.ProxyFactory</node>
+    <node x="206.0" y="158.0">com.alibaba.dubbo.rpc.proxy.jdk.JdkProxyFactory</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="com.alibaba.dubbo.rpc.proxy.jdk.JdkProxyFactory" target="com.alibaba.dubbo.rpc.proxy.AbstractProxyFactory">
+      <point x="0.0" y="-14.5" />
+      <point x="281.5" y="133.0" />
+      <point x="232.75" y="133.0" />
+      <point x="45.5" y="14.5" />
+    </edge>
+    <edge source="com.alibaba.dubbo.rpc.proxy.wrapper.StubProxyFactoryWrapper" target="com.alibaba.dubbo.rpc.ProxyFactory">
+      <point x="0.0" y="-14.5" />
+      <point x="403.75" y="54.0" />
+      <point x="327.75" y="54.0" />
+      <point x="32.25" y="14.5" />
+    </edge>
+    <edge source="com.alibaba.dubbo.rpc.proxy.AbstractProxyFactory" target="com.alibaba.dubbo.rpc.ProxyFactory">
+      <point x="0.0" y="-14.5" />
+      <point x="187.25" y="54.0" />
+      <point x="263.25" y="54.0" />
+      <point x="-32.25" y="14.5" />
+    </edge>
+    <edge source="com.alibaba.dubbo.rpc.proxy.javassist.JavassistProxyFactory" target="com.alibaba.dubbo.rpc.proxy.AbstractProxyFactory">
+      <point x="0.0" y="-14.5" />
+      <point x="93.0" y="133.0" />
+      <point x="141.75" y="133.0" />
+      <point x="-45.5" y="14.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.0" x="0.0" y="0.0" />
+  <SelectedNodes>
+    <node>com.alibaba.dubbo.rpc.proxy.AbstractProxyFactory</node>
+    <node>com.alibaba.dubbo.rpc.proxy.javassist.JavassistProxyFactory</node>
+    <node>com.alibaba.dubbo.rpc.proxy.wrapper.StubProxyFactoryWrapper</node>
+    <node>com.alibaba.dubbo.rpc.proxy.jdk.JdkProxyFactory</node>
+  </SelectedNodes>
+  <Categories />
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

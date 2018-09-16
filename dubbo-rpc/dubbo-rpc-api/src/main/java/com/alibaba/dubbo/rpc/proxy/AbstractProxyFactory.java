@@ -28,8 +28,16 @@ import com.alibaba.dubbo.rpc.service.EchoService;
  */
 public abstract class AbstractProxyFactory implements ProxyFactory {
 
+    /**
+     *
+     * @param invoker   Protocol生成的Invoker
+     * @param <T>
+     * @return
+     * @throws RpcException
+     */
     public <T> T getProxy(Invoker<T> invoker) throws RpcException {
         Class<?>[] interfaces = null;
+        // 可以配置代理类需要实现的接口
         String config = invoker.getUrl().getParameter("interfaces");
         if (config != null && config.length() > 0) {
             String[] types = Constants.COMMA_SPLIT_PATTERN.split(config);
@@ -45,9 +53,20 @@ public abstract class AbstractProxyFactory implements ProxyFactory {
         if (interfaces == null) {
             interfaces = new Class<?>[]{invoker.getInterface(), EchoService.class};
         }
+        // interfaces，默认加上EchoService接口，在dubbo里所有的服务提供Service都会生成
+        // 代理实现EchoService，用于回声测试
+        // interfaces是代理类需要实现的接口
         return getProxy(invoker, interfaces);
     }
 
+    /**
+     * 创建代理
+     *
+     * @param invoker   Protocol生成的Invoker
+     * @param types 接口类型，动态生成的proxy需要实现的接口
+     * @param <T>
+     * @return
+     */
     public abstract <T> T getProxy(Invoker<T> invoker, Class<?>[] types);
 
 }

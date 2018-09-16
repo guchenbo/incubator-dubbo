@@ -91,6 +91,7 @@
         <module>dubbo-admin</module>
         <module>dubbo-demo</module>
         <module>dubbo-plugin</module>
+        <module>dubbo-learn</module>
     </modules>
     <profiles>
         <profile>

@@ -30,6 +30,9 @@ import java.lang.reflect.InvocationTargetException;
  */
 public abstract class AbstractProxyInvoker<T> implements Invoker<T> {
 
+    /**
+     * 代理对象，一般为Service实现类的实例
+     */
     private final T proxy;
 
     private final Class<T> type;
@@ -66,6 +69,13 @@ public abstract class AbstractProxyInvoker<T> implements Invoker<T> {
     public void destroy() {
     }
 
+    /**
+     * 包装了RpcResult作为返回对象
+     *
+     * @param invocation
+     * @return
+     * @throws RpcException
+     */
     public Result invoke(Invocation invocation) throws RpcException {
         try {
             return new RpcResult(doInvoke(proxy, invocation.getMethodName(), invocation.getParameterTypes(), invocation.getArguments()));
@@ -76,7 +86,18 @@ public abstract class AbstractProxyInvoker<T> implements Invoker<T> {
         }
     }
 
-    protected abstract Object doInvoke(T proxy, String methodName, Class<?>[] parameterTypes, Object[] arguments) throws Throwable;
+    /**
+     * 执行方法调用
+     *
+     * @param proxy          Service实现类的实例
+     * @param methodName     方法名
+     * @param parameterTypes 方法参数类型
+     * @param arguments      方法参数值
+     * @return
+     * @throws Throwable
+     */
+    protected abstract Object doInvoke(T proxy, String methodName, Class<?>[] parameterTypes, Object[] arguments)
+                    throws Throwable;
 
     @Override
     public String toString() {

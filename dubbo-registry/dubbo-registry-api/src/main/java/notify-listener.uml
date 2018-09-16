@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement />
+  <nodes>
+    <node x="186.0" y="158.0">com.alibaba.dubbo.registry.integration.RegistryDirectory.InvokerDelegate</node>
+    <node x="427.0" y="232.0">$__ClassNameTestDubboStub.echo_result._Fields</node>
+    <node x="0.0" y="158.0">com.alibaba.dubbo.registry.integration.RegistryDirectory.InvokerComparator</node>
+    <node x="561.0" y="232.0">ClassNameTestThrift.echo_args._Fields</node>
+    <node x="149.0" y="232.0">ClassNameTestThrift.AsyncClient.Factory</node>
+    <node x="134.0" y="306.0">ClassNameTestThrift.Processor.echo</node>
+    <node x="268.0" y="79.0">com.alibaba.dubbo.registry.integration.RegistryProtocol.OverrideListener</node>
+    <node x="695.0" y="232.0">$__ClassNameTestDubboStub.echo_args._Fields</node>
+    <node x="288.0" y="232.0">ClassNameTestThrift.Client.Factory</node>
+    <node x="94.0" y="79.0">com.alibaba.dubbo.registry.integration.RegistryDirectory</node>
+    <node x="257.0" y="306.0">$__ClassNameTestDubboStub.Processor.echo</node>
+    <node x="641.0" y="79.0">com.alibaba.dubbo.governance.sync.RegistryServerSync</node>
+    <node x="437.0" y="79.0">com.alibaba.dubbo.monitor.simple.pages.UnsubscribePageHandler.NotifyListenerAdapter</node>
+    <node x="368.25" y="0.0">com.alibaba.dubbo.registry.NotifyListener</node>
+    <node x="0.0" y="306.0">ClassNameTestThrift.echo_result._Fields</node>
+    <node x="0.0" y="232.0">ClassNameTestThrift.AsyncClient.echo_call</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="com.alibaba.dubbo.monitor.simple.pages.UnsubscribePageHandler.NotifyListenerAdapter" target="com.alibaba.dubbo.registry.NotifyListener">
+      <point x="0.0" y="-14.5" />
+      <point x="529.0" y="59.0" />
+      <point x="452.625" y="59.0" />
+      <point x="16.875" y="14.5" />
+    </edge>
+    <edge source="com.alibaba.dubbo.registry.integration.RegistryDirectory.InvokerComparator" target="com.alibaba.dubbo.registry.integration.RegistryDirectory">
+      <point x="0.0" y="-14.5" />
+      <point x="83.0" y="133.0" />
+      <point x="132.5" y="133.0" />
+      <point x="-38.5" y="14.5" />
+    </edge>
+    <edge source="com.alibaba.dubbo.registry.integration.RegistryDirectory.InvokerDelegate" target="com.alibaba.dubbo.registry.integration.RegistryDirectory">
+      <point x="0.0" y="-14.5" />
+      <point x="259.0" y="133.0" />
+      <point x="209.5" y="133.0" />
+      <point x="38.5" y="14.5" />
+    </edge>
+    <edge source="com.alibaba.dubbo.registry.integration.RegistryDirectory" target="com.alibaba.dubbo.registry.NotifyListener">
+      <point x="0.0" y="-14.5" />
+      <point x="171.0" y="49.0" />
+      <point x="385.125" y="49.0" />
+      <point x="-50.625" y="14.5" />
+    </edge>
+    <edge source="com.alibaba.dubbo.governance.sync.RegistryServerSync" target="com.alibaba.dubbo.registry.NotifyListener">
+      <point x="0.0" y="-14.5" />
+      <point x="724.5" y="49.0" />
+      <point x="486.375" y="49.0" />
+      <point x="50.625" y="14.5" />
+    </edge>
+    <edge source="com.alibaba.dubbo.registry.integration.RegistryProtocol.OverrideListener" target="com.alibaba.dubbo.registry.NotifyListener">
+      <point x="0.0" y="-14.5" />
+      <point x="342.5" y="59.0" />
+      <point x="418.875" y="59.0" />
+      <point x="-16.875" y="14.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.0" x="0.0" y="0.0" />
+  <SelectedNodes>
+    <node>com.alibaba.dubbo.governance.sync.RegistryServerSync</node>
+  </SelectedNodes>
+  <Categories>
+    <Category>Inner Classes</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

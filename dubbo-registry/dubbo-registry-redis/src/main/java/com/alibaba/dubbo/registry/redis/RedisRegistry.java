@@ -78,6 +78,9 @@ public class RedisRegistry extends FailbackRegistry {
 
     private volatile boolean admin = false;
 
+    /**
+     * 复制模式
+     */
     private boolean replicate;
 
     public RedisRegistry(URL url) {
@@ -148,6 +151,7 @@ public class RedisRegistry extends FailbackRegistry {
         if (!group.endsWith(Constants.PATH_SEPARATOR)) {
             group = group + Constants.PATH_SEPARATOR;
         }
+        // 默认是/dubbo/
         this.root = group;
 
         this.expirePeriod = url.getParameter(Constants.SESSION_TIMEOUT_KEY, Constants.DEFAULT_SESSION_TIMEOUT);
@@ -279,6 +283,7 @@ public class RedisRegistry extends FailbackRegistry {
                     jedis.publish(key, Constants.REGISTER);
                     success = true;
                     if (!replicate) {
+                        // 如果是复制模式，replicate，就表示需要向所有服务的写入数据
                         break; //  If the server side has synchronized data, just write a single machine
                     }
                 } finally {
@@ -338,7 +343,7 @@ public class RedisRegistry extends FailbackRegistry {
             Notifier newNotifier = new Notifier(service);
             notifiers.putIfAbsent(service, newNotifier);
             notifier = notifiers.get(service);
-            if (notifier == newNotifier) {
+            if (notifier == newNotifier) {// 这里是保证在并发情况下，只有一个会启动
                 notifier.start();
             }
         }
@@ -350,6 +355,7 @@ public class RedisRegistry extends FailbackRegistry {
                 Jedis jedis = jedisPool.getResource();
                 try {
                     if (service.endsWith(Constants.ANY_VALUE)) {
+                        // 这里是所有对Service的订阅，比如监控中心
                         admin = true;
                         Set<String> keys = jedis.keys(service);
                         if (keys != null && keys.size() > 0) {
@@ -470,10 +476,20 @@ public class RedisRegistry extends FailbackRegistry {
         return i > 0 ? categoryPath.substring(0, i) : categoryPath;
     }
 
+    /**
+     * 例如：/Root/Service
+     * @param url
+     * @return
+     */
     private String toServicePath(URL url) {
         return root + url.getServiceInterface();
     }
 
+    /**
+     * 获取分类路径，Root/Service/Category
+     * @param url
+     * @return
+     */
     private String toCategoryPath(URL url) {
         return toServicePath(url) + Constants.PATH_SEPARATOR + url.getParameter(Constants.CATEGORY_KEY, Constants.DEFAULT_CATEGORY);
     }

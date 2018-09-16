@@ -14,6 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.alibaba.dubbo.remoting.zookeeper;
 
 import com.alibaba.dubbo.common.URL;
@@ -24,6 +25,7 @@ public interface ZookeeperClient {
 
     /**
      * 创建节点
+     *
      * @param path
      * @param ephemeral 是否临时
      */
@@ -33,6 +35,13 @@ public interface ZookeeperClient {
 
     List<String> getChildren(String path);
 
+    /**
+     * 为指定节点绑定监听器，并且返回子节点信息
+     *
+     * @param path
+     * @param listener
+     * @return
+     */
     List<String> addChildListener(String path, ChildListener listener);
 
     void removeChildListener(String path, ChildListener listener);

@@ -44,8 +44,15 @@ public class StubProxyFactoryWrapper implements ProxyFactory {
 
     private final ProxyFactory proxyFactory;
 
+    /**
+     * Dubbo SPI注入的自适应扩展
+     */
     private Protocol protocol;
 
+    /**
+     * 有个扩展接口参数的构造器，说明这个扩展实现是个Wrapper类型
+     * @param proxyFactory
+     */
     public StubProxyFactoryWrapper(ProxyFactory proxyFactory) {
         this.proxyFactory = proxyFactory;
     }
@@ -54,6 +61,13 @@ public class StubProxyFactoryWrapper implements ProxyFactory {
         this.protocol = protocol;
     }
 
+    /**
+     *
+     * @param invoker   Protocol生成的Invoker
+     * @param <T>
+     * @return
+     * @throws RpcException
+     */
     @SuppressWarnings({"unchecked", "rawtypes"})
     public <T> T getProxy(Invoker<T> invoker) throws RpcException {
         T proxy = proxyFactory.getProxy(invoker);

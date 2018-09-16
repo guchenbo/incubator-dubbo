@@ -222,6 +222,13 @@ public class RegistryDirectory<T> extends AbstractDirectory<T> implements Notify
     }
 
     /**
+     * 根据invokerURL列表转换为invoker列表。转换规则如下：
+     * 1.如果url已经被转换为invoker，则不在重新引用，直接从缓存中获取，注意如果url中任何一个参数变更也会重新引用
+     * 2.如果传入的invoker列表不为空，则表示最新的invoker列表
+     * 3.如果传入的invokerUrl列表是空，则表示只是下发的override规则或route规则，需要重新交叉对比，决定是否需要重新引用。
+     * @param invokerUrls 传入的参数不能为null
+     */
+    /**
      * Convert the invokerURL list to the Invoker Map. The rules of the conversion are as follows:
      * 1.If URL has been converted to invoker, it is no longer re-referenced and obtained directly from the cache, and notice that any parameter changes in the URL will be re-referenced.
      * 2.If the incoming invoker list is not empty, it means that it is the latest invoker list
