@@ -13,6 +13,6 @@ public class ExtensionApi {
         ExtensionLoader<ProxyFactory> extensionLoader = ExtensionLoader.getExtensionLoader(ProxyFactory.class);
 
         System.out.println(extensionLoader.getSupportedExtensions());
-        System.out.println(extensionLoader.getExtension("stub"));
+        System.out.println(extensionLoader.getExtension("javassist"));
     }
 }

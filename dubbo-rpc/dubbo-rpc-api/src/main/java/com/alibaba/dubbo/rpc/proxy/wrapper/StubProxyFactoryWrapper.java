@@ -36,6 +36,7 @@ import com.alibaba.dubbo.rpc.service.GenericService;
 import java.lang.reflect.Constructor;
 
 /**
+ * 自动Wrapper类型，包装真正的ProxyFactory扩展实现
  * StubProxyFactoryWrapper
  */
 public class StubProxyFactoryWrapper implements ProxyFactory {
@@ -62,6 +63,7 @@ public class StubProxyFactoryWrapper implements ProxyFactory {
     }
 
     /**
+     * 生成代理对象，引用服务时调用
      *
      * @param invoker   Protocol生成的Invoker
      * @param <T>
@@ -70,12 +72,15 @@ public class StubProxyFactoryWrapper implements ProxyFactory {
      */
     @SuppressWarnings({"unchecked", "rawtypes"})
     public <T> T getProxy(Invoker<T> invoker) throws RpcException {
+        // 真正ProxyFactory的扩展实现的方法调用
         T proxy = proxyFactory.getProxy(invoker);
         if (GenericService.class != invoker.getInterface()) {
+            // 不是泛化调用才进入逻辑
             String stub = invoker.getUrl().getParameter(Constants.STUB_KEY, invoker.getUrl().getParameter(Constants.LOCAL_KEY));
             if (ConfigUtils.isNotEmpty(stub)) {
                 Class<?> serviceType = invoker.getInterface();
                 if (ConfigUtils.isDefault(stub)) {
+                    // 如果没有配置具体实现的类名，默认是接口后加Stub或者Local
                     if (invoker.getUrl().hasParameter(Constants.STUB_KEY)) {
                         stub = serviceType.getName() + "Stub";
                     } else {
@@ -96,6 +101,7 @@ public class StubProxyFactoryWrapper implements ProxyFactory {
                             url = url.addParameter(Constants.STUB_EVENT_METHODS_KEY, StringUtils.join(Wrapper.getWrapper(proxy.getClass()).getDeclaredMethodNames(), ","));
                             url = url.addParameter(Constants.IS_SERVER_KEY, Boolean.FALSE.toString());
                             try {
+                                // 需要暴露Stub的实现
                                 export(proxy, (Class) invoker.getInterface(), url);
                             } catch (Exception e) {
                                 LOGGER.error("export a stub service error.", e);
@@ -113,6 +119,16 @@ public class StubProxyFactoryWrapper implements ProxyFactory {
         return proxy;
     }
 
+    /**
+     * 暴露服务时调用
+     *
+     * @param proxy Service对象
+     * @param type  Service类型
+     * @param url
+     * @param <T>
+     * @return
+     * @throws RpcException
+     */
     public <T> Invoker<T> getInvoker(T proxy, Class<T> type, URL url) throws RpcException {
         return proxyFactory.getInvoker(proxy, type, url);
     }

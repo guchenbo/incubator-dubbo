@@ -29,7 +29,7 @@ import com.alibaba.dubbo.rpc.service.EchoService;
 public abstract class AbstractProxyFactory implements ProxyFactory {
 
     /**
-     *
+     * 服务引用时调用
      * @param invoker   Protocol生成的Invoker
      * @param <T>
      * @return

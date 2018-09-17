@@ -30,6 +30,8 @@ import com.alibaba.dubbo.rpc.support.ProtocolUtils;
 import java.util.Map;
 
 /**
+ * injvm协议，必须提供者和消费者在同一个java进程中
+ *
  * InjvmProtocol
  */
 public class InjvmProtocol extends AbstractProtocol implements Protocol {

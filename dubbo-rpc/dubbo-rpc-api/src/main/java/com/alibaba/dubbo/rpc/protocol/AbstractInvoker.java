@@ -123,6 +123,7 @@ public abstract class AbstractInvoker<T> implements Invoker<T> {
                     + " use dubbo version " + Version.getVersion()
                     + " is DESTROYED, can not be invoked any more!");
         }
+        // InvokerInvocationHandler里传值是RpcInvocation
         RpcInvocation invocation = (RpcInvocation) inv;
         invocation.setInvoker(this);
         if (attachment != null && attachment.size() > 0) {
@@ -132,6 +133,7 @@ public abstract class AbstractInvoker<T> implements Invoker<T> {
         if (context != null) {
             invocation.addAttachmentsIfAbsent(context);
         }
+        // async=true表示是异步方法
         if (getUrl().getMethodParameter(invocation.getMethodName(), Constants.ASYNC_KEY, false)) {
             invocation.setAttachment(Constants.ASYNC_KEY, Boolean.TRUE.toString());
         }
