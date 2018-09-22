@@ -63,7 +63,7 @@ public interface Endpoint {
      * send message.
      *
      * @param message
-     * @param sent    already sent to socket?
+     * @param sent    是否已发送完成   already sent to socket?
      */
     void send(Object message, boolean sent) throws RemotingException;
 

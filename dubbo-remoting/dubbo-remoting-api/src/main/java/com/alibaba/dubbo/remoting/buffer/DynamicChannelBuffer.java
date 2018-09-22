@@ -22,6 +22,10 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.ByteBuffer;
 
+/**
+ * 根据factory确定buffer，默认是HeapChannelBufferFactory，
+ * 这个对象实际调用的是属性buffer的方法，可以说是ChannelBuffer的包装器
+ */
 public class DynamicChannelBuffer extends AbstractChannelBuffer {
 
     private final ChannelBufferFactory factory;

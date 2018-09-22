@@ -34,7 +34,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * TelnetCodec
+ * TelnetCodec，从消息中解码出telnet命令
  */
 public class TelnetCodec extends TransportCodec {
 
@@ -148,13 +148,30 @@ public class TelnetCodec extends TransportCodec {
         }
     }
 
+    /**
+     * 覆盖了父类的方法
+     * @param channel
+     * @param buffer
+     * @return
+     * @throws IOException
+     */
     public Object decode(Channel channel, ChannelBuffer buffer) throws IOException {
+        // buffer的长度
         int readable = buffer.readableBytes();
         byte[] message = new byte[readable];
-        buffer.readBytes(message);
+        buffer.readBytes(message);// 从buffer中读出字节到数组
         return decode(channel, buffer, readable, message);
     }
 
+    /**
+     * 解码出具体的telnet命令
+     * @param channel
+     * @param buffer
+     * @param readable
+     * @param message
+     * @return
+     * @throws IOException
+     */
     @SuppressWarnings("unchecked")
     protected Object decode(Channel channel, ChannelBuffer buffer, int readable, byte[] message) throws IOException {
         if (isClientSide(channel)) {
@@ -165,8 +182,10 @@ public class TelnetCodec extends TransportCodec {
             return DecodeResult.NEED_MORE_INPUT;
         }
 
+        // 处理windows退格
         if (message[message.length - 1] == '\b') { // Windows backspace echo
             try {
+                // 32=空格 8=退格
                 boolean doublechar = message.length >= 3 && message[message.length - 3] < 0; // double byte char
                 channel.send(new String(doublechar ? new byte[]{32, 32, 8, 8} : new byte[]{32, 8}, getCharset(channel).name()));
             } catch (RemotingException e) {
@@ -175,6 +194,7 @@ public class TelnetCodec extends TransportCodec {
             return DecodeResult.NEED_MORE_INPUT;
         }
 
+        // 处理退出命令
         for (Object command : EXIT) {
             if (isEquals(message, (byte[]) command)) {
                 if (logger.isInfoEnabled()) {
@@ -185,6 +205,7 @@ public class TelnetCodec extends TransportCodec {
             }
         }
 
+        // 使用历史命令
         boolean up = endsWith(message, UP);
         boolean down = endsWith(message, DOWN);
         if (up || down) {

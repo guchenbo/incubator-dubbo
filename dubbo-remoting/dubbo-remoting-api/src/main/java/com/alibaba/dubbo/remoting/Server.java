@@ -31,6 +31,7 @@ import java.util.Collection;
 public interface Server extends Endpoint, Resetable {
 
     /**
+     * 是否绑定，就是是否启动成功
      * is bound.
      *
      * @return bound
@@ -38,6 +39,7 @@ public interface Server extends Endpoint, Resetable {
     boolean isBound();
 
     /**
+     * 获得连接的客户端
      * get channels.
      *
      * @return channels
@@ -45,6 +47,7 @@ public interface Server extends Endpoint, Resetable {
     Collection<Channel> getChannels();
 
     /**
+     *
      * get channel.
      *
      * @param remoteAddress

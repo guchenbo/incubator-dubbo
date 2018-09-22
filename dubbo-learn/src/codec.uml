@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement />
+  <nodes>
+    <node x="107.0" y="79.0">com.alibaba.dubbo.remoting.Decodeable</node>
+    <node x="224.0" y="237.0">com.alibaba.dubbo.remoting.transport.codec.TransportCodec</node>
+    <node x="305.0078125" y="0.0">com.alibaba.dubbo.common.extension.SPI</node>
+    <node x="224.5" y="395.0">com.alibaba.dubbo.remoting.exchange.codec.ExchangeCodec</node>
+    <node x="494.0" y="79.0">com.alibaba.dubbo.remoting.Codec2</node>
+    <node x="388.0" y="158.0">com.alibaba.dubbo.remoting.transport.codec.CodecAdapter</node>
+    <node x="228.0" y="158.0">com.alibaba.dubbo.remoting.transport.AbstractCodec</node>
+    <node x="0.0" y="79.0">com.alibaba.dubbo.remoting.Codec</node>
+    <node x="2.0" y="158.0">com.alibaba.dubbo.rpc.protocol.dubbo.DecodeableRpcInvocation</node>
+    <node x="235.5" y="316.0">com.alibaba.dubbo.remoting.telnet.codec.TelnetCodec</node>
+    <node x="445.0859375" y="474.0">com.alibaba.dubbo.rpc.protocol.dubbo.DubboCodec</node>
+    <node x="544.0" y="158.0">com.alibaba.dubbo.rpc.protocol.dubbo.DubboCountCodec</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="com.alibaba.dubbo.rpc.protocol.dubbo.DecodeableRpcInvocation" target="com.alibaba.dubbo.remoting.Codec">
+      <point x="-51.5" y="-14.5" />
+      <point x="53.5" y="138.0" />
+      <point x="43.5" y="138.0" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="com.alibaba.dubbo.remoting.transport.codec.CodecAdapter" target="com.alibaba.dubbo.remoting.Codec2">
+      <point x="0.0" y="-14.5" />
+      <point x="456.0" y="138.0" />
+      <point x="529.625" y="138.0" />
+      <point x="-11.875" y="14.5" />
+    </edge>
+    <edge source="com.alibaba.dubbo.rpc.protocol.dubbo.DubboCountCodec" target="com.alibaba.dubbo.remoting.Codec2">
+      <point x="0.0" y="-14.5" />
+      <point x="627.0" y="138.0" />
+      <point x="553.375" y="138.0" />
+      <point x="11.875" y="14.5" />
+    </edge>
+    <edge source="com.alibaba.dubbo.rpc.protocol.dubbo.DubboCodec" target="com.alibaba.dubbo.remoting.Codec2">
+      <point x="32.0" y="-14.5" />
+      <point x="541.0859375" y="449.0" />
+      <point x="720.5" y="449.0" />
+      <point x="720.5" y="128.0" />
+      <point x="577.125" y="128.0" />
+      <point x="35.625" y="14.5" />
+    </edge>
+    <edge source="com.alibaba.dubbo.remoting.transport.AbstractCodec" target="com.alibaba.dubbo.remoting.Codec2">
+      <point x="0.0" y="-14.5" />
+      <point x="298.0" y="128.0" />
+      <point x="505.875" y="128.0" />
+      <point x="-35.625" y="14.5" />
+    </edge>
+    <edge source="com.alibaba.dubbo.remoting.exchange.codec.ExchangeCodec" target="com.alibaba.dubbo.remoting.telnet.codec.TelnetCodec">
+      <point x="0.0" y="-14.5" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="com.alibaba.dubbo.remoting.telnet.codec.TelnetCodec" target="com.alibaba.dubbo.remoting.transport.codec.TransportCodec">
+      <point x="0.0" y="-14.5" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="com.alibaba.dubbo.rpc.protocol.dubbo.DecodeableRpcInvocation" target="com.alibaba.dubbo.remoting.Decodeable">
+      <point x="51.5" y="-14.5" />
+      <point x="156.5" y="138.0" />
+      <point x="166.5" y="138.0" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="com.alibaba.dubbo.remoting.transport.codec.TransportCodec" target="com.alibaba.dubbo.remoting.transport.AbstractCodec">
+      <point x="0.0" y="-14.5" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="com.alibaba.dubbo.rpc.protocol.dubbo.DubboCodec" target="com.alibaba.dubbo.remoting.exchange.codec.ExchangeCodec">
+      <point x="-32.0" y="-14.5" />
+      <point x="477.0859375" y="449.0" />
+      <point x="298.0" y="449.0" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="com.alibaba.dubbo.remoting.Codec" target="com.alibaba.dubbo.common.extension.SPI">
+      <point x="0.0" y="-14.5" />
+      <point x="43.5" y="54.0" />
+      <point x="321.7578125" y="54.0" />
+      <point x="-16.75" y="14.5" />
+    </edge>
+    <edge source="com.alibaba.dubbo.remoting.Codec2" target="com.alibaba.dubbo.common.extension.SPI">
+      <point x="0.0" y="-14.5" />
+      <point x="541.5" y="54.0" />
+      <point x="355.2578125" y="54.0" />
+      <point x="16.75" y="14.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.0" x="248.5" y="288.5" />
+  <SelectedNodes>
+    <node>com.alibaba.dubbo.common.extension.SPI</node>
+  </SelectedNodes>
+  <Categories />
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

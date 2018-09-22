@@ -14,6 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.alibaba.dubbo.remoting.exchange;
 
 import com.alibaba.dubbo.common.utils.StringUtils;
@@ -29,18 +30,39 @@ public class Request {
 
     public static final String READONLY_EVENT = "R";
 
+    /**
+     * 用于生成请求编号
+     */
     private static final AtomicLong INVOKE_ID = new AtomicLong(0);
 
+    /**
+     * 请求编号，唯一
+     */
     private final long mId;
 
+    /**
+     * Dubbo 版本
+     */
     private String mVersion;
 
+    /**
+     * 是否需要响应
+     */
     private boolean mTwoWay = true;
 
+    /**
+     * 是否是事件
+     */
     private boolean mEvent = false;
 
+    /**
+     * 是否有异常
+     */
     private boolean mBroken = false;
 
+    /**
+     * 数据
+     */
     private Object mData;
 
     public Request() {
@@ -57,13 +79,13 @@ public class Request {
     }
 
     private static String safeToString(Object data) {
-        if (data == null) return null;
+        if (data == null)
+            return null;
         String dataStr;
         try {
             dataStr = data.toString();
         } catch (Throwable e) {
-            dataStr = "<Fail toString of " + data.getClass() + ", cause: " +
-                    StringUtils.toString(e) + ">";
+            dataStr = "<Fail toString of " + data.getClass() + ", cause: " + StringUtils.toString(e) + ">";
         }
         return dataStr;
     }
@@ -125,7 +147,18 @@ public class Request {
 
     @Override
     public String toString() {
-        return "Request [id=" + mId + ", version=" + mVersion + ", twoway=" + mTwoWay + ", event=" + mEvent
-                + ", broken=" + mBroken + ", data=" + (mData == this ? "this" : safeToString(mData)) + "]";
+        return "Request [id="
+                        + mId
+                        + ", version="
+                        + mVersion
+                        + ", twoway="
+                        + mTwoWay
+                        + ", event="
+                        + mEvent
+                        + ", broken="
+                        + mBroken
+                        + ", data="
+                        + (mData == this ? "this" : safeToString(mData))
+                        + "]";
     }
 }

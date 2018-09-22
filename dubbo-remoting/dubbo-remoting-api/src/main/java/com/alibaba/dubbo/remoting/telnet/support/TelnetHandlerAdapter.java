@@ -23,11 +23,15 @@ import com.alibaba.dubbo.remoting.RemotingException;
 import com.alibaba.dubbo.remoting.telnet.TelnetHandler;
 import com.alibaba.dubbo.remoting.transport.ChannelHandlerAdapter;
 
+/**
+ * 适配器，选择不同的TelnetHandler调用
+ */
 public class TelnetHandlerAdapter extends ChannelHandlerAdapter implements TelnetHandler {
 
     private final ExtensionLoader<TelnetHandler> extensionLoader = ExtensionLoader.getExtensionLoader(TelnetHandler.class);
 
     public String telnet(Channel channel, String message) throws RemotingException {
+        // 配置的提升符prompt，默认是dubbo>
         String prompt = channel.getUrl().getParameterAndDecoded(Constants.PROMPT_KEY, Constants.DEFAULT_PROMPT);
         boolean noprompt = message.contains("--no-prompt");
         message = message.replace("--no-prompt", "");
@@ -46,6 +50,7 @@ public class TelnetHandlerAdapter extends ChannelHandlerAdapter implements Telne
         } else {
             command = "";
         }
+        // 从指令中提取出命令和参数，命令就是扩展名，找到指定的扩展调用
         if (command.length() > 0) {
             if (extensionLoader.hasExtension(command)) {
                 try {

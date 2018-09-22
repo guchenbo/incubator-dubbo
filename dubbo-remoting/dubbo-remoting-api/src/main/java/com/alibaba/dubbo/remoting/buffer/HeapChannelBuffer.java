@@ -25,6 +25,9 @@ import java.nio.channels.ClosedChannelException;
 import java.nio.channels.GatheringByteChannel;
 import java.nio.channels.ScatteringByteChannel;
 
+/**
+ * 基于字节数组
+ */
 public class HeapChannelBuffer extends AbstractChannelBuffer {
 
     /**
@@ -38,6 +41,7 @@ public class HeapChannelBuffer extends AbstractChannelBuffer {
      * @param length the length of the new byte array
      */
     public HeapChannelBuffer(int length) {
+        // 是空的数组，所以写入下标也是0，从头开始写入
         this(new byte[length], 0, 0);
     }
 
@@ -47,6 +51,7 @@ public class HeapChannelBuffer extends AbstractChannelBuffer {
      * @param array the byte array to wrap
      */
     public HeapChannelBuffer(byte[] array) {
+        // 设置写入的下标是数组的长度，下次写入是在数组后面，这样就不会覆盖已经存在的数组
         this(array, 0, array.length);
     }
 

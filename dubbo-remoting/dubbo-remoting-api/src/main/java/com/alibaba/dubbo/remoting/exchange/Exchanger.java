@@ -24,6 +24,7 @@ import com.alibaba.dubbo.remoting.RemotingException;
 import com.alibaba.dubbo.remoting.exchange.support.header.HeaderExchanger;
 
 /**
+ * 创建服务端和客户端两个功能，这个类的作用地位有点像ProxyFactory
  * Exchanger. (SPI, Singleton, ThreadSafe)
  * <p>
  * <a href="http://en.wikipedia.org/wiki/Message_Exchange_Pattern">Message Exchange Pattern</a>

@@ -27,6 +27,9 @@ import com.alibaba.dubbo.remoting.buffer.ChannelBuffer;
 
 import java.io.IOException;
 
+/**
+ * Codec的适配器类，因为Codec已经过期了，这是为了兼容老版本
+ */
 public class CodecAdapter implements Codec2 {
 
     private Codec codec;

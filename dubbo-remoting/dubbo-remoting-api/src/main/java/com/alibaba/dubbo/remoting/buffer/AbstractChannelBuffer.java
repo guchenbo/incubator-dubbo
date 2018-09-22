@@ -22,21 +22,41 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.ByteBuffer;
 
+/**
+ * 定义读取下标属性，平时的状态是0 <= readerIndex <= writerIndex <= capacity
+ */
 public abstract class AbstractChannelBuffer implements ChannelBuffer {
 
+    /**
+     * 读取下标
+     */
     private int readerIndex;
 
+    /**
+     * 写入下标
+     */
     private int writerIndex;
 
+    /**
+     * 标记的读取下标
+     */
     private int markedReaderIndex;
 
+    /**
+     * 标记的写入下标
+     */
     private int markedWriterIndex;
 
     public int readerIndex() {
         return readerIndex;
     }
 
+    /**
+     * 设置读取下标
+     * @param readerIndex
+     */
     public void readerIndex(int readerIndex) {
+        // 读取下标不能大于写入下标
         if (readerIndex < 0 || readerIndex > writerIndex) {
             throw new IndexOutOfBoundsException();
         }
@@ -47,7 +67,12 @@ public abstract class AbstractChannelBuffer implements ChannelBuffer {
         return writerIndex;
     }
 
+    /**
+     * 设置写入下标
+     * @param writerIndex
+     */
     public void writerIndex(int writerIndex) {
+        // 写入下标要小于容量，大于读取下标
         if (writerIndex < readerIndex || writerIndex > capacity()) {
             throw new IndexOutOfBoundsException();
         }
@@ -66,10 +91,18 @@ public abstract class AbstractChannelBuffer implements ChannelBuffer {
         readerIndex = writerIndex = 0;
     }
 
+    /**
+     * 写入下标 > 读取下标，表示可读
+     * @return
+     */
     public boolean readable() {
         return readableBytes() > 0;
     }
 
+    /**
+     * capacity容量 > 写入下标，表示可以写入
+     * @return
+     */
     public boolean writable() {
         return writableBytes() > 0;
     }
@@ -82,18 +115,30 @@ public abstract class AbstractChannelBuffer implements ChannelBuffer {
         return capacity() - writerIndex;
     }
 
+    /**
+     * 标记
+     */
     public void markReaderIndex() {
         markedReaderIndex = readerIndex;
     }
 
+    /**
+     * 重新设置上一个标记过的读取下标
+     */
     public void resetReaderIndex() {
         readerIndex(markedReaderIndex);
     }
 
+    /**
+     * 标记
+     */
     public void markWriterIndex() {
         markedWriterIndex = writerIndex;
     }
 
+    /**
+     * 重新设置上一个标记过的写入下标，怎么没有越界判断
+     */
     public void resetWriterIndex() {
         writerIndex = markedWriterIndex;
     }

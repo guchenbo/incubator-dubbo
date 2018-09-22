@@ -53,6 +53,7 @@ public class Transporters {
         } else {
             handler = new ChannelHandlerDispatcher(handlers);
         }
+        // 调用具体的扩展实现方法
         return getTransporter().bind(url, handler);
     }
 
@@ -72,9 +73,15 @@ public class Transporters {
         } else {
             handler = new ChannelHandlerDispatcher(handlers);
         }
+        // 调用具体的扩展实现方法
         return getTransporter().connect(url, handler);
     }
 
+    /**
+     * 获得Dubbo SPI的自适应扩展实现
+     *
+     * @return
+     */
     public static Transporter getTransporter() {
         return ExtensionLoader.getExtensionLoader(Transporter.class).getAdaptiveExtension();
     }

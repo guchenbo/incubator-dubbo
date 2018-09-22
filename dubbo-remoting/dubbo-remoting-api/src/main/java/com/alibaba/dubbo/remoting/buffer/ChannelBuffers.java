@@ -19,6 +19,9 @@ package com.alibaba.dubbo.remoting.buffer;
 
 import java.nio.ByteBuffer;
 
+/**
+ * 工具类
+ */
 public final class ChannelBuffers {
 
     public static final ChannelBuffer EMPTY_BUFFER = new HeapChannelBuffer(0);
@@ -26,6 +29,10 @@ public final class ChannelBuffers {
     private ChannelBuffers() {
     }
 
+    /**
+     * 返回的DynamicChannelBuffer里面默认包装的是HeapChannelBufferFactory#getBuffer()
+     * @return
+     */
     public static ChannelBuffer dynamicBuffer() {
         return dynamicBuffer(256);
     }
@@ -39,6 +46,12 @@ public final class ChannelBuffers {
         return new DynamicChannelBuffer(capacity, factory);
     }
 
+    /**
+     * 返回HeapChannelBuffer
+     *
+     * @param capacity 容量
+     * @return
+     */
     public static ChannelBuffer buffer(int capacity) {
         if (capacity < 0) {
             throw new IllegalArgumentException("capacity can not be negative");
@@ -49,6 +62,13 @@ public final class ChannelBuffers {
         return new HeapChannelBuffer(capacity);
     }
 
+    /**
+     * 将数组从offset开始拷贝length的长度作为新数组，包装成HeapChannelBuffer
+     * @param array
+     * @param offset
+     * @param length
+     * @return
+     */
     public static ChannelBuffer wrappedBuffer(byte[] array, int offset, int length) {
         if (array == null) {
             throw new NullPointerException("array == null");
@@ -79,6 +99,11 @@ public final class ChannelBuffers {
         }
     }
 
+    /**
+     * 返回 ByteBufferBackedChannelBuffer
+     * @param capacity
+     * @return
+     */
     public static ChannelBuffer directBuffer(int capacity) {
         if (capacity == 0) {
             return EMPTY_BUFFER;

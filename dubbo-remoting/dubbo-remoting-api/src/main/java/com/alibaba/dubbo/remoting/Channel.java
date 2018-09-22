@@ -30,6 +30,7 @@ import java.net.InetSocketAddress;
 public interface Channel extends Endpoint {
 
     /**
+     * 远程地址
      * get remote address.
      *
      * @return remote address.
@@ -37,6 +38,7 @@ public interface Channel extends Endpoint {
     InetSocketAddress getRemoteAddress();
 
     /**
+     * 是否已经连接
      * is connected.
      *
      * @return connected

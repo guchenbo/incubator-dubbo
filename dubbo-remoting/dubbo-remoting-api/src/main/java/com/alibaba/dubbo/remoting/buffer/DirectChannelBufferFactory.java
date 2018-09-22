@@ -56,6 +56,7 @@ public class DirectChannelBufferFactory implements ChannelBufferFactory {
         }
 
         ChannelBuffer buf = getBuffer(length);
+        // 从array中offset开始读取length字节
         buf.writeBytes(array, offset, length);
         return buf;
     }

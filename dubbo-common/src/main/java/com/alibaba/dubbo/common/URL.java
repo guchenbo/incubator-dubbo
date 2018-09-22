@@ -585,6 +585,12 @@ public final class URL implements Serializable {
         return value;
     }
 
+    /**
+     * 返回正数
+     * @param key
+     * @param defaultValue
+     * @return
+     */
     public int getPositiveParameter(String key, int defaultValue) {
         if (defaultValue <= 0) {
             throw new IllegalArgumentException("defaultValue <= 0");

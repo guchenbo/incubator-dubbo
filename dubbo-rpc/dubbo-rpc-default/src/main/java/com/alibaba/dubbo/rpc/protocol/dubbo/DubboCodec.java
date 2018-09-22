@@ -60,12 +60,13 @@ public class DubboCodec extends ExchangeCodec implements Codec2 {
     protected Object decodeBody(Channel channel, InputStream is, byte[] header) throws IOException {
         byte flag = header[2], proto = (byte) (flag & SERIALIZATION_MASK);
         Serialization s = CodecSupport.getSerialization(channel.getUrl(), proto);
+        // flag 用来做各种判断，只要一个字节就能进行各种判断，如果的操作在fastjson里也有过
         // get request id.
         long id = Bytes.bytes2long(header, 4);
         if ((flag & FLAG_REQUEST) == 0) {
             // decode response.
             Response res = new Response(id);
-            if ((flag & FLAG_EVENT) != 0) {
+            if ((flag & FLAG_EVENT) != 0) { // FLAG_EVENT 二进制是 0010 0000，不等于0 说明设置了
                 res.setEvent(Response.HEARTBEAT_EVENT);
             }
             // get status.
@@ -194,5 +195,9 @@ public class DubboCodec extends ExchangeCodec implements Codec2 {
             out.writeByte(RESPONSE_WITH_EXCEPTION);
             out.writeObject(th);
         }
+    }
+
+    public static void main(String[] args) {
+        System.out.println(Integer.toBinaryString(FLAG_EVENT));
     }
 }

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement />
+  <nodes>
+    <node x="162.0" y="237.0">com.alibaba.dubbo.remoting.exchange.support.header.HeartbeatHandler</node>
+    <node x="141.0" y="79.0">com.alibaba.dubbo.remoting.transport.ChannelHandlerDelegate</node>
+    <node x="114.5" y="158.0">com.alibaba.dubbo.remoting.transport.AbstractChannelHandlerDelegate</node>
+    <node x="167.5" y="0.0">com.alibaba.dubbo.remoting.ChannelHandler</node>
+    <node x="339.0" y="237.0">com.alibaba.dubbo.remoting.transport.MultiMessageHandler</node>
+    <node x="0.0" y="237.0">com.alibaba.dubbo.remoting.transport.DecodeHandler</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="com.alibaba.dubbo.remoting.exchange.support.header.HeartbeatHandler" target="com.alibaba.dubbo.remoting.transport.AbstractChannelHandlerDelegate">
+      <point x="0.0" y="-14.5" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="com.alibaba.dubbo.remoting.transport.DecodeHandler" target="com.alibaba.dubbo.remoting.transport.AbstractChannelHandlerDelegate">
+      <point x="0.0" y="-14.5" />
+      <point x="71.0" y="212.0" />
+      <point x="156.5" y="212.0" />
+      <point x="-84.0" y="14.5" />
+    </edge>
+    <edge source="com.alibaba.dubbo.remoting.transport.MultiMessageHandler" target="com.alibaba.dubbo.remoting.transport.AbstractChannelHandlerDelegate">
+      <point x="0.0" y="-14.5" />
+      <point x="429.0" y="212.0" />
+      <point x="324.5" y="212.0" />
+      <point x="84.0" y="14.5" />
+    </edge>
+    <edge source="com.alibaba.dubbo.remoting.transport.AbstractChannelHandlerDelegate" target="com.alibaba.dubbo.remoting.transport.ChannelHandlerDelegate">
+      <point x="0.0" y="-14.5" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="com.alibaba.dubbo.remoting.transport.ChannelHandlerDelegate" target="com.alibaba.dubbo.remoting.ChannelHandler">
+      <point x="0.0" y="-14.5" />
+      <point x="0.0" y="14.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.0" x="46.0" y="-149.5" />
+  <SelectedNodes>
+    <node>com.alibaba.dubbo.remoting.transport.ChannelHandlerDelegate</node>
+  </SelectedNodes>
+  <Categories />
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

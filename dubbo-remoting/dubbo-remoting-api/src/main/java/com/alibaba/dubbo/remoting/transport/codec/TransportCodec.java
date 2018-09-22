@@ -31,6 +31,7 @@ import java.io.OutputStream;
 
 /**
  * TransportCodec
+ *
  */
 public class TransportCodec extends AbstractCodec {
 

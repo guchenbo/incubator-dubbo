@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement />
+  <nodes>
+    <node x="0.0" y="237.0">com.alibaba.dubbo.remoting.transport.codec.TransportCodec</node>
+    <node x="459.49999999999994" y="237.0">com.alibaba.dubbo.rpc.protocol.dubbo.telnet.ListTelnetHandler</node>
+    <node x="26.5" y="79.0">com.alibaba.dubbo.remoting.Codec2</node>
+    <node x="228.0" y="0.0">com.alibaba.dubbo.common.extension.SPI</node>
+    <node x="4.0" y="158.0">com.alibaba.dubbo.remoting.transport.AbstractCodec</node>
+    <node x="188.5" y="79.0">com.alibaba.dubbo.remoting.ChannelHandler</node>
+    <node x="164.0" y="158.0">com.alibaba.dubbo.remoting.transport.ChannelHandlerAdapter</node>
+    <node x="545.25" y="158.0">com.alibaba.dubbo.remoting.telnet.support.Help</node>
+    <node x="379.0" y="158.0">com.alibaba.dubbo.remoting.telnet.TelnetHandler</node>
+    <node x="11.5" y="316.0">com.alibaba.dubbo.remoting.telnet.codec.TelnetCodec</node>
+    <node x="245.62499999999997" y="237.0">com.alibaba.dubbo.remoting.telnet.support.TelnetHandlerAdapter</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="com.alibaba.dubbo.rpc.protocol.dubbo.telnet.ListTelnetHandler" target="com.alibaba.dubbo.remoting.telnet.TelnetHandler">
+      <point x="-39.0" y="-14.5" />
+      <point x="498.49999999999994" y="212.0" />
+      <point x="479.5" y="212.0" />
+      <point x="33.5" y="14.5" />
+    </edge>
+    <edge source="com.alibaba.dubbo.remoting.telnet.support.TelnetHandlerAdapter" target="com.alibaba.dubbo.remoting.transport.ChannelHandlerAdapter">
+      <point x="-45.75" y="-14.5" />
+      <point x="291.375" y="212.0" />
+      <point x="261.5" y="212.0" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="com.alibaba.dubbo.remoting.transport.ChannelHandlerAdapter" target="com.alibaba.dubbo.remoting.ChannelHandler">
+      <point x="0.0" y="-14.5" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="com.alibaba.dubbo.remoting.transport.AbstractCodec" target="com.alibaba.dubbo.remoting.Codec2">
+      <point x="0.0" y="-14.5" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="com.alibaba.dubbo.remoting.telnet.support.TelnetHandlerAdapter" target="com.alibaba.dubbo.remoting.telnet.TelnetHandler">
+      <point x="45.75" y="-14.5" />
+      <point x="382.875" y="212.0" />
+      <point x="412.5" y="212.0" />
+      <point x="-33.5" y="14.5" />
+    </edge>
+    <edge source="com.alibaba.dubbo.rpc.protocol.dubbo.telnet.ListTelnetHandler" target="com.alibaba.dubbo.remoting.telnet.support.Help">
+      <point x="39.0" y="-14.5" />
+      <point x="576.5" y="212.0" />
+      <point x="583.25" y="212.0" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="com.alibaba.dubbo.remoting.transport.codec.TransportCodec" target="com.alibaba.dubbo.remoting.transport.AbstractCodec">
+      <point x="0.0" y="-14.5" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="com.alibaba.dubbo.remoting.telnet.codec.TelnetCodec" target="com.alibaba.dubbo.remoting.transport.codec.TransportCodec">
+      <point x="0.0" y="-14.5" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="com.alibaba.dubbo.remoting.Codec2" target="com.alibaba.dubbo.common.extension.SPI">
+      <point x="0.0" y="-14.5" />
+      <point x="74.0" y="54.0" />
+      <point x="239.16666666666663" y="54.0" />
+      <point x="-22.333333333333343" y="14.5" />
+    </edge>
+    <edge source="com.alibaba.dubbo.remoting.ChannelHandler" target="com.alibaba.dubbo.common.extension.SPI">
+      <point x="0.0" y="-14.5" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="com.alibaba.dubbo.remoting.telnet.TelnetHandler" target="com.alibaba.dubbo.common.extension.SPI">
+      <point x="0.0" y="-14.5" />
+      <point x="446.0" y="54.0" />
+      <point x="283.8333333333333" y="54.0" />
+      <point x="22.333333333333314" y="14.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.0" x="162.5" y="170.0" />
+  <SelectedNodes>
+    <node>com.alibaba.dubbo.remoting.telnet.support.Help</node>
+  </SelectedNodes>
+  <Categories />
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

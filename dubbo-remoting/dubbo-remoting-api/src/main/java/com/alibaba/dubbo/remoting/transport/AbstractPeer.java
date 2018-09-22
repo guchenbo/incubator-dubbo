@@ -24,6 +24,7 @@ import com.alibaba.dubbo.remoting.Endpoint;
 import com.alibaba.dubbo.remoting.RemotingException;
 
 /**
+ * 里面的方法基本都是传入的ChannelHandler具体实现的
  * AbstractPeer
  */
 public abstract class AbstractPeer implements Endpoint, ChannelHandler {
@@ -80,6 +81,7 @@ public abstract class AbstractPeer implements Endpoint, ChannelHandler {
 
     public ChannelHandler getChannelHandler() {
         if (handler instanceof ChannelHandlerDelegate) {
+            // 如果是委托类型，获得原始的
             return ((ChannelHandlerDelegate) handler).getHandler();
         } else {
             return handler;

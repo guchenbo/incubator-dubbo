@@ -33,6 +33,7 @@ import com.alibaba.dubbo.remoting.exchange.support.DefaultFuture;
 import java.net.InetSocketAddress;
 
 /**
+ * Channel装饰器，里面的方法都是Channel实现
  * ExchangeReceiver
  */
 final class HeaderExchangeChannel implements ExchangeChannel {
@@ -58,6 +59,7 @@ final class HeaderExchangeChannel implements ExchangeChannel {
         }
         HeaderExchangeChannel ret = (HeaderExchangeChannel) ch.getAttribute(CHANNEL_KEY);
         if (ret == null) {
+            // HeaderExchangeChannel 唯一
             ret = new HeaderExchangeChannel(ch);
             if (ch.isConnected()) {
                 ch.setAttribute(CHANNEL_KEY, ret);
@@ -104,7 +106,7 @@ final class HeaderExchangeChannel implements ExchangeChannel {
         // create request.
         Request req = new Request();
         req.setVersion("2.0.0");
-        req.setTwoWay(true);
+        req.setTwoWay(true); // 需要响应
         req.setData(request);
         DefaultFuture future = new DefaultFuture(channel, req, timeout);
         try {

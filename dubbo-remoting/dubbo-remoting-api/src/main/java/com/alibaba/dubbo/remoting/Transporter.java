@@ -24,6 +24,7 @@ import com.alibaba.dubbo.common.extension.SPI;
 import javax.sound.midi.Receiver;
 
 /**
+ * 作用和地位与Exchanger一样
  * Transporter. (SPI, Singleton, ThreadSafe)
  * <p>
  * <a href="http://en.wikipedia.org/wiki/Transport_Layer">Transport Layer</a>
@@ -35,6 +36,7 @@ import javax.sound.midi.Receiver;
 public interface Transporter {
 
     /**
+     * 绑定一个服务器，即启动一个服务器
      * Bind a server.
      *
      * @param url     server url
@@ -47,6 +49,7 @@ public interface Transporter {
     Server bind(URL url, ChannelHandler handler) throws RemotingException;
 
     /**
+     * 连接到一个服务器，即创建一个客户端
      * Connect to a server.
      *
      * @param url     server url

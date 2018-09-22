@@ -14,6 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.alibaba.dubbo.remoting.exchange;
 
 /**
@@ -75,16 +76,29 @@ public class Response {
      */
     public static final byte SERVER_THREADPOOL_EXHAUSTED_ERROR = 100;
 
+    /**
+     * 响应编号，一个Request#mId和一个Response#mId一一对应
+     */
     private long mId = 0;
-
+    /**
+     * Dubbo版本号
+     */
     private String mVersion;
-
+    /**
+     * 响应状态
+     */
     private byte mStatus = OK;
-
+    /**
+     * 是否事件
+     */
     private boolean mEvent = false;
-
+    /**
+     * 错误信息
+     */
     private String mErrorMsg;
-
+    /**
+     * 响应结果
+     */
     private Object mResult;
 
     public Response() {
@@ -161,7 +175,18 @@ public class Response {
 
     @Override
     public String toString() {
-        return "Response [id=" + mId + ", version=" + mVersion + ", status=" + mStatus + ", event=" + mEvent
-                + ", error=" + mErrorMsg + ", result=" + (mResult == this ? "this" : mResult) + "]";
+        return "Response [id="
+                        + mId
+                        + ", version="
+                        + mVersion
+                        + ", status="
+                        + mStatus
+                        + ", event="
+                        + mEvent
+                        + ", error="
+                        + mErrorMsg
+                        + ", result="
+                        + (mResult == this ? "this" : mResult)
+                        + "]";
     }
 }

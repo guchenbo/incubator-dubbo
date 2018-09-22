@@ -22,6 +22,9 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.ByteBuffer;
 
+/**
+ * 基于ByteBuffer实现
+ */
 public class ByteBufferBackedChannelBuffer extends AbstractChannelBuffer {
 
     private final ByteBuffer buffer;
@@ -35,6 +38,7 @@ public class ByteBufferBackedChannelBuffer extends AbstractChannelBuffer {
 
         this.buffer = buffer.slice();
         capacity = buffer.remaining();
+        // 设置写入下标为容量，表示下次写入是在buffer的后面写入，这样就不会覆盖已经存在的buffer
         writerIndex(capacity);
     }
 
@@ -44,6 +48,10 @@ public class ByteBufferBackedChannelBuffer extends AbstractChannelBuffer {
         setIndex(buffer.readerIndex(), buffer.writerIndex());
     }
 
+    /**
+     * 获取工厂
+     * @return
+     */
     public ChannelBufferFactory factory() {
         if (buffer.isDirect()) {
             return DirectChannelBufferFactory.getInstance();

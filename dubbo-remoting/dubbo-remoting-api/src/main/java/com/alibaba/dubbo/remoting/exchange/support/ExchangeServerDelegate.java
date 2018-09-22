@@ -27,6 +27,7 @@ import java.net.InetSocketAddress;
 import java.util.Collection;
 
 /**
+ * ExchangeServer委托者，里面的方法都有属性ExchangeServer实现
  * ExchangeServerDelegate
  */
 public class ExchangeServerDelegate implements ExchangeServer {

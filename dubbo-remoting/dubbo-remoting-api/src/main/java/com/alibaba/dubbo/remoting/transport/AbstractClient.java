@@ -44,6 +44,7 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
 /**
+ * 抽象Client，增加了重连逻辑
  * AbstractClient
  */
 public abstract class AbstractClient extends AbstractEndpoint implements Client {
@@ -51,8 +52,14 @@ public abstract class AbstractClient extends AbstractEndpoint implements Client 
     protected static final String CLIENT_THREAD_POOL_NAME = "DubboClientHandler";
     private static final Logger logger = LoggerFactory.getLogger(AbstractClient.class);
     private static final AtomicInteger CLIENT_THREAD_POOL_ID = new AtomicInteger();
+    /**
+     * 重连的定时任务执行器
+     */
     private static final ScheduledThreadPoolExecutor reconnectExecutorService = new ScheduledThreadPoolExecutor(2, new NamedThreadFactory("DubboClientReconnectTimer", true));
     private final Lock connectLock = new ReentrantLock();
+    /**
+     * 发送消息时断开，是否重连
+     */
     private final boolean send_reconnect;
     private final AtomicInteger reconnect_count = new AtomicInteger(0);
     // Reconnection error log has been called before?
@@ -77,6 +84,7 @@ public abstract class AbstractClient extends AbstractEndpoint implements Client 
         reconnect_warning_period = url.getParameter("reconnect.waring.period", 1800);
 
         try {
+            // 初始化客户端
             doOpen();
         } catch (Throwable t) {
             close();
@@ -92,6 +100,7 @@ public abstract class AbstractClient extends AbstractEndpoint implements Client 
             }
         } catch (RemotingException t) {
             if (url.getParameter(Constants.CHECK_KEY, true)) {
+                // 配置了失败检查就关闭并且抛错
                 close();
                 throw t;
             } else {
@@ -105,14 +114,23 @@ public abstract class AbstractClient extends AbstractEndpoint implements Client 
                             + " connect to the server " + getRemoteAddress() + ", cause: " + t.getMessage(), t);
         }
 
+        // 向DataStore中获取线程池对象然后移除
         executor = (ExecutorService) ExtensionLoader.getExtensionLoader(DataStore.class)
                 .getDefaultExtension().get(Constants.CONSUMER_SIDE, Integer.toString(url.getPort()));
         ExtensionLoader.getExtensionLoader(DataStore.class)
                 .getDefaultExtension().remove(Constants.CONSUMER_SIDE, Integer.toString(url.getPort()));
     }
 
+    /**
+     * 将ChannelHandler包装返回
+     * @param url
+     * @param handler
+     * @return
+     */
     protected static ChannelHandler wrapChannelHandler(URL url, ChannelHandler handler) {
+        //设置url.threadname=xxx
         url = ExecutorUtil.setThreadName(url, CLIENT_THREAD_POOL_NAME);
+        //设置url.threadpool=xxx
         url = url.addParameterIfAbsent(Constants.THREADPOOL_KEY, Constants.DEFAULT_CLIENT_THREADPOOL);
         return ChannelHandlers.wrap(handler, url);
     }
@@ -148,6 +166,7 @@ public abstract class AbstractClient extends AbstractEndpoint implements Client 
         //reconnect=false to close reconnect
         int reconnect = getReconnectParam(getUrl());
         if (reconnect > 0 && (reconnectExecutorFuture == null || reconnectExecutorFuture.isCancelled())) {
+            // 定时重连
             Runnable connectStatusCheckCommand = new Runnable() {
                 public void run() {
                     try {
@@ -262,7 +281,9 @@ public abstract class AbstractClient extends AbstractEndpoint implements Client 
             if (isConnected()) {
                 return;
             }
+            // 初始化重连线程
             initConnectStatusCheckCommand();
+            // 抽象方法，子类实现
             doConnect();
             if (!isConnected()) {
                 throw new RemotingException(this, "Failed connect to server " + getRemoteAddress() + " from " + getClass().getSimpleName() + " "
@@ -275,7 +296,9 @@ public abstract class AbstractClient extends AbstractEndpoint implements Client 
                             + ", channel is " + this.getChannel());
                 }
             }
+            // 设置重连次数归零
             reconnect_count.set(0);
+            // 设置未打印过错误日志
             reconnect_error_log_flag.set(false);
         } catch (RemotingException e) {
             throw e;
@@ -379,6 +402,7 @@ public abstract class AbstractClient extends AbstractEndpoint implements Client 
     protected abstract void doDisConnect() throws Throwable;
 
     /**
+     * 获得已经连接的通道
      * Get the connected channel.
      *
      * @return channel

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement />
+  <nodes>
+    <node x="340.75" y="158.0">com.alibaba.dubbo.remoting.exchange.ExchangeHandler</node>
+    <node x="219.5" y="0.0">com.alibaba.dubbo.remoting.ChannelHandler</node>
+    <node x="346.75" y="237.0">com.alibaba.dubbo.remoting.exchange.support.ExchangeHandlerDispatcher</node>
+    <node x="0.0" y="79.0">com.alibaba.dubbo.remoting.transport.ChannelHandlerAdapter</node>
+    <node x="232.25" y="79.0">com.alibaba.dubbo.remoting.telnet.TelnetHandler</node>
+    <node x="121.75" y="237.0">com.alibaba.dubbo.remoting.exchange.support.ExchangeHandlerAdapter</node>
+    <node x="151.75" y="316.0">com.alibaba.dubbo.remoting.transport.netty.ClientReconnectTest.HandlerAdapter</node>
+    <node x="81.5" y="158.0">com.alibaba.dubbo.remoting.telnet.support.TelnetHandlerAdapter</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="com.alibaba.dubbo.remoting.exchange.support.ExchangeHandlerAdapter" target="com.alibaba.dubbo.remoting.exchange.ExchangeHandler">
+      <point x="51.25" y="-14.5" />
+      <point x="275.5" y="212.0" />
+      <point x="379.75" y="212.0" />
+      <point x="-39.0" y="14.5" />
+    </edge>
+    <edge source="com.alibaba.dubbo.remoting.exchange.ExchangeHandler" target="com.alibaba.dubbo.remoting.telnet.TelnetHandler">
+      <point x="-39.0" y="-14.5" />
+      <point x="379.75" y="133.0" />
+      <point x="332.75" y="133.0" />
+      <point x="33.5" y="14.5" />
+    </edge>
+    <edge source="com.alibaba.dubbo.remoting.telnet.support.TelnetHandlerAdapter" target="com.alibaba.dubbo.remoting.transport.ChannelHandlerAdapter">
+      <point x="-45.75" y="-14.5" />
+      <point x="127.25" y="133.0" />
+      <point x="97.5" y="133.0" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="com.alibaba.dubbo.remoting.exchange.support.ExchangeHandlerDispatcher" target="com.alibaba.dubbo.remoting.exchange.ExchangeHandler">
+      <point x="0.0" y="-14.5" />
+      <point x="39.0" y="14.5" />
+    </edge>
+    <edge source="com.alibaba.dubbo.remoting.exchange.support.ExchangeHandlerAdapter" target="com.alibaba.dubbo.remoting.telnet.support.TelnetHandlerAdapter">
+      <point x="-51.25" y="-14.5" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="com.alibaba.dubbo.remoting.transport.ChannelHandlerAdapter" target="com.alibaba.dubbo.remoting.ChannelHandler">
+      <point x="0.0" y="-14.5" />
+      <point x="97.5" y="54.0" />
+      <point x="256.0" y="54.0" />
+      <point x="-36.5" y="14.5" />
+    </edge>
+    <edge source="com.alibaba.dubbo.remoting.exchange.ExchangeHandler" target="com.alibaba.dubbo.remoting.ChannelHandler">
+      <point x="39.0" y="-14.5" />
+      <point x="457.75" y="133.0" />
+      <point x="440.75" y="133.0" />
+      <point x="440.75" y="54.0" />
+      <point x="329.0" y="54.0" />
+      <point x="36.5" y="14.5" />
+    </edge>
+    <edge source="com.alibaba.dubbo.remoting.telnet.support.TelnetHandlerAdapter" target="com.alibaba.dubbo.remoting.telnet.TelnetHandler">
+      <point x="45.75" y="-14.5" />
+      <point x="218.75" y="133.0" />
+      <point x="265.75" y="133.0" />
+      <point x="-33.5" y="14.5" />
+    </edge>
+    <edge source="com.alibaba.dubbo.remoting.transport.netty.ClientReconnectTest.HandlerAdapter" target="com.alibaba.dubbo.remoting.exchange.support.ExchangeHandlerAdapter">
+      <point x="0.0" y="-14.5" />
+      <point x="0.0" y="14.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.0" x="226.0" y="133.0" />
+  <SelectedNodes>
+    <node>com.alibaba.dubbo.remoting.exchange.support.ExchangeHandlerDispatcher</node>
+  </SelectedNodes>
+  <Categories />
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+
