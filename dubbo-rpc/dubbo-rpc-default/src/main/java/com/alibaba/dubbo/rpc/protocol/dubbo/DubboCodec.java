@@ -44,6 +44,7 @@ import java.io.InputStream;
 import static com.alibaba.dubbo.rpc.protocol.dubbo.CallbackServiceCodec.encodeInvocationArgument;
 
 /**
+ * 只用于DubboCountCodec类
  * Dubbo codec.
  */
 public class DubboCodec extends ExchangeCodec implements Codec2 {
@@ -59,6 +60,7 @@ public class DubboCodec extends ExchangeCodec implements Codec2 {
 
     protected Object decodeBody(Channel channel, InputStream is, byte[] header) throws IOException {
         byte flag = header[2], proto = (byte) (flag & SERIALIZATION_MASK);
+        // proto是serialization.getContentTypeId()
         Serialization s = CodecSupport.getSerialization(channel.getUrl(), proto);
         // flag 用来做各种判断，只要一个字节就能进行各种判断，如果的操作在fastjson里也有过
         // get request id.
@@ -84,6 +86,7 @@ public class DubboCodec extends ExchangeCodec implements Codec2 {
                         if (channel.getUrl().getParameter(
                                 Constants.DECODE_IN_IO_THREAD_KEY,
                                 Constants.DEFAULT_DECODE_IN_IO_THREAD)) {
+                            // 在通信框架（如netty）的IO线程中解密，默认是true
                             result = new DecodeableRpcResult(channel, res, is,
                                     (Invocation) getRequestData(id), proto);
                             result.decode();
@@ -125,6 +128,7 @@ public class DubboCodec extends ExchangeCodec implements Codec2 {
                     if (channel.getUrl().getParameter(
                             Constants.DECODE_IN_IO_THREAD_KEY,
                             Constants.DEFAULT_DECODE_IN_IO_THREAD)) {
+                        // 在通信框架（如netty）的IO线程中解密，默认是true
                         inv = new DecodeableRpcInvocation(channel, req, is, proto);
                         inv.decode();
                     } else {
@@ -178,6 +182,13 @@ public class DubboCodec extends ExchangeCodec implements Codec2 {
         out.writeObject(inv.getAttachments());
     }
 
+    /**
+     * 写入响应返回的类型+响应的值
+     * @param channel
+     * @param out
+     * @param data
+     * @throws IOException
+     */
     @Override
     protected void encodeResponseData(Channel channel, ObjectOutput out, Object data) throws IOException {
         Result result = (Result) data;

@@ -23,6 +23,9 @@ import java.io.OutputStream;
 public class ChannelBufferOutputStream extends OutputStream {
 
     private final ChannelBuffer buffer;
+    /**
+     * 初始的开始位置，设置之后不会改变
+     */
     private final int startIndex;
 
     public ChannelBufferOutputStream(ChannelBuffer buffer) {
@@ -33,10 +36,21 @@ public class ChannelBufferOutputStream extends OutputStream {
         startIndex = buffer.writerIndex();
     }
 
+    /**
+     * 已经写入了多少字节
+     * @return
+     */
     public int writtenBytes() {
         return buffer.writerIndex() - startIndex;
     }
 
+    /**
+     * 从数组b中，从off开始读取len的长度，写入到流里，从数组里写入到流里
+     * @param b
+     * @param off
+     * @param len
+     * @throws IOException
+     */
     @Override
     public void write(byte[] b, int off, int len) throws IOException {
         if (len == 0) {
@@ -46,11 +60,21 @@ public class ChannelBufferOutputStream extends OutputStream {
         buffer.writeBytes(b, off, len);
     }
 
+    /**
+     * 写入一个字节
+     * @param b
+     * @throws IOException
+     */
     @Override
     public void write(byte[] b) throws IOException {
         buffer.writeBytes(b);
     }
 
+    /**
+     * 写入一个字节，将init强转为byte，高24位直接舍弃
+     * @param b
+     * @throws IOException
+     */
     @Override
     public void write(int b) throws IOException {
         buffer.writeByte((byte) b);

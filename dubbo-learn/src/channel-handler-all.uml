@@ -1,0 +1,333 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement />
+  <nodes>
+    <node x="0.0" y="404.0">$__ClassNameTestDubboStub.echo_result._Fields</node>
+    <node x="765.2344720496897" y="249.0">com.alibaba.dubbo.remoting.transport.dispatcher.execution.ExecutionChannelHandler</node>
+    <node x="434.23447204968966" y="249.0">com.alibaba.dubbo.remoting.exchange.support.header.HeartbeatHandler</node>
+    <node x="1739.392080745342" y="169.0">com.alibaba.dubbo.remoting.transport.AbstractChannel</node>
+    <node x="75.0" y="404.0">ClassNameTestThrift.Processor.echo</node>
+    <node x="150.0" y="404.0">$__ClassNameTestDubboStub.echo_args._Fields</node>
+    <node x="1412.9844720496897" y="329.0">com.alibaba.dubbo.remoting.transport.netty.NettyClient</node>
+    <node x="815.2344720496897" y="249.0">com.alibaba.dubbo.remoting.transport.dispatcher.connection.ConnectionOrderedChannelHandler</node>
+    <node x="790.2344720496897" y="89.0">com.alibaba.dubbo.remoting.transport.ChannelHandlerDelegate</node>
+    <node x="485.8920807453418" y="169.0">com.alibaba.dubbo.remoting.transport.AbstractChannelHandlerDelegate</node>
+    <node x="1818.4844720496897" y="249.0">com.alibaba.dubbo.remoting.transport.mina.MinaChannel</node>
+    <node x="1768.4844720496897" y="249.0">com.alibaba.dubbo.remoting.transport.netty.NettyChannel</node>
+    <node x="1226.9844720496897" y="329.0">com.alibaba.dubbo.remoting.transport.grizzly.GrizzlyServer</node>
+    <node x="0.0" y="249.0">com.alibaba.dubbo.remoting.handler.WrappedChannelHandlerTest.BizChannelHander</node>
+    <node x="534.2344720496897" y="249.0">com.alibaba.dubbo.remoting.transport.MultiMessageHandler</node>
+    <node x="1113.2344720496897" y="249.0">com.alibaba.dubbo.examples.heartbeat.HeartBeatExchangeHandler</node>
+    <node x="50.0" y="249.0">com.alibaba.dubbo.remoting.handler.HeaderExchangeHandlerTest.MockedExchangeHandler</node>
+    <node x="1366.142080745342" y="169.0">com.alibaba.dubbo.remoting.transport.AbstractEndpoint</node>
+    <node x="150.0" y="249.0">com.alibaba.dubbo.remoting.exchange.support.ExchangeHandlerDispatcher</node>
+    <node x="484.0697463768116" y="329.0">com.alibaba.dubbo.remoting.ChanelHandlerTest.PeformanceTestHandler</node>
+    <node x="1201.9844720496897" y="249.0">com.alibaba.dubbo.remoting.transport.AbstractServer</node>
+    <node x="484.23447204968966" y="249.0">com.alibaba.dubbo.remoting.transport.DecodeHandler</node>
+    <node x="225.0" y="404.0">$__ClassNameTestDubboStub.Processor.echo</node>
+    <node x="1644.9844720496897" y="329.0">com.alibaba.dubbo.remoting.transport.grizzly.GrizzlyClient</node>
+    <node x="1508.4844720496897" y="249.0">com.alibaba.dubbo.remoting.transport.AbstractClient</node>
+    <node x="1718.4844720496897" y="249.0">com.alibaba.dubbo.remoting.transport.netty4.NettyChannel</node>
+    <node x="300.0" y="404.0">ClassNameTestThrift.AsyncClient.echo_call</node>
+    <node x="338.75" y="169.0">com.alibaba.dubbo.remoting.telnet.support.TelnetHandlerAdapter</node>
+    <node x="1278.9844720496897" y="89.0">com.alibaba.dubbo.remoting.transport.netty.ThreadNameTest.ThreadNameVerifyHandler</node>
+    <node x="1501.25" y="89.0">com.alibaba.dubbo.remoting.transport.AbstractPeer</node>
+    <node x="375.0" y="404.0">ClassNameTestThrift.echo_args._Fields</node>
+    <node x="1176.9844720496897" y="329.0">com.alibaba.dubbo.remoting.transport.netty4.NettyServer</node>
+    <node x="21.25" y="169.0">com.alibaba.dubbo.remoting.handler.MockedChannelHandler</node>
+    <node x="1462.9844720496897" y="329.0">com.alibaba.dubbo.remoting.transport.netty4.NettyClient</node>
+    <node x="1228.9844720496897" y="89.0">com.alibaba.dubbo.remoting.transport.ChannelHandlerDispatcher</node>
+    <node x="450.0" y="404.0">ClassNameTestThrift.AsyncClient.Factory</node>
+    <node x="125.26513975155308" y="169.0">com.alibaba.dubbo.remoting.exchange.ExchangeHandler</node>
+    <node x="100.0" y="249.0">com.alibaba.dubbo.remoting.exchange.support.header.HeartbeatHandlerTest.TestHeartbeatHandler</node>
+    <node x="790.2344720496897" y="169.0">com.alibaba.dubbo.remoting.transport.dispatcher.WrappedChannelHandler</node>
+    <node x="525.0" y="404.0">ClassNameTestThrift.Client.Factory</node>
+    <node x="23.234472049689657" y="329.5">com.alibaba.dubbo.remoting.PerformanceClientTest.PeformanceTestHandler</node>
+    <node x="732.2344720496897" y="0.0">com.alibaba.dubbo.remoting.ChannelHandler</node>
+    <node x="256.25" y="89.5">com.alibaba.dubbo.remoting.transport.ChannelHandlerAdapter</node>
+    <node x="1512.9844720496897" y="329.5">com.alibaba.dubbo.remoting.transport.mina.MinaClient</node>
+    <node x="865.2344720496897" y="249.5">com.alibaba.dubbo.remoting.transport.dispatcher.message.MessageOnlyChannelHandler</node>
+    <node x="1558.4844720496897" y="249.5">com.alibaba.dubbo.remoting.transport.grizzly.GrizzlyChannel</node>
+    <node x="200.0" y="249.5">com.alibaba.dubbo.remoting.exchange.support.ExchangeHandlerAdapter</node>
+    <node x="1028.2344720496897" y="169.5">com.alibaba.dubbo.remoting.exchange.support.header.HeaderExchangeHandler</node>
+    <node x="239.23447204968966" y="329.5">com.alibaba.dubbo.remoting.transport.netty.ClientReconnectTest.HandlerAdapter</node>
+    <node x="584.2344720496897" y="249.5">com.alibaba.dubbo.remoting.transport.dispatcher.all.AllChannelHandler</node>
+    <node x="903.0151397515532" y="329.5">com.alibaba.dubbo.remoting.transport.netty.NettyServer</node>
+    <node x="1276.9844720496897" y="329.5">com.alibaba.dubbo.remoting.transport.mina.MinaServer</node>
+    <node x="664.0" y="404.0">ClassNameTestThrift.echo_result._Fields</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="com.alibaba.dubbo.remoting.handler.WrappedChannelHandlerTest.BizChannelHander" target="com.alibaba.dubbo.remoting.handler.MockedChannelHandler">
+      <point x="0.0" y="-15.0" />
+      <point x="15.0" y="229.0" />
+      <point x="28.75" y="229.0" />
+      <point x="-7.5" y="15.0" />
+    </edge>
+    <edge source="com.alibaba.dubbo.remoting.exchange.support.ExchangeHandlerDispatcher" target="com.alibaba.dubbo.remoting.exchange.ExchangeHandler">
+      <point x="0.0" y="-15.0" />
+      <point x="165.0" y="229.0" />
+      <point x="144.01513975155308" y="229.0" />
+      <point x="3.75" y="15.0" />
+    </edge>
+    <edge source="com.alibaba.dubbo.remoting.transport.mina.MinaChannel" target="com.alibaba.dubbo.remoting.transport.AbstractChannel">
+      <point x="0.0" y="-15.0" />
+      <point x="1833.4844720496897" y="219.0" />
+      <point x="1765.642080745342" y="219.0" />
+      <point x="11.25" y="15.0" />
+    </edge>
+    <edge source="com.alibaba.dubbo.remoting.exchange.support.header.HeartbeatHandlerTest.TestHeartbeatHandler" target="com.alibaba.dubbo.remoting.exchange.ExchangeHandler">
+      <point x="0.0" y="-15.0" />
+      <point x="115.0" y="229.0" />
+      <point x="136.51513975155308" y="229.0" />
+      <point x="-3.75" y="15.0" />
+    </edge>
+    <edge source="com.alibaba.dubbo.remoting.transport.dispatcher.connection.ConnectionOrderedChannelHandler" target="com.alibaba.dubbo.remoting.transport.dispatcher.WrappedChannelHandler">
+      <point x="0.0" y="-15.0" />
+      <point x="830.2344720496897" y="229.0" />
+      <point x="808.9844720496897" y="229.0" />
+      <point x="3.75" y="15.0" />
+    </edge>
+    <edge source="com.alibaba.dubbo.remoting.transport.MultiMessageHandler" target="com.alibaba.dubbo.remoting.transport.AbstractChannelHandlerDelegate">
+      <point x="0.0" y="-15.0" />
+      <point x="549.2344720496897" y="229.0" />
+      <point x="510.8920807453418" y="229.0" />
+      <point x="10.0" y="15.0" />
+    </edge>
+    <edge source="com.alibaba.dubbo.remoting.transport.DecodeHandler" target="com.alibaba.dubbo.remoting.transport.AbstractChannelHandlerDelegate">
+      <point x="0.0" y="-15.0" />
+      <point x="499.23447204968966" y="229.0" />
+      <point x="500.8920807453418" y="229.0" />
+      <point x="0.0" y="15.0" />
+    </edge>
+    <edge source="com.alibaba.dubbo.remoting.transport.grizzly.GrizzlyClient" target="com.alibaba.dubbo.remoting.transport.AbstractClient">
+      <point x="0.0" y="-15.0" />
+      <point x="1659.9844720496897" y="299.0" />
+      <point x="1534.7344720496897" y="299.0" />
+      <point x="11.25" y="15.0" />
+    </edge>
+    <edge source="com.alibaba.dubbo.remoting.transport.AbstractEndpoint" target="com.alibaba.dubbo.remoting.transport.AbstractPeer">
+      <point x="0.0" y="-15.0" />
+      <point x="1381.142080745342" y="144.0" />
+      <point x="1508.75" y="144.0" />
+      <point x="-7.5" y="15.0" />
+    </edge>
+    <edge source="com.alibaba.dubbo.remoting.exchange.support.ExchangeHandlerAdapter" target="com.alibaba.dubbo.remoting.exchange.ExchangeHandler">
+      <point x="-51.25" y="-14.5" />
+      <point x="251.25" y="219.0" />
+      <point x="151.51513975155308" y="219.0" />
+      <point x="11.25" y="15.0" />
+    </edge>
+    <edge source="com.alibaba.dubbo.remoting.transport.AbstractPeer" target="com.alibaba.dubbo.remoting.ChannelHandler">
+      <point x="0.0" y="-15.0" />
+      <point x="1516.25" y="49.0" />
+      <point x="867.8059006211182" y="49.0" />
+      <point x="62.571428571428555" y="14.5" />
+    </edge>
+    <edge source="com.alibaba.dubbo.remoting.transport.dispatcher.message.MessageOnlyChannelHandler" target="com.alibaba.dubbo.remoting.transport.dispatcher.WrappedChannelHandler">
+      <point x="0.0" y="-14.5" />
+      <point x="979.2344720496897" y="219.0" />
+      <point x="816.4844720496897" y="219.0" />
+      <point x="11.25" y="15.0" />
+    </edge>
+    <edge source="com.alibaba.dubbo.remoting.transport.netty.NettyServer" target="com.alibaba.dubbo.remoting.transport.AbstractServer">
+      <point x="0.0" y="-14.5" />
+      <point x="963.5151397515532" y="299.0" />
+      <point x="1205.7344720496897" y="299.0" />
+      <point x="-11.25" y="15.0" />
+    </edge>
+    <edge source="com.alibaba.dubbo.remoting.transport.netty4.NettyClient" target="com.alibaba.dubbo.remoting.transport.AbstractClient">
+      <point x="0.0" y="-15.0" />
+      <point x="1477.9844720496897" y="309.0" />
+      <point x="1519.7344720496897" y="309.0" />
+      <point x="-3.75" y="15.0" />
+    </edge>
+    <edge source="com.alibaba.dubbo.remoting.transport.ChannelHandlerAdapter" target="com.alibaba.dubbo.remoting.ChannelHandler">
+      <point x="0.0" y="-14.5" />
+      <point x="353.75" y="69.0" />
+      <point x="784.3773291925468" y="69.0" />
+      <point x="-20.85714285714289" y="14.5" />
+    </edge>
+    <edge source="com.alibaba.dubbo.remoting.transport.netty.ThreadNameTest.ThreadNameVerifyHandler" target="com.alibaba.dubbo.remoting.ChannelHandler">
+      <point x="0.0" y="-15.0" />
+      <point x="1293.9844720496897" y="59.0" />
+      <point x="846.9487577639754" y="59.0" />
+      <point x="41.71428571428572" y="14.5" />
+    </edge>
+    <edge source="com.alibaba.dubbo.remoting.transport.mina.MinaServer" target="com.alibaba.dubbo.remoting.transport.AbstractServer">
+      <point x="0.0" y="-14.5" />
+      <point x="1334.9844720496897" y="299.0" />
+      <point x="1228.2344720496897" y="299.0" />
+      <point x="11.25" y="15.0" />
+    </edge>
+    <edge source="com.alibaba.dubbo.remoting.transport.netty.ClientReconnectTest.HandlerAdapter" target="com.alibaba.dubbo.remoting.exchange.support.ExchangeHandlerAdapter">
+      <point x="0.0" y="-14.5" />
+      <point x="311.73447204968966" y="309.0" />
+      <point x="302.5" y="309.0" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="com.alibaba.dubbo.remoting.transport.grizzly.GrizzlyChannel" target="com.alibaba.dubbo.remoting.transport.AbstractChannel">
+      <point x="0.0" y="-14.5" />
+      <point x="1628.4844720496897" y="219.0" />
+      <point x="1743.142080745342" y="219.0" />
+      <point x="-11.25" y="15.0" />
+    </edge>
+    <edge source="com.alibaba.dubbo.examples.heartbeat.HeartBeatExchangeHandler" target="com.alibaba.dubbo.remoting.exchange.support.header.HeaderExchangeHandler">
+      <point x="0.0" y="-15.0" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="com.alibaba.dubbo.remoting.transport.AbstractClient" target="com.alibaba.dubbo.remoting.transport.AbstractEndpoint">
+      <point x="0.0" y="-15.0" />
+      <point x="1523.4844720496897" y="229.0" />
+      <point x="1388.642080745342" y="229.0" />
+      <point x="7.5" y="15.0" />
+    </edge>
+    <edge source="com.alibaba.dubbo.remoting.transport.dispatcher.WrappedChannelHandler" target="com.alibaba.dubbo.remoting.transport.ChannelHandlerDelegate">
+      <point x="0.0" y="-15.0" />
+      <point x="0.0" y="15.0" />
+    </edge>
+    <edge source="com.alibaba.dubbo.remoting.transport.dispatcher.all.AllChannelHandler" target="com.alibaba.dubbo.remoting.transport.dispatcher.WrappedChannelHandler">
+      <point x="0.0" y="-14.5" />
+      <point x="664.7344720496897" y="219.0" />
+      <point x="793.9844720496897" y="219.0" />
+      <point x="-11.25" y="15.0" />
+    </edge>
+    <edge source="com.alibaba.dubbo.remoting.transport.netty4.NettyChannel" target="com.alibaba.dubbo.remoting.transport.AbstractChannel">
+      <point x="0.0" y="-15.0" />
+      <point x="1733.4844720496897" y="229.0" />
+      <point x="1750.642080745342" y="229.0" />
+      <point x="-3.75" y="15.0" />
+    </edge>
+    <edge source="com.alibaba.dubbo.remoting.ChanelHandlerTest.PeformanceTestHandler" target="com.alibaba.dubbo.remoting.exchange.support.ExchangeHandlerAdapter">
+      <point x="0.0" y="-15.0" />
+      <point x="499.0697463768116" y="309.0" />
+      <point x="370.8333333333333" y="309.0" />
+      <point x="68.33333333333331" y="14.5" />
+    </edge>
+    <edge source="com.alibaba.dubbo.remoting.handler.MockedChannelHandler" target="com.alibaba.dubbo.remoting.ChannelHandler">
+      <point x="0.0" y="-15.0" />
+      <point x="36.25" y="49.0" />
+      <point x="742.6630434782611" y="49.0" />
+      <point x="-62.571428571428555" y="14.5" />
+    </edge>
+    <edge source="com.alibaba.dubbo.remoting.transport.grizzly.GrizzlyServer" target="com.alibaba.dubbo.remoting.transport.AbstractServer">
+      <point x="0.0" y="-15.0" />
+      <point x="1241.9844720496897" y="309.0" />
+      <point x="1220.7344720496897" y="309.0" />
+      <point x="3.75" y="15.0" />
+    </edge>
+    <edge source="com.alibaba.dubbo.remoting.exchange.support.ExchangeHandlerAdapter" target="com.alibaba.dubbo.remoting.telnet.support.TelnetHandlerAdapter">
+      <point x="51.25" y="-14.5" />
+      <point x="0.0" y="15.0" />
+    </edge>
+    <edge source="com.alibaba.dubbo.remoting.transport.dispatcher.execution.ExecutionChannelHandler" target="com.alibaba.dubbo.remoting.transport.dispatcher.WrappedChannelHandler">
+      <point x="0.0" y="-15.0" />
+      <point x="780.2344720496897" y="229.0" />
+      <point x="801.4844720496897" y="229.0" />
+      <point x="-3.75" y="15.0" />
+    </edge>
+    <edge source="com.alibaba.dubbo.remoting.transport.netty4.NettyServer" target="com.alibaba.dubbo.remoting.transport.AbstractServer">
+      <point x="0.0" y="-15.0" />
+      <point x="1191.9844720496897" y="309.0" />
+      <point x="1213.2344720496897" y="309.0" />
+      <point x="-3.75" y="15.0" />
+    </edge>
+    <edge source="com.alibaba.dubbo.remoting.handler.HeaderExchangeHandlerTest.MockedExchangeHandler" target="com.alibaba.dubbo.remoting.exchange.ExchangeHandler">
+      <point x="7.5" y="-15.0" />
+      <point x="72.5" y="219.0" />
+      <point x="129.01513975155308" y="219.0" />
+      <point x="-11.25" y="15.0" />
+    </edge>
+    <edge source="com.alibaba.dubbo.remoting.telnet.support.TelnetHandlerAdapter" target="com.alibaba.dubbo.remoting.transport.ChannelHandlerAdapter">
+      <point x="0.0" y="-15.0" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="com.alibaba.dubbo.remoting.transport.AbstractServer" target="com.alibaba.dubbo.remoting.transport.AbstractEndpoint">
+      <point x="0.0" y="-15.0" />
+      <point x="1216.9844720496897" y="229.0" />
+      <point x="1373.642080745342" y="229.0" />
+      <point x="-7.5" y="15.0" />
+    </edge>
+    <edge source="com.alibaba.dubbo.remoting.exchange.support.header.HeaderExchangeHandler" target="com.alibaba.dubbo.remoting.transport.ChannelHandlerDelegate">
+      <point x="0.0" y="-14.5" />
+      <point x="1128.2344720496897" y="144.0" />
+      <point x="815.2344720496897" y="144.0" />
+      <point x="10.0" y="15.0" />
+    </edge>
+    <edge source="com.alibaba.dubbo.remoting.transport.mina.MinaClient" target="com.alibaba.dubbo.remoting.transport.AbstractClient">
+      <point x="0.0" y="-14.5" />
+      <point x="1568.9844720496897" y="309.0" />
+      <point x="1527.2344720496897" y="309.0" />
+      <point x="3.75" y="15.0" />
+    </edge>
+    <edge source="com.alibaba.dubbo.remoting.exchange.support.header.HeartbeatHandler" target="com.alibaba.dubbo.remoting.transport.AbstractChannelHandlerDelegate">
+      <point x="-5.6843418860808015E-14" y="-15.0" />
+      <point x="449.2344720496896" y="229.0" />
+      <point x="490.8920807453418" y="229.0" />
+      <point x="-10.0" y="15.0" />
+    </edge>
+    <edge source="com.alibaba.dubbo.remoting.transport.netty.NettyChannel" target="com.alibaba.dubbo.remoting.transport.AbstractChannel">
+      <point x="0.0" y="-15.0" />
+      <point x="1783.4844720496897" y="229.0" />
+      <point x="1758.142080745342" y="229.0" />
+      <point x="3.75" y="15.0" />
+    </edge>
+    <edge source="com.alibaba.dubbo.remoting.transport.AbstractChannel" target="com.alibaba.dubbo.remoting.transport.AbstractPeer">
+      <point x="0.0" y="-15.0" />
+      <point x="1754.392080745342" y="144.0" />
+      <point x="1523.75" y="144.0" />
+      <point x="7.5" y="15.0" />
+    </edge>
+    <edge source="com.alibaba.dubbo.remoting.exchange.ExchangeHandler" target="com.alibaba.dubbo.remoting.ChannelHandler">
+      <point x="0.0" y="-15.0" />
+      <point x="140.26513975155308" y="59.0" />
+      <point x="763.5201863354039" y="59.0" />
+      <point x="-41.71428571428572" y="14.5" />
+    </edge>
+    <edge source="com.alibaba.dubbo.remoting.transport.ChannelHandlerDelegate" target="com.alibaba.dubbo.remoting.ChannelHandler">
+      <point x="0.0" y="-15.0" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="com.alibaba.dubbo.remoting.transport.AbstractChannelHandlerDelegate" target="com.alibaba.dubbo.remoting.transport.ChannelHandlerDelegate">
+      <point x="0.0" y="-15.0" />
+      <point x="500.8920807453418" y="144.0" />
+      <point x="795.2344720496897" y="144.0" />
+      <point x="-10.0" y="15.0" />
+    </edge>
+    <edge source="com.alibaba.dubbo.remoting.transport.ChannelHandlerDispatcher" target="com.alibaba.dubbo.remoting.ChannelHandler">
+      <point x="0.0" y="-15.0" />
+      <point x="1243.9844720496897" y="69.0" />
+      <point x="826.0916149068325" y="69.0" />
+      <point x="20.85714285714289" y="14.5" />
+    </edge>
+    <edge source="com.alibaba.dubbo.remoting.handler.HeaderExchangeHandlerTest.MockedExchangeHandler" target="com.alibaba.dubbo.remoting.handler.MockedChannelHandler">
+      <point x="-7.5" y="-15.0" />
+      <point x="57.5" y="229.0" />
+      <point x="43.75" y="229.0" />
+      <point x="7.5" y="15.0" />
+    </edge>
+    <edge source="com.alibaba.dubbo.remoting.transport.netty.NettyClient" target="com.alibaba.dubbo.remoting.transport.AbstractClient">
+      <point x="0.0" y="-15.0" />
+      <point x="1427.9844720496897" y="299.0" />
+      <point x="1512.2344720496897" y="299.0" />
+      <point x="-11.25" y="15.0" />
+    </edge>
+    <edge source="com.alibaba.dubbo.remoting.PerformanceClientTest.PeformanceTestHandler" target="com.alibaba.dubbo.remoting.exchange.support.ExchangeHandlerAdapter">
+      <point x="0.0" y="-14.5" />
+      <point x="121.23447204968966" y="309.0" />
+      <point x="234.16666666666674" y="309.0" />
+      <point x="-68.33333333333331" y="14.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.287841796875" x="665.0" y="177.5" />
+  <SelectedNodes>
+    <node>$__ClassNameTestDubboStub.echo_result._Fields</node>
+  </SelectedNodes>
+  <Categories>
+    <Category>Inner Classes</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

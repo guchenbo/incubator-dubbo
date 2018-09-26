@@ -16,6 +16,8 @@
  */
 package com.alibaba.dubbo.demo.provider;
 
+import com.alibaba.dubbo.common.extension.ExtensionLoader;
+import com.alibaba.dubbo.remoting.ChannelHandler;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public class Provider {
@@ -26,6 +28,9 @@ public class Provider {
         System.setProperty("java.net.preferIPv4Stack", "true");
         ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(new String[]{"META-INF/spring/dubbo-demo-provider.xml"});
         context.start();
+
+        ExtensionLoader extensionLoader = ExtensionLoader.getExtensionLoader(ChannelHandler.class);
+        System.out.println(extensionLoader.getSupportedExtensions());
 
         System.in.read(); // press any key to exit
     }

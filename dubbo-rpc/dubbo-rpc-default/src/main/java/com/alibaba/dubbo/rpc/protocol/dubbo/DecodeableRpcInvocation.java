@@ -83,6 +83,7 @@ public class DecodeableRpcInvocation extends RpcInvocation implements Codec, Dec
     }
 
     public Object decode(Channel channel, InputStream input) throws IOException {
+        // 使用Serialization，将input反序列为ObjectInput
         ObjectInput in = CodecSupport.getSerialization(channel.getUrl(), serializationType)
                 .deserialize(channel.getUrl(), input);
 

@@ -22,5 +22,9 @@ import com.alibaba.dubbo.remoting.ChannelHandler;
  * ChannelHandler委托器
  */
 public interface ChannelHandlerDelegate extends ChannelHandler {
+    /**
+     * 返回委托者，这个委托者才是真正的实现这
+     * @return
+     */
     ChannelHandler getHandler();
 }

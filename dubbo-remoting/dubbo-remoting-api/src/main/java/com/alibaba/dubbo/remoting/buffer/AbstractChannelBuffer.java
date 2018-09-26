@@ -251,6 +251,10 @@ public abstract class AbstractChannelBuffer implements ChannelBuffer {
         readerIndex += length;
     }
 
+    /**
+     * 将读取下标记上length个长度，也就是表示跳过length长度
+     * @param length
+     */
     public void skipBytes(int length) {
         int newReaderIndex = readerIndex + length;
         if (newReaderIndex > writerIndex) {

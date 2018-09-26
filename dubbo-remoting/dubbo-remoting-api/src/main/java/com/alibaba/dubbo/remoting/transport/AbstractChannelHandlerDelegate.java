@@ -22,7 +22,8 @@ import com.alibaba.dubbo.remoting.ChannelHandler;
 import com.alibaba.dubbo.remoting.RemotingException;
 
 /**
- * 多个ChannelHandler装饰器可以组合在一起，完成一套功能
+ * 多个ChannelHandler委派器可以组合在一起，完成一套功能
+ * 功能都是由被委托者属性handler实现的
  */
 public abstract class AbstractChannelHandlerDelegate implements ChannelHandlerDelegate {
 
@@ -35,6 +36,7 @@ public abstract class AbstractChannelHandlerDelegate implements ChannelHandlerDe
 
     public ChannelHandler getHandler() {
         if (handler instanceof ChannelHandlerDelegate) {
+            // 如果是委派器，找到它的被委托者
             return ((ChannelHandlerDelegate) handler).getHandler();
         }
         return handler;

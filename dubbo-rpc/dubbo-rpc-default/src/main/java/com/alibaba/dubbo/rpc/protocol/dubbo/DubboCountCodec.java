@@ -29,6 +29,9 @@ import com.alibaba.dubbo.rpc.RpcResult;
 
 import java.io.IOException;
 
+/**
+ * 具体由DubboCodec属性实现编码解密，DubboCountCodec加入了一些额外的功能
+ */
 public final class DubboCountCodec implements Codec2 {
 
     private DubboCodec codec = new DubboCodec();
@@ -38,16 +41,23 @@ public final class DubboCountCodec implements Codec2 {
     }
 
     public Object decode(Channel channel, ChannelBuffer buffer) throws IOException {
+        // 当前可读取位置
         int save = buffer.readerIndex();
+        // MultiMessage对象，里面包含了多条信息
         MultiMessage result = MultiMessage.create();
         do {
+            // 循环解码
             Object obj = codec.decode(channel, buffer);
             if (Codec2.DecodeResult.NEED_MORE_INPUT == obj) {
+                // 没有更多的信息了，将可读取下标重置为上次的地方
                 buffer.readerIndex(save);
                 break;
             } else {
+                // 加入到信息集合里
                 result.addMessage(obj);
+                // 记录信息的长度
                 logMessageLength(obj, buffer.readerIndex() - save);
+                // 记录当前可读取下标
                 save = buffer.readerIndex();
             }
         } while (true);
