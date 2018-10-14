@@ -29,6 +29,7 @@ import com.alibaba.dubbo.rpc.cluster.LoadBalance;
 import java.util.List;
 
 /**
+ * 广播调用所有提供者，逐个调用，任意一台报错则报错。通常用于通知所有提供者更新缓存或日志等本地资源信息。
  * BroadcastClusterInvoker
  *
  */
@@ -43,10 +44,12 @@ public class BroadcastClusterInvoker<T> extends AbstractClusterInvoker<T> {
     @SuppressWarnings({"unchecked", "rawtypes"})
     public Result doInvoke(final Invocation invocation, List<Invoker<T>> invokers, LoadBalance loadbalance) throws RpcException {
         checkInvokers(invokers, invocation);
+        // 设置到RpcContext中
         RpcContext.getContext().setInvokers((List) invokers);
         RpcException exception = null;
         Result result = null;
         for (Invoker<T> invoker : invokers) {
+            // 循环调用所有invokers，报错会被记录下来，try-catch
             try {
                 result = invoker.invoke(invocation);
             } catch (RpcException e) {
@@ -57,6 +60,7 @@ public class BroadcastClusterInvoker<T> extends AbstractClusterInvoker<T> {
                 logger.warn(e.getMessage(), e);
             }
         }
+        // 只要有过报错就会throw错误
         if (exception != null) {
             throw exception;
         }

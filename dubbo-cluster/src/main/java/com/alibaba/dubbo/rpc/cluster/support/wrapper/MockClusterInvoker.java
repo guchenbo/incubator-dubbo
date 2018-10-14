@@ -32,6 +32,10 @@ import com.alibaba.dubbo.rpc.support.MockInvoker;
 
 import java.util.List;
 
+/**
+ * 带有mock功能的invoker，里面封装了真正的invoker对象
+ * @param <T>
+ */
 public class MockClusterInvoker<T> implements Invoker<T> {
 
     private static final Logger logger = LoggerFactory.getLogger(MockClusterInvoker.class);
@@ -65,6 +69,7 @@ public class MockClusterInvoker<T> implements Invoker<T> {
         Result result = null;
 
         String value = directory.getUrl().getMethodParameter(invocation.getMethodName(), Constants.MOCK_KEY, Boolean.FALSE.toString()).trim();
+        // 是否开启mock功能，force强制开启
         if (value.length() == 0 || value.equalsIgnoreCase("false")) {
             //no mock
             result = this.invoker.invoke(invocation);
@@ -75,7 +80,7 @@ public class MockClusterInvoker<T> implements Invoker<T> {
             //force:direct mock
             result = doMockInvoke(invocation, null);
         } else {
-            //fail-mock
+            //fail-mock，失败才开启
             try {
                 result = this.invoker.invoke(invocation);
             } catch (RpcException e) {

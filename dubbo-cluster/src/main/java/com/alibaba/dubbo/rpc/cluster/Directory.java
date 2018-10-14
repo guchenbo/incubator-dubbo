@@ -33,6 +33,7 @@ import java.util.List;
 public interface Directory<T> extends Node {
 
     /**
+     * 服务接口类型
      * get service type.
      *
      * @return service type.
@@ -40,6 +41,7 @@ public interface Directory<T> extends Node {
     Class<T> getInterface();
 
     /**
+     * 返回invoker集合
      * list invokers.
      *
      * @return invokers

@@ -129,6 +129,7 @@ public class DubboCodec extends ExchangeCodec implements Codec2 {
                             Constants.DECODE_IN_IO_THREAD_KEY,
                             Constants.DEFAULT_DECODE_IN_IO_THREAD)) {
                         // 在通信框架（如netty）的IO线程中解密，默认是true
+                        // 在当前的IO线程中解码，是当前的线程，也就是同步执行的
                         inv = new DecodeableRpcInvocation(channel, req, is, proto);
                         inv.decode();
                     } else {

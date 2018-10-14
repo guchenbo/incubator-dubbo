@@ -68,6 +68,7 @@ public class ZookeeperRegistry extends FailbackRegistry {
         }
         this.root = group;
         zkClient = zookeeperTransporter.connect(url);
+        // 增加监听器，使用匿名类，用于自动恢复
         zkClient.addStateListener(new StateListener() {
             public void stateChanged(int state) {
                 if (state == RECONNECTED) {
@@ -150,9 +151,11 @@ public class ZookeeperRegistry extends FailbackRegistry {
                         public void childChanged(String parentPath, List<String> currentChilds) {
                             for (String child : currentChilds) {
                                 child = URL.decode(child);
+                                // child是Service类型节点
+                                // service没有订阅过才订阅，不重复订阅
                                 if (!anyServices.contains(child)) {
                                     anyServices.add(child);
-                                    // 增量，有Service变更时，对指定Service节点发起订阅
+                                    // 有Service变更时，对指定Service节点发起订阅
                                     subscribe(url.setPath(child)
                                                     .addParameters(Constants.INTERFACE_KEY, child, Constants.CHECK_KEY,
                                                                     String.valueOf(false)), listener);
@@ -162,9 +165,13 @@ public class ZookeeperRegistry extends FailbackRegistry {
                     });
                     zkListener = listeners.get(listener);
                 }
+                // 以防万一先创建节点，不存在才会创建，false表示持久化，这个path是Category节点
                 zkClient.create(root, false);
+                // 每次重新绑定监听器，获取子节点信息
+                // 是在root节点上新增监听器，所以返回的是所有Service类型的节点信息
                 List<String> services = zkClient.addChildListener(root, zkListener);
-                // 全量，循环对每个Service节点发起订阅
+
+                // 循环对每个Service节点发起订阅
                 if (services != null && services.size() > 0) {
                     for (String service : services) {
                         service = URL.decode(service);
@@ -200,7 +207,7 @@ public class ZookeeperRegistry extends FailbackRegistry {
                         });
                         zkListener = listeners.get(listener);
                     }
-                    // zk创建节点，不存在才会创建，false表示持久化，这个path是Category节点
+                    // 以防万一先创建节点，不存在才会创建，false表示持久化，这个path是Category节点
                     zkClient.create(path, false);
                     // 每次重新绑定监听器
                     List<String> children = zkClient.addChildListener(path, zkListener);
@@ -342,6 +349,7 @@ public class ZookeeperRegistry extends FailbackRegistry {
     private List<URL> toUrlsWithEmpty(URL consumer, String path, List<String> providers) {
         List<URL> urls = toUrlsWithoutEmpty(consumer, providers);
         if (urls == null || urls.isEmpty()) {
+            // empty://
             int i = path.lastIndexOf('/');
             String category = i < 0 ? path : path.substring(i + 1);
             URL empty = consumer.setProtocol(Constants.EMPTY_PROTOCOL).addParameter(Constants.CATEGORY_KEY, category);

@@ -60,6 +60,7 @@ public abstract class AbstractProxyFactory implements ProxyFactory {
     }
 
     /**
+     * 服务引用时调用
      * 创建代理
      *
      * @param invoker   Protocol生成的Invoker

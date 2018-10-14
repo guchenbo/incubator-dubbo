@@ -14,24 +14,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.alibaba.dubbo.rpc.cluster.support;
+package com.alibaba.dubbo.demo;
 
-import com.alibaba.dubbo.rpc.Invoker;
-import com.alibaba.dubbo.rpc.RpcException;
-import com.alibaba.dubbo.rpc.cluster.Cluster;
-import com.alibaba.dubbo.rpc.cluster.Directory;
+public interface DemoService2 {
 
-/**
- * 失败安全，出现异常时，直接忽略。通常用于写入审计日志等操作。
- * {@link FailsafeClusterInvoker}
- *
- */
-public class FailsafeCluster implements Cluster {
-
-    public final static String NAME = "failsafe";
-
-    public <T> Invoker<T> join(Directory<T> directory) throws RpcException {
-        return new FailsafeClusterInvoker<T>(directory);
-    }
+    String sayHello2(String name);
 
 }

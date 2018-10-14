@@ -46,11 +46,10 @@ import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 
 /**
- * Record access log for the service.
+ * 记录Service的Access Log。
  * <p>
- * Logger key is <code><b>dubbo.accesslog</b></code>.
- * In order to configure access log appear in the specified appender only, additivity need to be configured in log4j's
- * config file, for example:
+ * 使用的Logger key是<code><b>dubbo.accesslog</b></code>。
+ * 如果想要配置Access Log只出现在指定的Appender中，可以在Log4j中注意配置上additivity。配置示例:
  * <code>
  * <pre>
  * &lt;logger name="<b>dubbo.accesslog</b>" <font color="red">additivity="false"</font>&gt;
@@ -58,6 +57,10 @@ import java.util.concurrent.TimeUnit;
  *    &lt;appender-ref ref="foo" /&gt;
  * &lt;/logger&gt;
  * </pre></code>
+ *
+ * @author ding.lid
+ *
+ *
  */
 @Activate(group = Constants.PROVIDER, value = Constants.ACCESS_LOG_KEY)
 public class AccessLogFilter implements Filter {

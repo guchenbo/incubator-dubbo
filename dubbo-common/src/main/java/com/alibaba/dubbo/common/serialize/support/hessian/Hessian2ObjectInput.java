@@ -24,6 +24,7 @@ import java.io.InputStream;
 import java.lang.reflect.Type;
 
 /**
+ * 封装了hessian，直接委托给hessian执行相应的逻辑
  * Hessian2 Object input.
  */
 public class Hessian2ObjectInput implements ObjectInput {

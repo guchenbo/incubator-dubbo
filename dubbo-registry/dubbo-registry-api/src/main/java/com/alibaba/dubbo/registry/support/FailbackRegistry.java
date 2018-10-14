@@ -195,11 +195,11 @@ public abstract class FailbackRegistry extends AbstractRegistry {
         removeFailedSubscribed(url, listener);
         try {
             // 向服务器端发送订阅请求
-            // Sending a subscription request to the server side
             doSubscribe(url, listener);
         } catch (Exception e) {
             Throwable t = e;
 
+            // 从缓存中获取订阅url
             List<URL> urls = getCacheUrls(url);
             if (urls != null && urls.size() > 0) {
                 notify(url, listener, urls);

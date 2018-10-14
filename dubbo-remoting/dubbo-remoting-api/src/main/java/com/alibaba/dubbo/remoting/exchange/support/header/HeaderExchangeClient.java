@@ -38,6 +38,7 @@ import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 /**
+ * 对Client进行一层封装，然后在调用Client对应的方法
  * DefaultMessageClient
  */
 public class HeaderExchangeClient implements ExchangeClient {

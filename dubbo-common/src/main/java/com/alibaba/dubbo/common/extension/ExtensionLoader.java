@@ -46,11 +46,11 @@ import java.util.concurrent.ConcurrentMap;
 import java.util.regex.Pattern;
 
 /**
- * Load dubbo extensions
+ * Dubbo使用的扩展点获取。<p>
  * <ul>
- * <li>auto inject dependency extension </li>
- * <li>auto wrap extension in wrapper </li>
- * <li>default extension is an adaptive instance</li>
+ * <li>自动注入关联扩展点。</li>
+ * <li>自动Wrap上扩展点的Wrap类。</li>
+ * <li>缺省获得的的扩展点是一个Adaptive Instance。
  * </ul>
  *
  * @see <a href="http://java.sun.com/j2se/1.5.0/docs/guide/jar/jar.html#Service%20Provider">Service Provider in Java 5</a>
@@ -123,12 +123,16 @@ public class ExtensionLoader<T> {
     private String cachedDefaultName;
     private volatile Throwable createAdaptiveInstanceError;
 
+    /**
+     * 扩展接口的Wrapper类型
+     */
     private Set<Class<?>> cachedWrapperClasses;
 
     private Map<String, IllegalStateException> exceptions = new ConcurrentHashMap<String, IllegalStateException>();
 
     private ExtensionLoader(Class<?> type) {
         this.type = type;
+        // 是AdaptiveExtensionFactory扩展
         objectFactory = (type == ExtensionFactory.class ?
                         null :
                         ExtensionLoader.getExtensionLoader(ExtensionFactory.class).getAdaptiveExtension());
@@ -221,6 +225,7 @@ public class ExtensionLoader<T> {
     }
 
     /**
+     * 获得由Dubbo SPI自动激活加载的扩展实现
      * Get activate extensions.
      *
      * @param url    url
@@ -238,6 +243,7 @@ public class ExtensionLoader<T> {
                 String name = entry.getKey();
                 Activate activate = entry.getValue();
                 if (isMatchGroup(group, activate.group())) {
+                    // 根据扩展名加载扩展实现
                     T ext = getExtension(name);
                     if (!names.contains(name) && !names.contains(Constants.REMOVE_VALUE_PREFIX + name) && isActive(
                                     activate, url)) {
@@ -258,6 +264,7 @@ public class ExtensionLoader<T> {
                         usrs.clear();
                     }
                 } else {
+                    // 根据扩展名加载扩展实现
                     T ext = getExtension(name);
                     usrs.add(ext);
                 }
@@ -555,7 +562,7 @@ public class ExtensionLoader<T> {
             injectExtension(instance);
             Set<Class<?>> wrapperClasses = cachedWrapperClasses;
             if (wrapperClasses != null && wrapperClasses.size() > 0) {
-                // 如果扩展接口有Wrapper类型的扩展实现，就将扩展对象自动包装到Wrapper对象中
+                // 如果扩展接口有Wrapper类型的扩展实现，就将扩展对象自动包装到Wrapper对象中，一一包装
                 // 此处为扩展自动包装特性
                 for (Class<?> wrapperClass : wrapperClasses) {
                     instance = injectExtension((T) wrapperClass.getConstructor(type).newInstance(instance));
@@ -872,6 +879,7 @@ public class ExtensionLoader<T> {
     private Class<?> getAdaptiveExtensionClass() {
         getExtensionClasses();
 
+        // cachedAdaptiveClass是某个有@Adaptive的扩展实现
         if (cachedAdaptiveClass != null) {
             return cachedAdaptiveClass;
         }

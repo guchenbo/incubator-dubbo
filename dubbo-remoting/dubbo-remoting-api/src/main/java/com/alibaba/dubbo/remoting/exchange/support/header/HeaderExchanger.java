@@ -26,6 +26,7 @@ import com.alibaba.dubbo.remoting.exchange.Exchanger;
 import com.alibaba.dubbo.remoting.transport.DecodeHandler;
 
 /**
+ * 调用Transporter对应的方法，封装返回
  * DefaultMessenger
  *
  *

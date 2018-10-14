@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement />
+  <nodes>
+    <node x="334.5" y="79.0">com.alibaba.dubbo.rpc.cluster.loadbalance.AbstractLoadBalance</node>
+    <node x="658.0" y="158.0">com.alibaba.dubbo.rpc.cluster.loadbalance.RoundRobinLoadBalance</node>
+    <node x="441.0" y="158.0">com.alibaba.dubbo.rpc.cluster.loadbalance.LeastActiveLoadBalance</node>
+    <node x="196.0" y="158.0">com.alibaba.dubbo.rpc.cluster.loadbalance.ConsistentHashLoadBalance</node>
+    <node x="0.0" y="158.0">com.alibaba.dubbo.rpc.cluster.loadbalance.RandomLoadBalance</node>
+    <node x="361.0" y="0.0">com.alibaba.dubbo.rpc.cluster.LoadBalance</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="com.alibaba.dubbo.rpc.cluster.loadbalance.LeastActiveLoadBalance" target="com.alibaba.dubbo.rpc.cluster.loadbalance.AbstractLoadBalance">
+      <point x="0.0" y="-14.5" />
+      <point x="539.5" y="138.0" />
+      <point x="446.375" y="138.0" />
+      <point x="22.375" y="14.5" />
+    </edge>
+    <edge source="com.alibaba.dubbo.rpc.cluster.loadbalance.RoundRobinLoadBalance" target="com.alibaba.dubbo.rpc.cluster.loadbalance.AbstractLoadBalance">
+      <point x="0.0" y="-14.5" />
+      <point x="758.5" y="128.0" />
+      <point x="491.125" y="128.0" />
+      <point x="67.125" y="14.5" />
+    </edge>
+    <edge source="com.alibaba.dubbo.rpc.cluster.loadbalance.AbstractLoadBalance" target="com.alibaba.dubbo.rpc.cluster.LoadBalance">
+      <point x="0.0" y="-14.5" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="com.alibaba.dubbo.rpc.cluster.loadbalance.ConsistentHashLoadBalance" target="com.alibaba.dubbo.rpc.cluster.loadbalance.AbstractLoadBalance">
+      <point x="0.0" y="-14.5" />
+      <point x="308.5" y="138.0" />
+      <point x="401.625" y="138.0" />
+      <point x="-22.375" y="14.5" />
+    </edge>
+    <edge source="com.alibaba.dubbo.rpc.cluster.loadbalance.RandomLoadBalance" target="com.alibaba.dubbo.rpc.cluster.loadbalance.AbstractLoadBalance">
+      <point x="0.0" y="-14.5" />
+      <point x="88.0" y="128.0" />
+      <point x="356.875" y="128.0" />
+      <point x="-67.125" y="14.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.0" x="0.0" y="0.0" />
+  <SelectedNodes>
+    <node>com.alibaba.dubbo.rpc.cluster.loadbalance.RoundRobinLoadBalance</node>
+  </SelectedNodes>
+  <Categories />
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

@@ -32,6 +32,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
 /**
+ * 里面封装了真正的netty的Channel，具体由它实现
  * NettyChannel.
  */
 final class NettyChannel extends AbstractChannel {
@@ -52,6 +53,13 @@ final class NettyChannel extends AbstractChannel {
         this.channel = channel;
     }
 
+    /**
+     * 根据netty的Channel，返回Dubbo的Channel，一一对应
+     * @param ch
+     * @param url
+     * @param handler
+     * @return
+     */
     static NettyChannel getOrAddChannel(org.jboss.netty.channel.Channel ch, URL url, ChannelHandler handler) {
         if (ch == null) {
             return null;
@@ -87,14 +95,23 @@ final class NettyChannel extends AbstractChannel {
         return channel.isConnected();
     }
 
+    /**
+     * 发送信息，真正的发送信息
+     * @param message
+     * @param sent  是否检查，就是检查是否发送成功，不成功报错
+     * @throws RemotingException
+     */
     public void send(Object message, boolean sent) throws RemotingException {
+        // 检查channel是否关闭，父类做了检测
         super.send(message, sent);
 
         boolean success = true;
         int timeout = 0;
         try {
+            // netty写入消息，message是Request或者Response对象
             ChannelFuture future = channel.write(message);
             if (sent) {
+                // 是否发送成功的检测
                 timeout = getUrl().getPositiveParameter(Constants.TIMEOUT_KEY, Constants.DEFAULT_TIMEOUT);
                 success = future.await(timeout);
             }
@@ -103,12 +120,19 @@ final class NettyChannel extends AbstractChannel {
                 throw cause;
             }
         } catch (Throwable e) {
-            throw new RemotingException(this, "Failed to send message " + message + " to " + getRemoteAddress() + ", cause: " + e.getMessage(), e);
+            throw new RemotingException(this,
+                            "Failed to send message " + message + " to " + getRemoteAddress() + ", cause: " + e
+                                            .getMessage(), e);
         }
 
         if (!success) {
-            throw new RemotingException(this, "Failed to send message " + message + " to " + getRemoteAddress()
-                    + "in timeout(" + timeout + "ms) limit");
+            throw new RemotingException(this, "Failed to send message "
+                            + message
+                            + " to "
+                            + getRemoteAddress()
+                            + "in timeout("
+                            + timeout
+                            + "ms) limit");
         }
     }
 

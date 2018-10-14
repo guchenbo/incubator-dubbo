@@ -20,6 +20,7 @@ import com.alibaba.dubbo.common.extension.SPI;
 
 
 /**
+ * 当某些事件触发时，调用相关逻辑
  * ChannelHandler. (API, Prototype, ThreadSafe)
  *
  * @see com.alibaba.dubbo.remoting.Transporter#bind(com.alibaba.dubbo.common.URL, ChannelHandler)
@@ -53,7 +54,7 @@ public interface ChannelHandler {
     /**
      * on message received.
      *
-     * @param channel channel.
+     * @param channel channel.  可以由channel对象发送消息
      * @param message message.
      */
     void received(Channel channel, Object message) throws RemotingException;

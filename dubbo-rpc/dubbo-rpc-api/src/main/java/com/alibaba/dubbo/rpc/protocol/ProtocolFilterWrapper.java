@@ -57,6 +57,8 @@ public class ProtocolFilterWrapper implements Protocol {
         List<Filter> filters = ExtensionLoader.getExtensionLoader(Filter.class).getActivateExtension(invoker.getUrl(), key, group);
         if (filters.size() > 0) {
             for (int i = filters.size() - 1; i >= 0; i--) {
+                // 倒序循环，最后一个Filter对象里是传入的invoker参数对象，其他的Filter对象都是匿名创建的invoker
+                // 最终指向的顺序是匿名invoker > 第二个匿名invoker > 第filter.size()个匿名invoker > 传入的invoker参数
                 final Filter filter = filters.get(i);
                 final Invoker<T> next = last;
                 last = new Invoker<T>() {

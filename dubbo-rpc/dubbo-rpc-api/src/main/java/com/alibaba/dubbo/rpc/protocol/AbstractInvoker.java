@@ -123,12 +123,13 @@ public abstract class AbstractInvoker<T> implements Invoker<T> {
                     + " use dubbo version " + Version.getVersion()
                     + " is DESTROYED, can not be invoked any more!");
         }
-        // InvokerInvocationHandler里传值是RpcInvocation
+        // InvokerInvocationHandler 里传值是RpcInvocation
         RpcInvocation invocation = (RpcInvocation) inv;
         invocation.setInvoker(this);
         if (attachment != null && attachment.size() > 0) {
             invocation.addAttachmentsIfAbsent(attachment);
         }
+        // RpcContext的附录信息，会在filter中添加
         Map<String, String> context = RpcContext.getContext().getAttachments();
         if (context != null) {
             invocation.addAttachmentsIfAbsent(context);

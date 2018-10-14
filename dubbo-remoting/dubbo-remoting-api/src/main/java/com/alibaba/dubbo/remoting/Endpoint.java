@@ -52,6 +52,7 @@ public interface Endpoint {
     InetSocketAddress getLocalAddress();
 
     /**
+     * 主动发送消息，这个才是发消息的地方
      * send message.
      *
      * @param message
@@ -61,9 +62,10 @@ public interface Endpoint {
 
     /**
      * send message.
+     * 发送消息，仅仅是发送消息，没有返回
      *
      * @param message
-     * @param sent    是否已发送完成   already sent to socket?
+     * @param sent    是否已发送完成，是否检查，就是检查是否发送成功，不成功报错  already sent to socket?
      */
     void send(Object message, boolean sent) throws RemotingException;
 

@@ -22,6 +22,8 @@ import com.alibaba.dubbo.rpc.cluster.Cluster;
 import com.alibaba.dubbo.rpc.cluster.Directory;
 
 /**
+ * 失败自动恢复，后台记录失败请求，定时重发。通常用于消息通知操作
+ * 在定时器中重试
  * {@link FailbackClusterInvoker}
  *
  */

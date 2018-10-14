@@ -35,6 +35,8 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
 /**
+ * 懒加载客户端，里面的方法有属性client实现，增加了懒加载的功能，
+ * 只有request()或者send()方法调用时候，创建真正的client对象
  * dubbo protocol support class.
  */
 @SuppressWarnings("deprecation")
@@ -43,7 +45,9 @@ final class LazyConnectExchangeClient implements ExchangeClient {
     // when this warning rises from invocation, program probably have bug.
     static final String REQUEST_WITH_WARNING_KEY = "lazyclient_request_with_warning";
     private final static Logger logger = LoggerFactory.getLogger(LazyConnectExchangeClient.class);
+    // 调用request方法是否告警
     protected final boolean requestWithWarning;
+
     private final URL url;
     private final ExchangeHandler requestHandler;
     private final Lock connectLock = new ReentrantLock();

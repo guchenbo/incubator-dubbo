@@ -30,6 +30,7 @@ import com.alibaba.dubbo.rpc.proxy.InvokerInvocationHandler;
 public class JavassistProxyFactory extends AbstractProxyFactory {
 
     /**
+     * 服务引用时调用
      * 动态代理机制
      *
      * @param invoker   Protocol生成的Invoker

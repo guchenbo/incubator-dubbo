@@ -26,6 +26,7 @@ public interface ExchangeChannel extends Channel {
 
     /**
      * send request.
+     * 发送请求，有响应
      *
      * @param request
      * @return response future
@@ -35,6 +36,7 @@ public interface ExchangeChannel extends Channel {
 
     /**
      * send request.
+     * 发送请求，有响应
      *
      * @param request
      * @param timeout

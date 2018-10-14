@@ -33,7 +33,7 @@ import com.alibaba.dubbo.remoting.exchange.support.DefaultFuture;
 import java.net.InetSocketAddress;
 
 /**
- * Channel装饰器，里面的方法都是Channel实现
+ * 每个方法增加了一些功能，再调用Channel对应的方法，对Channel进行一层封装
  * ExchangeReceiver
  */
 final class HeaderExchangeChannel implements ExchangeChannel {
@@ -46,6 +46,10 @@ final class HeaderExchangeChannel implements ExchangeChannel {
 
     private volatile boolean closed = false;
 
+    /**
+     * 传入Channel
+     * @param channel
+     */
     HeaderExchangeChannel(Channel channel) {
         if (channel == null) {
             throw new IllegalArgumentException("channel == null");
@@ -53,6 +57,11 @@ final class HeaderExchangeChannel implements ExchangeChannel {
         this.channel = channel;
     }
 
+    /**
+     * 根据Channel获取ExchangeChannel，一一对应
+     * @param ch
+     * @return
+     */
     static HeaderExchangeChannel getOrAddChannel(Channel ch) {
         if (ch == null) {
             return null;
@@ -78,6 +87,13 @@ final class HeaderExchangeChannel implements ExchangeChannel {
         send(message, getUrl().getParameter(Constants.SENT_KEY, false));
     }
 
+    /**
+     * 仅仅发送消息
+     *
+     * @param message
+     * @param sent    是否已发送完成，是否检查，就是检查是否发送成功，不成功报错  already sent to socket?
+     * @throws RemotingException
+     */
     public void send(Object message, boolean sent) throws RemotingException {
         if (closed) {
             throw new RemotingException(this.getLocalAddress(), null, "Failed to send message " + message + ", cause: The channel " + this + " is closed!");
@@ -87,8 +103,10 @@ final class HeaderExchangeChannel implements ExchangeChannel {
                 || message instanceof String) {
             channel.send(message, sent);
         } else {
+            // 将message对象封装成Request对象，符合Request模型
             Request request = new Request();
             request.setVersion("2.0.0");
+            // 不需要响应
             request.setTwoWay(false);
             request.setData(message);
             channel.send(request, sent);
@@ -99,6 +117,13 @@ final class HeaderExchangeChannel implements ExchangeChannel {
         return request(request, channel.getUrl().getPositiveParameter(Constants.TIMEOUT_KEY, Constants.DEFAULT_TIMEOUT));
     }
 
+    /**
+     * 发送请求，需要响应
+     * @param request
+     * @param timeout
+     * @return
+     * @throws RemotingException
+     */
     public ResponseFuture request(Object request, int timeout) throws RemotingException {
         if (closed) {
             throw new RemotingException(this.getLocalAddress(), null, "Failed to send request " + request + ", cause: The channel " + this + " is closed!");
@@ -108,8 +133,10 @@ final class HeaderExchangeChannel implements ExchangeChannel {
         req.setVersion("2.0.0");
         req.setTwoWay(true); // 需要响应
         req.setData(request);
+        // 创建future对象，之后server的返回会放在这个对象里
         DefaultFuture future = new DefaultFuture(channel, req, timeout);
         try {
+            // 最终都是调用send方法
             channel.send(req);
         } catch (RemotingException e) {
             future.cancel();

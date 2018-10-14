@@ -33,6 +33,7 @@ import com.alibaba.dubbo.rpc.cluster.support.FailoverCluster;
 public interface Cluster {
 
     /**
+     * 将directory对象，封装成一个虚拟的invoker对象返回
      * Merge the directory invokers to a virtual invoker.
      *
      * @param <T>

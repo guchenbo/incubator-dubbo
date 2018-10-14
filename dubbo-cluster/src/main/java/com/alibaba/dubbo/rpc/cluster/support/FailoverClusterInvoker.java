@@ -35,11 +35,12 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * When invoke fails, log the initial error and retry other invokers (retry n times, which means at most n different invokers will be invoked)
- * Note that retry causes latency.
- * <p>
+ * 失败转移，当出现失败，重试其它服务器，通常用于读操作，但重试会带来更长延迟。
+ * 按照重试次数来重试
  * <a href="http://en.wikipedia.org/wiki/Failover">Failover</a>
  *
+ * @author william.liangf
+ * @author chao.liuc
  */
 public class FailoverClusterInvoker<T> extends AbstractClusterInvoker<T> {
 
@@ -54,6 +55,8 @@ public class FailoverClusterInvoker<T> extends AbstractClusterInvoker<T> {
         List<Invoker<T>> copyinvokers = invokers;
         checkInvokers(copyinvokers, invocation);
         int len = getUrl().getMethodParameter(invocation.getMethodName(), Constants.RETRIES_KEY, Constants.DEFAULT_RETRIES) + 1;
+        // len是执行次数，所以是重试次数+1，
+        // 最小是1，=1表示只invoke一次没有重试
         if (len <= 0) {
             len = 1;
         }
@@ -61,19 +64,24 @@ public class FailoverClusterInvoker<T> extends AbstractClusterInvoker<T> {
         RpcException le = null; // last exception.
         List<Invoker<T>> invoked = new ArrayList<Invoker<T>>(copyinvokers.size()); // invoked invokers.
         Set<String> providers = new HashSet<String>(len);
+
         for (int i = 0; i < len; i++) {
-            //Reselect before retry to avoid a change of candidate `invokers`.
-            //NOTE: if `invokers` changed, then `invoked` also lose accuracy.
+            //重试时，进行重新选择，避免重试时invoker列表已发生变化.
+            //注意：如果列表发生了变化，那么invoked判断会失效，因为invoker示例已经改变
             if (i > 0) {
+                // i > 0，表示不是第一次是重试
+                //重新检查一下
                 checkWhetherDestroyed();
                 copyinvokers = list(invocation);
-                // check again
                 checkInvokers(copyinvokers, invocation);
             }
+            // 如果是第一次，invoked是空的
             Invoker<T> invoker = select(loadbalance, invocation, copyinvokers, invoked);
-            invoked.add(invoker);
+            invoked.add(invoker);// 选出的invoker添加到已选过的集合中
+            // 每次都重新设置到RpcContext中
             RpcContext.getContext().setInvokers((List) invoked);
             try {
+                // 执行选出的invoker对象的invoke方法，如果报错就try-catch，然后重试
                 Result result = invoker.invoke(invocation);
                 if (le != null && logger.isWarnEnabled()) {
                     logger.warn("Although retry the method " + invocation.getMethodName()
@@ -89,6 +97,7 @@ public class FailoverClusterInvoker<T> extends AbstractClusterInvoker<T> {
                 return result;
             } catch (RpcException e) {
                 if (e.isBiz()) { // biz exception.
+                    // 如果是业务性质的异常，不再重试，直接抛出
                     throw e;
                 }
                 le = e;

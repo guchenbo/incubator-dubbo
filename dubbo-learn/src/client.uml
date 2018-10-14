@@ -3,100 +3,139 @@
   <ID>JAVA</ID>
   <OriginalElement />
   <nodes>
-    <node x="566.0" y="0.0">com.alibaba.dubbo.remoting.transport.AbstractPeer</node>
-    <node x="551.0" y="237.0">com.alibaba.dubbo.remoting.transport.netty4.NettyServer</node>
-    <node x="0.0" y="237.0">com.alibaba.dubbo.remoting.transport.netty4.NettyClient</node>
-    <node x="641.5" y="79.0">com.alibaba.dubbo.remoting.transport.AbstractChannel</node>
-    <node x="136.99999999999994" y="237.0">com.alibaba.dubbo.remoting.transport.netty.NettyClient</node>
-    <node x="969.0" y="237.0">com.alibaba.dubbo.remoting.transport.grizzly.GrizzlyServer</node>
-    <node x="0.0" y="311.0">com.alibaba.dubbo.remoting.Transporters</node>
-    <node x="464.49999999999994" y="79.0">com.alibaba.dubbo.remoting.transport.AbstractEndpoint</node>
-    <node x="418.99999999999994" y="237.0">com.alibaba.dubbo.remoting.transport.mina.MinaClient</node>
-    <node x="751.75" y="158.0">com.alibaba.dubbo.remoting.transport.AbstractServer</node>
-    <node x="173.0" y="311.0">com.alibaba.dubbo.remoting.Transporter</node>
-    <node x="273.99999999999994" y="237.0">com.alibaba.dubbo.remoting.transport.grizzly.GrizzlyClient</node>
-    <node x="197.99999999999994" y="158.0">com.alibaba.dubbo.remoting.transport.AbstractClient</node>
-    <node x="692.0" y="237.0">com.alibaba.dubbo.remoting.transport.netty.NettyServer</node>
-    <node x="833.0" y="237.0">com.alibaba.dubbo.remoting.transport.mina.MinaServer</node>
+    <node x="740.25" y="0.0">com.alibaba.dubbo.remoting.transport.AbstractPeer</node>
+    <node x="788.25" y="237.0">com.alibaba.dubbo.remoting.transport.netty4.NettyServer</node>
+    <node x="0.0" y="79.0">com.alibaba.dubbo.remoting.exchange.ExchangeChannel</node>
+    <node x="651.25" y="237.0">com.alibaba.dubbo.remoting.transport.netty4.NettyClient</node>
+    <node x="622.875" y="79.0">com.alibaba.dubbo.remoting.transport.AbstractChannel</node>
+    <node x="52.25" y="158.0">com.alibaba.dubbo.remoting.exchange.ExchangeClient</node>
+    <node x="237.25" y="237.0">com.alibaba.dubbo.remoting.transport.netty.NettyClient</node>
+    <node x="0.0" y="311.0">com.alibaba.dubbo.remoting.exchange.ExchangeServer</node>
+    <node x="30.25" y="237.0">com.alibaba.dubbo.remoting.exchange.support.header.HeaderExchangeClient</node>
+    <node x="1206.25" y="237.0">com.alibaba.dubbo.remoting.transport.grizzly.GrizzlyServer</node>
+    <node x="192.0" y="311.0">com.alibaba.dubbo.remoting.Transporters</node>
+    <node x="941.25" y="79.0">com.alibaba.dubbo.remoting.transport.AbstractEndpoint</node>
+    <node x="374.25" y="237.0">com.alibaba.dubbo.remoting.transport.mina.MinaClient</node>
+    <node x="989.0" y="158.0">com.alibaba.dubbo.remoting.transport.AbstractServer</node>
+    <node x="298.625" y="0.0">com.alibaba.dubbo.remoting.Channel</node>
+    <node x="365.0" y="311.0">com.alibaba.dubbo.remoting.Transporter</node>
+    <node x="506.25" y="237.0">com.alibaba.dubbo.remoting.transport.grizzly.GrizzlyClient</node>
+    <node x="431.5" y="158.0">com.alibaba.dubbo.remoting.transport.AbstractClient</node>
+    <node x="929.25" y="237.0">com.alibaba.dubbo.remoting.transport.netty.NettyServer</node>
+    <node x="1070.25" y="237.0">com.alibaba.dubbo.remoting.transport.mina.MinaServer</node>
   </nodes>
   <notes />
   <edges>
+    <edge source="com.alibaba.dubbo.remoting.transport.AbstractClient" target="com.alibaba.dubbo.remoting.Channel">
+      <point x="-34.00000000000006" y="-14.5" />
+      <point x="465.49999999999994" y="59.0" />
+      <point x="359.875" y="59.0" />
+      <point x="12.25" y="14.5" />
+    </edge>
     <edge source="com.alibaba.dubbo.remoting.transport.AbstractClient" target="com.alibaba.dubbo.remoting.transport.AbstractEndpoint">
-      <point x="0.0" y="-14.5" />
-      <point x="265.99999999999994" y="133.0" />
-      <point x="503.74999999999994" y="133.0" />
+      <point x="33.99999999999994" y="-14.5" />
+      <point x="533.4999999999999" y="133.0" />
+      <point x="980.5" y="133.0" />
       <point x="-39.25" y="14.5" />
     </edge>
-    <edge source="com.alibaba.dubbo.remoting.transport.netty.NettyServer" target="com.alibaba.dubbo.remoting.transport.AbstractServer">
-      <point x="0.0" y="-14.5" />
-      <point x="752.5" y="217.0" />
-      <point x="804.25" y="217.0" />
-      <point x="-17.5" y="14.5" />
-    </edge>
-    <edge source="com.alibaba.dubbo.remoting.transport.AbstractServer" target="com.alibaba.dubbo.remoting.transport.AbstractEndpoint">
-      <point x="0.0" y="-14.5" />
-      <point x="821.75" y="133.0" />
-      <point x="582.25" y="133.0" />
-      <point x="39.25" y="14.5" />
-    </edge>
-    <edge source="com.alibaba.dubbo.remoting.transport.mina.MinaClient" target="com.alibaba.dubbo.remoting.transport.AbstractClient">
-      <point x="0.0" y="-14.5" />
-      <point x="474.99999999999994" y="207.0" />
-      <point x="316.99999999999994" y="207.0" />
-      <point x="51.0" y="14.5" />
-    </edge>
-    <edge source="com.alibaba.dubbo.remoting.transport.netty4.NettyClient" target="com.alibaba.dubbo.remoting.transport.AbstractClient">
-      <point x="0.0" y="-14.5" />
-      <point x="58.5" y="207.0" />
-      <point x="214.99999999999994" y="207.0" />
-      <point x="-51.0" y="14.5" />
+    <edge source="com.alibaba.dubbo.remoting.transport.AbstractChannel" target="com.alibaba.dubbo.remoting.Channel">
+      <point x="-37.75" y="-14.5" />
+      <point x="660.625" y="49.0" />
+      <point x="384.375" y="49.0" />
+      <point x="36.75" y="14.5" />
     </edge>
     <edge source="com.alibaba.dubbo.remoting.transport.grizzly.GrizzlyServer" target="com.alibaba.dubbo.remoting.transport.AbstractServer">
       <point x="0.0" y="-14.5" />
-      <point x="1033.5" y="207.0" />
-      <point x="874.25" y="207.0" />
+      <point x="1270.75" y="207.0" />
+      <point x="1111.5" y="207.0" />
       <point x="52.5" y="14.5" />
     </edge>
     <edge source="com.alibaba.dubbo.remoting.transport.grizzly.GrizzlyClient" target="com.alibaba.dubbo.remoting.transport.AbstractClient">
       <point x="0.0" y="-14.5" />
-      <point x="336.49999999999994" y="217.0" />
-      <point x="282.99999999999994" y="217.0" />
-      <point x="17.0" y="14.5" />
-    </edge>
-    <edge source="com.alibaba.dubbo.remoting.transport.AbstractChannel" target="com.alibaba.dubbo.remoting.transport.AbstractPeer">
-      <point x="0.0" y="-14.5" />
-      <point x="717.0" y="54.0" />
-      <point x="662.0" y="54.0" />
-      <point x="32.0" y="14.5" />
+      <point x="568.75" y="217.0" />
+      <point x="516.4999999999999" y="217.0" />
+      <point x="16.999999999999943" y="14.5" />
     </edge>
     <edge source="com.alibaba.dubbo.remoting.transport.AbstractEndpoint" target="com.alibaba.dubbo.remoting.transport.AbstractPeer">
       <point x="0.0" y="-14.5" />
-      <point x="543.0" y="54.0" />
-      <point x="598.0" y="54.0" />
+      <point x="1019.75" y="59.0" />
+      <point x="836.25" y="59.0" />
+      <point x="32.0" y="14.5" />
+    </edge>
+    <edge source="com.alibaba.dubbo.remoting.exchange.support.header.HeaderExchangeClient" target="com.alibaba.dubbo.remoting.exchange.ExchangeClient">
+      <point x="0.0" y="-14.5" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="com.alibaba.dubbo.remoting.transport.netty4.NettyServer" target="com.alibaba.dubbo.remoting.transport.AbstractServer">
+      <point x="0.0" y="-14.5" />
+      <point x="848.75" y="207.0" />
+      <point x="1006.5" y="207.0" />
+      <point x="-52.5" y="14.5" />
+    </edge>
+    <edge source="com.alibaba.dubbo.remoting.transport.AbstractServer" target="com.alibaba.dubbo.remoting.transport.AbstractEndpoint">
+      <point x="0.0" y="-14.5" />
+      <point x="39.25" y="14.5" />
+    </edge>
+    <edge source="com.alibaba.dubbo.remoting.transport.netty.NettyServer" target="com.alibaba.dubbo.remoting.transport.AbstractServer">
+      <point x="0.0" y="-14.5" />
+      <point x="989.75" y="217.0" />
+      <point x="1041.5" y="217.0" />
+      <point x="-17.5" y="14.5" />
+    </edge>
+    <edge source="com.alibaba.dubbo.remoting.transport.mina.MinaClient" target="com.alibaba.dubbo.remoting.transport.AbstractClient">
+      <point x="0.0" y="-14.5" />
+      <point x="430.25" y="217.0" />
+      <point x="482.5" y="217.0" />
+      <point x="-17.0" y="14.5" />
+    </edge>
+    <edge source="com.alibaba.dubbo.remoting.exchange.ExchangeClient" target="com.alibaba.dubbo.remoting.Channel">
+      <point x="35.75" y="-14.5" />
+      <point x="159.5" y="133.0" />
+      <point x="168.5" y="133.0" />
+      <point x="168.5" y="59.0" />
+      <point x="335.375" y="59.0" />
+      <point x="-12.25" y="14.5" />
+    </edge>
+    <edge source="com.alibaba.dubbo.remoting.transport.netty4.NettyClient" target="com.alibaba.dubbo.remoting.transport.AbstractClient">
+      <point x="0.0" y="-14.5" />
+      <point x="709.75" y="207.0" />
+      <point x="550.4999999999999" y="207.0" />
+      <point x="50.99999999999994" y="14.5" />
+    </edge>
+    <edge source="com.alibaba.dubbo.remoting.transport.AbstractChannel" target="com.alibaba.dubbo.remoting.transport.AbstractPeer">
+      <point x="37.75" y="-14.5" />
+      <point x="736.125" y="59.0" />
+      <point x="772.25" y="59.0" />
       <point x="-32.0" y="14.5" />
     </edge>
     <edge source="com.alibaba.dubbo.remoting.transport.netty.NettyClient" target="com.alibaba.dubbo.remoting.transport.AbstractClient">
       <point x="0.0" y="-14.5" />
-      <point x="195.49999999999994" y="217.0" />
-      <point x="248.99999999999994" y="217.0" />
-      <point x="-17.0" y="14.5" />
+      <point x="295.75" y="207.0" />
+      <point x="448.5" y="207.0" />
+      <point x="-51.0" y="14.5" />
     </edge>
     <edge source="com.alibaba.dubbo.remoting.transport.mina.MinaServer" target="com.alibaba.dubbo.remoting.transport.AbstractServer">
       <point x="0.0" y="-14.5" />
-      <point x="891.0" y="217.0" />
-      <point x="839.25" y="217.0" />
+      <point x="1128.25" y="217.0" />
+      <point x="1076.5" y="217.0" />
       <point x="17.5" y="14.5" />
     </edge>
-    <edge source="com.alibaba.dubbo.remoting.transport.netty4.NettyServer" target="com.alibaba.dubbo.remoting.transport.AbstractServer">
+    <edge source="com.alibaba.dubbo.remoting.exchange.ExchangeClient" target="com.alibaba.dubbo.remoting.exchange.ExchangeChannel">
+      <point x="-35.75" y="-14.5" />
+      <point x="88.0" y="133.0" />
+      <point x="79.0" y="133.0" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="com.alibaba.dubbo.remoting.exchange.ExchangeChannel" target="com.alibaba.dubbo.remoting.Channel">
       <point x="0.0" y="-14.5" />
-      <point x="611.5" y="207.0" />
-      <point x="769.25" y="207.0" />
-      <point x="-52.5" y="14.5" />
+      <point x="79.0" y="49.0" />
+      <point x="310.875" y="49.0" />
+      <point x="-36.75" y="14.5" />
     </edge>
   </edges>
-  <settings layout="Hierarchic Group" zoom="0.9025044722719141" x="549.0" y="170.0" />
+  <settings layout="Hierarchic Group" zoom="0.9025044722719141" x="520.7175421209118" y="170.0" />
   <SelectedNodes>
-    <node>com.alibaba.dubbo.remoting.transport.AbstractChannel</node>
+    <node>com.alibaba.dubbo.remoting.exchange.ExchangeServer</node>
   </SelectedNodes>
   <Categories />
   <SCOPE>All</SCOPE>

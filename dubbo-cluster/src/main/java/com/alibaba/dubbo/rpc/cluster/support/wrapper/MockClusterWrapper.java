@@ -22,6 +22,7 @@ import com.alibaba.dubbo.rpc.cluster.Cluster;
 import com.alibaba.dubbo.rpc.cluster.Directory;
 
 /**
+ * Cluster包装，Dubbo SPI 会自动包装
  * mock impl
  *
  */

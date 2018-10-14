@@ -17,20 +17,21 @@
 package com.alibaba.dubbo.demo.provider;
 
 import com.alibaba.dubbo.common.extension.ExtensionLoader;
-import com.alibaba.dubbo.remoting.ChannelHandler;
+import com.alibaba.dubbo.registry.RegistryFactory;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public class Provider {
 
     public static void main(String[] args) throws Exception {
+        ExtensionLoader extensionLoader = ExtensionLoader.getExtensionLoader(RegistryFactory.class);
+        System.out.println(extensionLoader.getSupportedExtensions());
+
         //Prevent to get IPV6 address,this way only work in debug mode
         //But you can pass use -Djava.net.preferIPv4Stack=true,then it work well whether in debug mode or not
         System.setProperty("java.net.preferIPv4Stack", "true");
         ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(new String[]{"META-INF/spring/dubbo-demo-provider.xml"});
         context.start();
 
-        ExtensionLoader extensionLoader = ExtensionLoader.getExtensionLoader(ChannelHandler.class);
-        System.out.println(extensionLoader.getSupportedExtensions());
 
         System.in.read(); // press any key to exit
     }

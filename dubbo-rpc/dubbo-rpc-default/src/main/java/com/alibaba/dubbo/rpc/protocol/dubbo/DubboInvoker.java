@@ -64,6 +64,12 @@ public class DubboInvoker<T> extends AbstractInvoker<T> {
         this.invokers = invokers;
     }
 
+    /**
+     * 覆盖AbstractInvoker#doInvoke()
+     * @param invocation
+     * @return
+     * @throws Throwable
+     */
     @Override
     protected Result doInvoke(final Invocation invocation) throws Throwable {
         RpcInvocation inv = (RpcInvocation) invocation;
@@ -78,20 +84,28 @@ public class DubboInvoker<T> extends AbstractInvoker<T> {
             currentClient = clients[index.getAndIncrement() % clients.length];
         }
         try {
+            // 是否异步
             boolean isAsync = RpcUtils.isAsync(getUrl(), invocation);
+            // 是否需要返回
             boolean isOneway = RpcUtils.isOneway(getUrl(), invocation);
+            // 默认超时时间，1000ms
             int timeout = getUrl().getMethodParameter(methodName, Constants.TIMEOUT_KEY, Constants.DEFAULT_TIMEOUT);
             if (isOneway) {
+                // 不需要返回数据，使用send()发送消息
                 boolean isSent = getUrl().getMethodParameter(methodName, Constants.SENT_KEY, false);
+                // isSent 设置是否检查，默认false
                 currentClient.send(inv, isSent);
                 RpcContext.getContext().setFuture(null);
                 return new RpcResult();
             } else if (isAsync) {
+                // 异步调用
                 ResponseFuture future = currentClient.request(inv, timeout);
                 RpcContext.getContext().setFuture(new FutureAdapter<Object>(future));
                 return new RpcResult();
             } else {
+                // 同步调用，而且需要返回数据，之后的返回会放在ResponseFuture中
                 RpcContext.getContext().setFuture(null);
+                // future.get()会一直阻塞，直到服务端返回结果
                 return (Result) currentClient.request(inv, timeout).get();
             }
         } catch (TimeoutException e) {

@@ -25,12 +25,14 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 /**
+ * Dubbo SPI 扩展接口，序列化
  * Serialization. (SPI, Singleton, ThreadSafe)
  */
 @SPI("hessian2")
 public interface Serialization {
 
     /**
+     * 获取类型id
      * get content type id
      *
      * @return content type id
@@ -38,6 +40,7 @@ public interface Serialization {
     byte getContentTypeId();
 
     /**
+     * 获取类型
      * get content type
      *
      * @return content type
@@ -45,6 +48,7 @@ public interface Serialization {
     String getContentType();
 
     /**
+     * 序列化，创建序列化器，用来将对象序列化到output里面
      * create serializer
      *
      * @param url
@@ -56,6 +60,7 @@ public interface Serialization {
     ObjectOutput serialize(URL url, OutputStream output) throws IOException;
 
     /**
+     * 反序列化，创建反序列化器，从input中反序列化出对象
      * create deserializer
      *
      * @param url

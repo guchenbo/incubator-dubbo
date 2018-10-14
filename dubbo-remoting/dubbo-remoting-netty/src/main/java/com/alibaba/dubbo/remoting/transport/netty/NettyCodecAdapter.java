@@ -77,10 +77,13 @@ final class NettyCodecAdapter {
                     com.alibaba.dubbo.remoting.buffer.ChannelBuffers.dynamicBuffer(1024);
             NettyChannel channel = NettyChannel.getOrAddChannel(ch, url, handler);
             try {
+                // 根据Dubbo SPI，codec是DubboCountCodec
+                // 将msg对象，编码到buffer中
                 codec.encode(channel, buffer, msg);
             } finally {
                 NettyChannel.removeChannelIfDisconnected(ch);
             }
+            // 最终将Dubbo的ChannelBuffer封装成Netty的ChannelBuffer
             return ChannelBuffers.wrappedBuffer(buffer.toByteBuffer());
         }
     }
@@ -104,6 +107,7 @@ final class NettyCodecAdapter {
                 return;
             }
 
+            // Dubbo的ChannelBuffer
             com.alibaba.dubbo.remoting.buffer.ChannelBuffer message;
             if (buffer.readable()) {
                 if (buffer instanceof DynamicChannelBuffer) {
@@ -130,6 +134,7 @@ final class NettyCodecAdapter {
                 do {
                     saveReaderIndex = message.readerIndex();
                     try {
+                        // 从Dubbo的ChannelBuffer中解码出Request或者Response对象
                         msg = codec.decode(channel, message);
                     } catch (IOException e) {
                         buffer = com.alibaba.dubbo.remoting.buffer.ChannelBuffers.EMPTY_BUFFER;
@@ -144,6 +149,7 @@ final class NettyCodecAdapter {
                             throw new IOException("Decode without read data.");
                         }
                         if (msg != null) {
+                            // 触发下一个ChannelHandler
                             Channels.fireMessageReceived(ctx, msg, event.getRemoteAddress());
                         }
                     }

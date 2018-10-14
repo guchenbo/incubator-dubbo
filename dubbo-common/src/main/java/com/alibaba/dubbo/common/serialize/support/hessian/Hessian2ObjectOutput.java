@@ -23,6 +23,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 
 /**
+ * 封装了hessian，直接委托给hessian执行相应的逻辑
  * Hessian2 Object output.
  */
 public class Hessian2ObjectOutput implements ObjectOutput {

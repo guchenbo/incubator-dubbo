@@ -533,7 +533,6 @@ public class ServiceConfig<T> extends AbstractServiceConfig {
                 if (registryURLs != null && registryURLs.size() > 0) {
                     // 暴露服务，并且向注册中心注册
                     for (URL registryURL : registryURLs) {
-                        // dynamic是做什么用的， todo
                         url = url.addParameterIfAbsent("dynamic", registryURL.getParameter("dynamic"));
                         URL monitorUrl = loadMonitor(registryURL);
                         if (monitorUrl != null) {

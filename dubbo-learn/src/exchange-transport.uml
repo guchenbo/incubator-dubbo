@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement />
+  <nodes>
+    <node x="103.0" y="79.0">com.alibaba.dubbo.remoting.exchange.ExchangeChannel</node>
+    <node x="0.0" y="311.0">com.alibaba.dubbo.remoting.exchange.ExchangeHandler</node>
+    <node x="40.25" y="158.0">com.alibaba.dubbo.remoting.exchange.ExchangeClient</node>
+    <node x="339.0" y="385.0">com.alibaba.dubbo.remoting.exchange.Exchangers</node>
+    <node x="201.0" y="311.0">com.alibaba.dubbo.remoting.exchange.ExchangeServer</node>
+    <node x="5.0" y="232.0">com.alibaba.dubbo.remoting.ChannelHandler</node>
+    <node x="0.0" y="385.0">com.alibaba.dubbo.remoting.Transporters</node>
+    <node x="0.0" y="79.0">com.alibaba.dubbo.remoting.Client</node>
+    <node x="0.0" y="459.0">com.alibaba.dubbo.remoting.exchange.Exchanger</node>
+    <node x="62.75" y="0.0">com.alibaba.dubbo.remoting.Channel</node>
+    <node x="173.0" y="385.0">com.alibaba.dubbo.remoting.Transporter</node>
+    <node x="231.0" y="232.0">com.alibaba.dubbo.remoting.Server</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="com.alibaba.dubbo.remoting.Client" target="com.alibaba.dubbo.remoting.Channel">
+      <point x="0.0" y="-14.5" />
+      <point x="41.5" y="54.0" />
+      <point x="87.25" y="54.0" />
+      <point x="-24.5" y="14.5" />
+    </edge>
+    <edge source="com.alibaba.dubbo.remoting.exchange.ExchangeServer" target="com.alibaba.dubbo.remoting.Server">
+      <point x="0.0" y="-14.5" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="com.alibaba.dubbo.remoting.exchange.ExchangeHandler" target="com.alibaba.dubbo.remoting.ChannelHandler">
+      <point x="0.0" y="-14.5" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="com.alibaba.dubbo.remoting.exchange.ExchangeClient" target="com.alibaba.dubbo.remoting.exchange.ExchangeChannel">
+      <point x="35.75" y="-14.5" />
+      <point x="147.5" y="133.0" />
+      <point x="182.0" y="133.0" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="com.alibaba.dubbo.remoting.exchange.ExchangeClient" target="com.alibaba.dubbo.remoting.Client">
+      <point x="-35.75" y="-14.5" />
+      <point x="76.0" y="133.0" />
+      <point x="41.5" y="133.0" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="com.alibaba.dubbo.remoting.exchange.ExchangeChannel" target="com.alibaba.dubbo.remoting.Channel">
+      <point x="0.0" y="-14.5" />
+      <point x="182.0" y="54.0" />
+      <point x="136.25" y="54.0" />
+      <point x="24.5" y="14.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.0" x="0.0" y="126.5" />
+  <SelectedNodes>
+    <node>com.alibaba.dubbo.remoting.ChannelHandler</node>
+  </SelectedNodes>
+  <Categories />
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

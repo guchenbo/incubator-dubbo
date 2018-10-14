@@ -30,6 +30,7 @@ import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
+ * 都是委托为属性ExchangeClient去实现方法，增加了计数器的功能
  * dubbo protocol support class.
  */
 @SuppressWarnings("deprecation")

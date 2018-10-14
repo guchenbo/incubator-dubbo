@@ -87,17 +87,27 @@ public class NettyHandler extends SimpleChannelHandler {
     public void messageReceived(ChannelHandlerContext ctx, MessageEvent e) throws Exception {
         NettyChannel channel = NettyChannel.getOrAddChannel(ctx.getChannel(), url, handler);
         try {
+            // 交给Dubbo的ChannelHandler处理，
+            // 这个handler在创建NettyServer或者NettyClient时传入
             handler.received(channel, e.getMessage());
         } finally {
             NettyChannel.removeChannelIfDisconnected(ctx.getChannel());
         }
     }
 
+    /**
+     * 消息发送事件触发
+     * @param ctx
+     * @param e
+     * @throws Exception
+     */
     @Override
     public void writeRequested(ChannelHandlerContext ctx, MessageEvent e) throws Exception {
+        // 调用父类方法，发送消息
         super.writeRequested(ctx, e);
         NettyChannel channel = NettyChannel.getOrAddChannel(ctx.getChannel(), url, handler);
         try {
+            // ChannelHandler处理已发送事件
             handler.sent(channel, e.getMessage());
         } finally {
             NettyChannel.removeChannelIfDisconnected(ctx.getChannel());

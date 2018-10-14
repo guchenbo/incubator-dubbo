@@ -34,6 +34,11 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
 /**
+ *
+ * 注意：RpcContext是一个临时状态记录器，当接收到RPC请求，或发起RPC请求时，RpcContext的状态都会变化。
+ * 比如：A调B，B再调C，则B机器上，在B调C之前，RpcContext记录的是A调B的信息，在B调C之后，RpcContext记录的是B调C的信息。
+ *
+ *
  * Thread local context. (API, ThreadLocal, ThreadSafe)
  * <p>
  * Note: RpcContext is a temporary state holder. States in RpcContext changes every time when request is sent or received.
@@ -51,6 +56,7 @@ public class RpcContext {
             return new RpcContext();
         }
     };
+    // 附录信息
     private final Map<String, String> attachments = new HashMap<String, String>();
     private final Map<String, Object> values = new HashMap<String, Object>();
     private Future<?> future;
@@ -68,10 +74,19 @@ public class RpcContext {
     private InetSocketAddress localAddress;
 
     private InetSocketAddress remoteAddress;
+    /**
+     * 由urls代替
+     */
     @Deprecated
     private List<Invoker<?>> invokers;
+    /**
+     * 由url代替
+     */
     @Deprecated
     private Invoker<?> invoker;
+    /**
+     *  由methodName、parameterTypes、arguments代替
+     */
     @Deprecated
     private Invocation invocation;
 

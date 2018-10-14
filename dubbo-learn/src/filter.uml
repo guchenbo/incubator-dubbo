@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement />
+  <nodes>
+    <node x="1033.0" y="99.0">com.alibaba.dubbo.monitor.support.MonitorFilter</node>
+    <node x="307.0" y="99.0">com.alibaba.dubbo.rpc.filter.ContextFilter</node>
+    <node x="901.0" y="99.0">com.alibaba.dubbo.rpc.protocol.dubbo.filter.TraceFilter</node>
+    <node x="583.0" y="99.0">com.alibaba.dubbo.rpc.filter.ClassLoaderFilter</node>
+    <node x="159.0" y="99.0">com.alibaba.dubbo.rpc.filter.TimeoutFilter</node>
+    <node x="454.0" y="99.0">com.alibaba.dubbo.rpc.filter.EchoFilter</node>
+    <node x="756.0" y="99.0">com.alibaba.dubbo.rpc.filter.GenericFilter</node>
+    <node x="0.0" y="99.0">com.alibaba.dubbo.rpc.filter.ExceptionFilter</node>
+    <node x="545.0" y="0.0">com.alibaba.dubbo.rpc.Filter</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="com.alibaba.dubbo.rpc.filter.ContextFilter" target="com.alibaba.dubbo.rpc.Filter">
+      <point x="0.0" y="-14.5" />
+      <point x="370.5" y="69.0" />
+      <point x="569.375" y="69.0" />
+      <point x="-14.625" y="14.5" />
+    </edge>
+    <edge source="com.alibaba.dubbo.monitor.support.MonitorFilter" target="com.alibaba.dubbo.rpc.Filter">
+      <point x="0.0" y="-14.5" />
+      <point x="1096.0" y="49.0" />
+      <point x="618.125" y="49.0" />
+      <point x="34.125" y="14.5" />
+    </edge>
+    <edge source="com.alibaba.dubbo.rpc.filter.GenericFilter" target="com.alibaba.dubbo.rpc.Filter">
+      <point x="0.0" y="-14.5" />
+      <point x="818.5" y="69.0" />
+      <point x="598.625" y="69.0" />
+      <point x="14.625" y="14.5" />
+    </edge>
+    <edge source="com.alibaba.dubbo.rpc.filter.EchoFilter" target="com.alibaba.dubbo.rpc.Filter">
+      <point x="0.0" y="-14.5" />
+      <point x="508.5" y="79.0" />
+      <point x="579.125" y="79.0" />
+      <point x="-4.875" y="14.5" />
+    </edge>
+    <edge source="com.alibaba.dubbo.rpc.filter.ExceptionFilter" target="com.alibaba.dubbo.rpc.Filter">
+      <point x="0.0" y="-14.5" />
+      <point x="69.5" y="49.0" />
+      <point x="549.875" y="49.0" />
+      <point x="-34.125" y="14.5" />
+    </edge>
+    <edge source="com.alibaba.dubbo.rpc.protocol.dubbo.filter.TraceFilter" target="com.alibaba.dubbo.rpc.Filter">
+      <point x="0.0" y="-14.5" />
+      <point x="957.0" y="59.0" />
+      <point x="608.375" y="59.0" />
+      <point x="24.375" y="14.5" />
+    </edge>
+    <edge source="com.alibaba.dubbo.rpc.filter.TimeoutFilter" target="com.alibaba.dubbo.rpc.Filter">
+      <point x="0.0" y="-14.5" />
+      <point x="223.0" y="59.0" />
+      <point x="559.625" y="59.0" />
+      <point x="-24.375" y="14.5" />
+    </edge>
+    <edge source="com.alibaba.dubbo.rpc.filter.ClassLoaderFilter" target="com.alibaba.dubbo.rpc.Filter">
+      <point x="0.0" y="-14.5" />
+      <point x="659.5" y="79.0" />
+      <point x="588.875" y="79.0" />
+      <point x="4.875" y="14.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.0" x="0.0" y="0.0" />
+  <SelectedNodes>
+    <node>com.alibaba.dubbo.rpc.filter.ExceptionFilter</node>
+  </SelectedNodes>
+  <Categories />
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

@@ -44,7 +44,7 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
 /**
- * 抽象Client，增加了重连逻辑
+ * 抽象Client，增加了重连逻辑，里面会获取真正的Channel，由子类实现
  * AbstractClient
  */
 public abstract class AbstractClient extends AbstractEndpoint implements Client {
@@ -263,15 +263,24 @@ public abstract class AbstractClient extends AbstractEndpoint implements Client 
         return channel.hasAttribute(key);
     }
 
+    /**
+     * 发送消息，仅仅是发送消息，没有返回
+     *
+     * @param message
+     * @param sent    是否已发送完成，是否检查，就是检查是否发送成功，不成功报错  already sent to socket?
+     * @throws RemotingException
+     */
     public void send(Object message, boolean sent) throws RemotingException {
         if (send_reconnect && !isConnected()) {
             connect();
         }
+        // 由子类实现，或者真正的Channel
         Channel channel = getChannel();
         //TODO Can the value returned by getChannel() be null? need improvement.
         if (channel == null || !channel.isConnected()) {
             throw new RemotingException(this, "message can not send, because channel is closed . url:" + getUrl());
         }
+        // 交给真正的Channel执行，Client对象都是调用Channel的send
         channel.send(message, sent);
     }
 
