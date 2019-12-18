@@ -96,7 +96,7 @@ final class NettyCodecAdapter {
         @Override
         public void messageReceived(ChannelHandlerContext ctx, MessageEvent event) throws Exception {
             Object o = event.getMessage();
-            if (!(o instanceof ChannelBuffer)) {
+            if (!(o instanceof ChannelBuffer)) { // 不是ChannelBuffer不处理
                 ctx.sendUpstream(event);
                 return;
             }
@@ -109,7 +109,7 @@ final class NettyCodecAdapter {
 
             // Dubbo的ChannelBuffer
             com.alibaba.dubbo.remoting.buffer.ChannelBuffer message;
-            if (buffer.readable()) {
+            if (buffer.readable()) {// buffer初始是空的，所以初始readable=false
                 if (buffer instanceof DynamicChannelBuffer) {
                     buffer.writeBytes(input.toByteBuffer());
                     message = buffer;
@@ -131,17 +131,19 @@ final class NettyCodecAdapter {
 
             try {
                 // decode object.
-                do {
+                do {// 记录可读下标
                     saveReaderIndex = message.readerIndex();
                     try {
                         // 从Dubbo的ChannelBuffer中解码出Request或者Response对象
+                        // 这个codec是DubboCountCodec对象
                         msg = codec.decode(channel, message);
                     } catch (IOException e) {
                         buffer = com.alibaba.dubbo.remoting.buffer.ChannelBuffers.EMPTY_BUFFER;
                         throw e;
                     }
-                    if (msg == Codec2.DecodeResult.NEED_MORE_INPUT) {
-                        message.readerIndex(saveReaderIndex);
+                    if (msg == Codec2.DecodeResult.NEED_MORE_INPUT) {// NEED_MORE_INPUT表示需要更多的消息
+                        // 消息不够需要等待更多的消息，所以重置可读下标等待下一次消息的到来
+                        message.readerIndex(saveReaderIndex);// 重置可读
                         break;
                     } else {
                         if (saveReaderIndex == message.readerIndex()) {
@@ -153,11 +155,12 @@ final class NettyCodecAdapter {
                             Channels.fireMessageReceived(ctx, msg, event.getRemoteAddress());
                         }
                     }
-                } while (message.readable());
+                } while (message.readable());// 还有可读的数据
             } finally {
                 if (message.readable()) {
-                    message.discardReadBytes();
-                    buffer = message;
+                    // NEED_MORE_INPUT 将message 赋值给buffer，等待下次消息的到来
+                    message.discardReadBytes();// discardReadBytes 将可读取和可写入的中间数据移到ChannelBuffer最前面
+                    buffer = message;// 只有这里才会有机会将属性buffer设置成有数据的
                 } else {
                     buffer = com.alibaba.dubbo.remoting.buffer.ChannelBuffers.EMPTY_BUFFER;
                 }

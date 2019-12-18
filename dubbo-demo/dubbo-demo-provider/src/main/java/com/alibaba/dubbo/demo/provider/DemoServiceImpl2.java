@@ -25,18 +25,17 @@ import java.util.Date;
 
 public class DemoServiceImpl2 implements DemoService2 {
 
-    public String sayHello2(String name) {
+    public String bigStr() {
         System.out.println("["
                         + new SimpleDateFormat("HH:mm:ss").format(new Date())
-                        + "] Hello "
-                        + name
+                        + "] bigStr "
                         + ", request from consumer: "
                         + RpcContext.getContext().getRemoteAddress());
 
-        return bigStr();
+        return bigStr2();
     }
 
-    public static String bigStr() {
+    public static String bigStr2() {
         StringBuffer sb = new StringBuffer();
         for (int i = 0; i < 100000; i++) {
             for (int j = 0; j < 10; j++) {
@@ -48,6 +47,6 @@ public class DemoServiceImpl2 implements DemoService2 {
     }
 
     public static void main(String[] args) {
-        System.out.println(bigStr().length());
+        System.out.println(bigStr2().length());
     }
 }

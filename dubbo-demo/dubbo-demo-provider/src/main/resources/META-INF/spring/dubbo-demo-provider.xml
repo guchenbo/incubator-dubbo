@@ -28,7 +28,7 @@
     <dubbo:registry address="127.0.0.1:2181" protocol="zookeeper"  version="1.0"/>
 
     <!-- use dubbo protocol to export service on port 20880 -->
-    <dubbo:protocol name="dubbo" port="20888" dispatcher="direct" payload="1024000"/>
+    <dubbo:protocol name="dubbo" port="20888" dispatcher="direct" payload="20000"/>
     <!--<dubbo:protocol name="dubbo" port="20888" dispatcher="direct"/>-->
 
     <!-- service implementation, as same as regular local bean -->

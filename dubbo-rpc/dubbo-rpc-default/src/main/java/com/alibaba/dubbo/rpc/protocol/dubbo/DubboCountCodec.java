@@ -31,6 +31,7 @@ import java.io.IOException;
 
 /**
  * 具体由DubboCodec属性实现编码解密，DubboCountCodec加入了一些额外的功能
+ * Dubbo默认的codec扩展实现
  */
 public final class DubboCountCodec implements Codec2 {
 
@@ -47,9 +48,10 @@ public final class DubboCountCodec implements Codec2 {
         MultiMessage result = MultiMessage.create();
         do {
             // 循环解码
+            // 交给DubboCodec去处理
             Object obj = codec.decode(channel, buffer);
             if (Codec2.DecodeResult.NEED_MORE_INPUT == obj) {
-                // 没有更多的信息了，将可读取下标重置为上次的地方
+                // 重置读取下标
                 buffer.readerIndex(save);
                 break;
             } else {

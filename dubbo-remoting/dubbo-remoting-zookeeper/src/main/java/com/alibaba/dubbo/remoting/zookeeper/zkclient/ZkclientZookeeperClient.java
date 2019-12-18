@@ -39,6 +39,7 @@ public class ZkclientZookeeperClient extends AbstractZookeeperClient<IZkChildLis
         super(url);
         client = new ZkClientWrapper(url.getBackupAddress(), 30000);
         client.addListener(new IZkStateListener() {
+            // 交给 StateListener 处理，实现 IZkStateListener 到 StateListener 的转换
             // 触发监听器
             public void handleStateChanged(KeeperState state) throws Exception {
                 ZkclientZookeeperClient.this.state = state;
@@ -104,6 +105,7 @@ public class ZkclientZookeeperClient extends AbstractZookeeperClient<IZkChildLis
 
     public IZkChildListener createTargetChildListener(String path, final ChildListener listener) {
         return new IZkChildListener() {
+            // 交给 ChildListener 处理，实现 IZkChildListener 到 ChildListener 的转换
             public void handleChildChange(String parentPath, List<String> currentChilds)
                     throws Exception {
                 // 变更之后的子节点信息，触发回调

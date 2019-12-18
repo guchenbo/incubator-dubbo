@@ -83,9 +83,9 @@ public class ExchangeCodec extends TelnetCodec {
     }
 
     public Object decode(Channel channel, ChannelBuffer buffer) throws IOException {
-        int readable = buffer.readableBytes();
-        byte[] header = new byte[Math.min(readable, HEADER_LENGTH)];
-        buffer.readBytes(header);
+        int readable = buffer.readableBytes();// 可以读取的大小
+        byte[] header = new byte[Math.min(readable, HEADER_LENGTH)];// 用来放置header的数组
+        buffer.readBytes(header);// 从ChannelBuffer写入数据到header中
         return decode(channel, buffer, readable, header);
     }
 
@@ -336,7 +336,7 @@ public class ExchangeCodec extends TelnetCodec {
             buffer.writerIndex(savedWriteIndex + HEADER_LENGTH + len);
         } catch (Throwable t) {
             // clear buffer
-            buffer.writerIndex(savedWriteIndex);
+//            buffer.writerIndex(savedWriteIndex);
             // send error message to Consumer, otherwise, Consumer will wait till timeout.
             if (!res.isEvent() && res.getStatus() != Response.BAD_RESPONSE) {
                 Response r = new Response(res.getId(), res.getVersion());

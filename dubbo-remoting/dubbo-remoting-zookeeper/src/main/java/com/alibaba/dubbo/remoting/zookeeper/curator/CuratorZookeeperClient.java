@@ -54,6 +54,7 @@ public class CuratorZookeeperClient extends AbstractZookeeperClient<CuratorWatch
             }
             client = builder.build();
             client.getConnectionStateListenable().addListener(new ConnectionStateListener() {
+                // 交给 StateListener 处理，实现 ConnectionStateListener 到 StateListener 的转换
                 public void stateChanged(CuratorFramework client, ConnectionState state) {
                     // 触发监听器
                     if (state == ConnectionState.LOST) {
@@ -143,6 +144,9 @@ public class CuratorZookeeperClient extends AbstractZookeeperClient<CuratorWatch
         ((CuratorWatcherImpl) listener).unwatch();
     }
 
+    /**
+     *  交给 ChildListener 处理，实现 CuratorWatcher 到 ChildListener 的转换
+     */
     private class CuratorWatcherImpl implements CuratorWatcher {
 
         private volatile ChildListener listener;
